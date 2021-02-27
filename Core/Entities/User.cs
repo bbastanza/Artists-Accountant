@@ -9,18 +9,16 @@ namespace Core.Entities
         {
         }
 
-        public User(string userName, string password, string email)
+        public User(string username, string password)
         {
-            UserName = userName;
+            Username = username;
             Password = password;
-            Email = email;
         }
 
-        public virtual string UserName { get; set; }
+        public virtual string Username { get; set; }
         public virtual string Password { get; set; }
-        public virtual string Email { get; set; }
         public virtual DateTime CreatedAt { get; } = DateTime.Now;
-        public virtual IList<Piece> Pieces { get; } = new List<Piece>();
+        public virtual IList<ArtWork> Pieces { get; } = new List<ArtWork>();
 
         public double TotalUncollectedIncome
         {

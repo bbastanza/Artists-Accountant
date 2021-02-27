@@ -48,7 +48,7 @@ namespace API
 
             services.AddScoped<IAddPieceService, AddPieceService>();
             services.AddScoped<IMapPiece, MapPiece>();
-            services.AddSingleton<IJwtAuthenticationService>(new JwtAuthenticationService(key));
+            services.AddSingleton<IGenerateJwtToken>(new GenerateJwtToken(key));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

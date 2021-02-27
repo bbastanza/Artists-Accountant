@@ -9,12 +9,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Services.JwtAuthentication
 {
-    public interface IJwtAuthenticationService
+    public interface IGenerateJwtToken
     {
         string Authenticate(string username, string password);
     }
 
-    public class JwtAuthenticationService : IJwtAuthenticationService
+    public class GenerateJwtToken : IGenerateJwtToken
     {
         private readonly string _key;
 
@@ -24,7 +24,7 @@ namespace Core.Services.JwtAuthentication
             {"sammy", "password2"}
         };
 
-        public JwtAuthenticationService(string key)
+        public GenerateJwtToken(string key)
         {
             _key = key;
         }

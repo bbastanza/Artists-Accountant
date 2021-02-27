@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using API.Models;
 using Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,17 +12,21 @@ namespace API.Controllers
     public sealed class UsersController : Controller
     {
         private readonly string _path;
+        // private IQueryDbService _queryDbService;
 
         public UsersController()
         {
             _path = Path.GetFullPath(ToString()!);
+            // _queryDbService = _queryDbService 
         }
 
-        [HttpGet]
-        public User Get()
+        [Authorize]
+        [HttpGet("/{username}")]
+        public User Get(string username)
         {
-            var user = new User() {UserName = "Brian", Password = "password", Email = "myEmail"};
-            var piece = new Piece()
+            var user = new User() {Username = username, Password = "password"};
+            // var user = _queryDbService.GetUser();
+            var piece = new ArtWork()
             {
                 CustomerName = "Sammy",
                 PieceName = "Mandala",
@@ -39,6 +45,36 @@ namespace API.Controllers
             };
             user.Pieces.Add(piece);
             return user;
+        }
+
+        [HttpPost]
+        public void AddUser(UserInputModel userInput)
+        {
+            Console.WriteLine($"adding {userInput.Username}");
+            // if (_queryDbService.CheckExisting(userInput.Username));
+            //       throw new Exception("existing user");
+            var user = new User(userInput.Username, userInput.Password);
+            // _queryDbService.Save(user);
+        }
+        
+        [Authorize]
+        [HttpPut]
+        public void EditUser(UserInputModel userInput)
+        {
+            Console.WriteLine($"changing {userInput.Username}");
+            // if (_queryDbService.CheckExisting(userInput.Username));
+            //       throw new Exception("existing user");
+            var user = new User(userInput.Username, userInput.Password);
+            // _queryDbService.Save(user);
+        }
+        
+        [Authorize]
+        [HttpDelete]
+        public void DeleteUser(UserInputModel userInput)
+        {
+            Console.WriteLine($"deleting {userInput.Username}");
+            // var user = _queryDbService.GetUser();
+            // _queryDbService.Delete(user);
         }
     }
 }

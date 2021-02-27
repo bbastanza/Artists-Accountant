@@ -11,12 +11,12 @@ namespace API.Controllers
     [Route("[controller]")]
     public class AuthenticationController : Controller
     {
-        private readonly IJwtAuthenticationService _jwtAuthenticationService;
+        private readonly IGenerateJwtToken _generateJwtToken;
         private string _path;
 
-        public AuthenticationController(IJwtAuthenticationService jwtAuthenticationService)
+        public AuthenticationController(IGenerateJwtToken generateJwtToken)
         {
-            _jwtAuthenticationService = jwtAuthenticationService;
+            _generateJwtToken = generateJwtToken;
             _path = Path.GetFullPath(ToString()!);
         }
 
@@ -25,7 +25,7 @@ namespace API.Controllers
         [Route("authenticate")]
         public IActionResult Authenticate(UserAuthenticationModel user)
         {
-            var token = _jwtAuthenticationService.Authenticate(user.Username, user.Password);
+            var token = _generateJwtToken.Authenticate(user.Username, user.Password);
             if (token == null)
                 return Unauthorized();
 

@@ -4,16 +4,15 @@ namespace Core.Services.ArtPieceServices
 {
     public interface IAddPieceService
     {
-        User Add(User user, Piece piece);
+        void Add(User user, ArtWork artWork);
     }
     public class AddPieceService : IAddPieceService
     {
-        public User Add(User user, Piece piece)
+        public void Add(User user, ArtWork artWork)
         {
-            user.Pieces.Add(piece);
-
+            artWork.User = user;
+            user.Pieces.Add(artWork);
             //TODO probably a void method , but writes  to db
-            return user;
         }
     }
 }

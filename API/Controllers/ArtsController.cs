@@ -1,9 +1,9 @@
-using System;
 using System.IO;
 using API.ApiServices;
 using API.Models;
 using Core.Entities;
 using Core.Services.ArtPieceServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,12 +25,16 @@ namespace API.Controllers
             _path = Path.GetFullPath(ToString()!);
         }
 
+        // TODO should be a void method
+        [Authorize]
         [HttpPost]
-        [Route("addPiece")]
-        public User AddPiece(PieceInputModel pieceInput)
+        public User AddPiece(ArtWorkInputModel artWorkInput)
         {
-            var user = new User() {UserName = "Brian", Password = "password", Email = "myEmail"};
-            var piece = _mapPiece.Map(pieceInput);
+            // TODO 
+            // SELECT user FROM user_table WHERE username = $"{pieceInput.Username}"
+            
+            var user = new User(artWorkInput.Username, "password");
+            var piece = _mapPiece.Map(artWorkInput);
             _addPieceService.Add(user, piece);
             return user;
         }
