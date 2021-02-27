@@ -18,6 +18,7 @@ namespace Core.Entities
         public virtual int TimeSpentMinutes { get; set; } 
         public virtual string Shape { get; set; } 
         public virtual string PaymentType { get; set; } 
-        public virtual bool IsCommission { get; set; } 
+        public virtual bool IsCommission { get; set; }
+        public virtual bool IsPaymentCollected { get; set; } 
     }
 }

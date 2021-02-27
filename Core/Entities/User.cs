@@ -7,24 +7,45 @@ namespace Core.Entities
     {
         public User()
         {
-            Pieces = new List<Piece>();
-            CreatedAt = DateTime.Now;
+        }
+
+        public User(string userName, string password, string email)
+        {
+            UserName = userName;
+            Password = password;
+            Email = email;
         }
 
         public virtual string UserName { get; set; }
         public virtual string Password { get; set; }
         public virtual string Email { get; set; }
-        public virtual DateTime CreatedAt { get; set; }
-        public virtual IList<Piece> Pieces { get; set; }
+        public virtual DateTime CreatedAt { get; } = DateTime.Now;
+        public virtual IList<Piece> Pieces { get; } = new List<Piece>();
 
-        public double TotalIncome
+        public double TotalUncollectedIncome
         {
             get
             {
                 double total = 0;
                 foreach (var piece in Pieces)
                 {
-                    total += piece.SalePrice;
+                    if (!piece.IsPaymentCollected)
+                        total += piece.SalePrice;
+                }
+
+                return total;
+            }
+        }
+        
+        public double TotalCollectedIncome
+        {
+            get
+            {
+                double total = 0;
+                foreach (var piece in Pieces)
+                {
+                    if (piece.IsPaymentCollected)
+                        total += piece.SalePrice;
                 }
 
                 return total;

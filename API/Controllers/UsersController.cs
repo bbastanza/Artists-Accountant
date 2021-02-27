@@ -20,7 +20,7 @@ namespace API.Controllers
         public User Get()
         {
             var user = new User() {UserName = "Brian", Password = "password", Email = "myEmail"};
-            user.Pieces.Add(new Piece()
+            var piece = new Piece()
             {
                 CustomerName = "Sammy",
                 PieceName = "Mandala",
@@ -28,14 +28,16 @@ namespace API.Controllers
                 DateFinished = DateTime.Now.Add(TimeSpan.FromDays(1)),
                 DateStarted = DateTime.Now,
                 MaterialCost = 10.00f,
+                SalePrice = 300,
                 ShippingCost = 2.00f,
                 HeightInches = 30,
                 WidthInches = 30,
                 Shape = "Round",
                 TimeSpentMinutes = 500,
                 IsCommission = true,
-                PaymentType = "Credit Card"
-            });
+                PaymentType = "Credit Card",
+                IsPaymentCollected = false
+            };
             return user;
         }
     }
