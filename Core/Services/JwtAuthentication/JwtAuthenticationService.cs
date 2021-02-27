@@ -18,7 +18,7 @@ namespace Core.Services.JwtAuthentication
     {
         private readonly string _key;
 
-        private readonly IDictionary<string, string> users = new Dictionary<string, string>
+        private readonly IDictionary<string, string> _users = new Dictionary<string, string>
         {
             {"brian", "password"},
             {"sammy", "password2"}
@@ -31,7 +31,9 @@ namespace Core.Services.JwtAuthentication
 
         public string Authenticate(string username, string password)
         {
-            if (!users.Any(user => user.Key == username && user.Value == password))
+            // TODO this should be making a SQL statement to see if username and password match
+            
+            if (!_users.Any(user => user.Key == username && user.Value == password))
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();

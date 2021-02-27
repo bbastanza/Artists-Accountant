@@ -30,7 +30,6 @@ namespace API.Controllers
                 MaterialCost = 10.00f,
                 SalePrice = 300,
                 ShippingCost = 2.00f,
-                HeightInches = 30,
                 WidthInches = 30,
                 Shape = "Round",
                 TimeSpentMinutes = 500,
@@ -38,6 +37,7 @@ namespace API.Controllers
                 PaymentType = "Credit Card",
                 IsPaymentCollected = false
             };
+            user.Pieces.Add(piece);
             return user;
         }
     }

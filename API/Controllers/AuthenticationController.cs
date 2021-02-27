@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using API.Models;
 using Core.Services.JwtAuthentication;
