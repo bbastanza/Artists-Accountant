@@ -28,27 +28,8 @@ namespace API
             services.AddControllers();
             services.AddSpaStaticFiles(config => { config.RootPath = "client/build"; });
             
-            var key = _configuration["JwtKey"];
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
-
-            services.AddScoped<IAddPieceService, AddPieceService>();
-            services.AddScoped<IMapPiece, MapPiece>();
-            services.AddSingleton<IGenerateJwtToken>(new GenerateJwtToken(key));
+            JwtConfig.Configure(services, _configuration["JwtKey"]);
+            InterfaceConfig.Configure(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

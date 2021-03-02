@@ -2,11 +2,11 @@ using Core.Entities;
 
 namespace Core.Services.ArtPieceServices
 {
-    public interface IAddPieceService
+    public interface IAddArtWork
     {
         void Add(User user, ArtWork artWork);
     }
-    public class AddPieceService : IAddPieceService
+    public class AddArtWork : IAddArtWork
     {
         public void Add(User user, ArtWork artWork)
         {

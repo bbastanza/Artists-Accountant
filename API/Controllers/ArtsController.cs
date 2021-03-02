@@ -13,14 +13,14 @@ namespace API.Controllers
     public sealed class ArtsController : Controller
     {
         private readonly string _path;
-        private IAddPieceService _addPieceService;
+        private IAddArtWork _addArtWork;
         private readonly IMapPiece _mapPiece;
 
         public ArtsController(
-            IAddPieceService addPieceService,
+            IAddArtWork addArtWork,
             IMapPiece mapPiece)
         {
-            _addPieceService = addPieceService;
+            _addArtWork = addArtWork;
             _mapPiece = mapPiece;
             _path = Path.GetFullPath(ToString()!);
         }
@@ -35,7 +35,7 @@ namespace API.Controllers
             
             var user = new User(artWorkInput.Username, "password");
             var piece = _mapPiece.Map(artWorkInput);
-            _addPieceService.Add(user, piece);
+            _addArtWork.Add(user, piece);
             return user;
         }
     }

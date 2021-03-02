@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Entities
 {
-    public class ArtWork
+    public class ArtWork : Entity
     {
         public virtual int PieceId { get; set; } // Autoincrement
         public virtual string PieceName { get; set; }
