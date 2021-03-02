@@ -1,6 +1,6 @@
 using System.IO;
-using API.ApiServices;
 using API.Models;
+using API.Services;
 using Core.Entities;
 using Core.Services.ArtPieceServices;
 using Microsoft.AspNetCore.Authorization;

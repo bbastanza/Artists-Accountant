@@ -4,7 +4,7 @@ using API.Models;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Http;
 
-namespace API.MiddleWare
+namespace API.Middleware
 {
     public class ExceptionMiddleware
     {

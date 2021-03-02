@@ -1,7 +1,7 @@
 using API.Models;
 using Core.Entities;
 
-namespace API.ApiServices
+namespace API.Services
 {
     public interface IMapPiece
     {

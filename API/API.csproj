@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -10,6 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.12" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="InterfaceConfig.cs" />
   </ItemGroup>
 
   <PropertyGroup>
