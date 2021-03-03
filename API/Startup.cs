@@ -1,6 +1,5 @@
 using System.Text;
 using API.Middleware;
-using Core.Services.ArtPieceServices;
 using Core.Services.JwtAuthentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

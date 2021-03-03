@@ -1,5 +1,5 @@
 using API.Services;
-using Core.Services.ArtPieceServices;
+using Core.Services.ArtWorkServices;
 using Core.Services.UserServices;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +15,9 @@ namespace API
             services.AddScoped<IAddUser, AddUser>();
             services.AddScoped<IDeleteUser, DeleteUser>();
             services.AddScoped<IEditUser, EditUser>();
+            services.AddScoped<IGetArtWork, GetArtWork>();
+            services.AddScoped<IEditArtWork, EditArtWork>();
+            services.AddScoped<IDeleteArtWork, DeleteArtWork>();
         }
     }
 }
