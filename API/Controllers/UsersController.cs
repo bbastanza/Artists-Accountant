@@ -1,8 +1,8 @@
-using System;
 using System.IO;
 using API.Models;
 using Core.Entities;
 using Core.Services.UserServices;
+using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,16 +15,19 @@ namespace API.Controllers
         private readonly IGetUserData _getUserData;
         private readonly IAddUser _addUser;
         private readonly IDeleteUser _deleteUser;
+        private readonly IEditUser _editUser;
         private readonly string _path;
 
         public UsersController(
             IGetUserData getUserData,
             IAddUser addUser,
-            IDeleteUser deleteUser)
+            IDeleteUser deleteUser,
+            IEditUser editUser)
         {
             _getUserData = getUserData;
             _addUser = addUser;
             _deleteUser = deleteUser;
+            _editUser = editUser;
             _path = Path.GetFullPath(ToString()!);
         }
 
@@ -36,12 +39,18 @@ namespace API.Controllers
         [HttpGet("/{username}")]
         public User Get(string username)
         {
+            if (username == null)
+                throw new InvalidInputException(_path, "Get()");
+            
             return _getUserData.GetUser(username);
         }
 
         [HttpPost]
         public void AddUser(UserInputModel userInput)
         {
+            if (userInput.Username == null || userInput.Password == null)
+                throw new InvalidInputException(_path, "Get()");
+            
             _addUser.Add(userInput.Username, userInput.Password);
         }
 
@@ -49,14 +58,17 @@ namespace API.Controllers
         [HttpPut]
         public void EditUser(UserInputModel userInput)
         {
-            Console.WriteLine($"changing {userInput.Username}");
-            var user = new User(userInput.Username, userInput.Password);
+            if (userInput.Username == null && userInput.Password == null)
+                throw new InvalidInputException(_path, "Get()");
+            
+            _editUser.Edit(userInput.Username, userInput.Password);
         }
 
         [Authorize]
         [HttpDelete]
         public void DeleteUser(UserInputModel userInput)
         {
+            // TODO should this check password against database???
             _deleteUser.Delete(userInput.Username);
         }
     }

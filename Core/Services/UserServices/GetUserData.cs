@@ -1,6 +1,4 @@
-using System;
 using Core.Entities;
-using Core.Services.DbServices;
 
 namespace Core.Services.UserServices
 {
@@ -11,16 +9,13 @@ namespace Core.Services.UserServices
     
     public class GetUserData : IGetUserData
     {
-        private readonly IQueryDbService _queryDbService;
-
-        public GetUserData(IQueryDbService queryDbService)
-        {
-            _queryDbService = queryDbService;
-        }
-
         public User GetUser(string username)
         {
-            return _queryDbService.GetUser(username);
+            // TODO | return $"SELECT * FROM user_table WHERE username = {username};";
+            // 
+            // temporary
+            return new User(username, "password");
+            // 
         }
     }
 }

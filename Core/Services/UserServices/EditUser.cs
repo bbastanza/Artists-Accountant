@@ -1,5 +1,6 @@
 using System;
-using Core.Services.DbServices;
+using System.IO;
+using Infrastructure.Exceptions;
 
 namespace Core.Services.UserServices
 {
@@ -10,23 +11,28 @@ namespace Core.Services.UserServices
 
     public class EditUser : IEditUser
     {
-        private readonly IQueryDbService _queryDbService;
+        private readonly IGetUserData _getUserData;
+        private readonly string _path;
 
-        public EditUser(IQueryDbService queryDbService)
+        public EditUser(IGetUserData getUserData)
         {
-            _queryDbService = queryDbService;
+            _getUserData = getUserData;
+            _path = Path.GetFullPath(ToString());
         }
-        
+
         public void Edit(string username, string password)
         {
-            var user = _queryDbService.GetUser(username);
+            var user = _getUserData.GetUser(username);
 
             // TODO custom exception class
             if (user == null)
-                throw new Exception("non-existing user");
+                throw new NonExistingUserException(_path, "Edit()");
 
             if (user.Username != username || user.Password != password)
-                _queryDbService.ChangeUser(username, password);
+            {
+                // check username and password for null before updating the user
+                // TODO | change statement
+            }
         }
     }
 }

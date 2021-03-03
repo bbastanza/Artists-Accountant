@@ -1,6 +1,5 @@
 using API.Services;
 using Core.Services.ArtPieceServices;
-using Core.Services.DbServices;
 using Core.Services.UserServices;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +11,6 @@ namespace API
         {
             services.AddScoped<IAddArtWork, AddArtWork>();
             services.AddScoped<IMapPiece, MapPiece>();
-            services.AddScoped<IQueryDbService, QueryDbService>();
             services.AddScoped<IGetUserData, GetUserData>();
             services.AddScoped<IAddUser, AddUser>();
             services.AddScoped<IDeleteUser, DeleteUser>();

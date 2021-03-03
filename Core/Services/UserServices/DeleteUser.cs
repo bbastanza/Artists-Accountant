@@ -1,5 +1,5 @@
-using System;
-using Core.Services.DbServices;
+using System.IO;
+using Infrastructure.Exceptions;
 
 namespace Core.Services.UserServices
 {
@@ -10,21 +10,23 @@ namespace Core.Services.UserServices
     
     public class DeleteUser: IDeleteUser
     {
-        private readonly IQueryDbService _queryDbService;
+        private readonly IGetUserData _getUserData;
+        private readonly string _path;
 
-        public DeleteUser(IQueryDbService queryDbService)
+        public DeleteUser(IGetUserData getUserData)
         {
-            _queryDbService = queryDbService;
+            _getUserData = getUserData;
+            _path = Path.GetFullPath(ToString());
         }
         public void Delete(string username)
         {
-            var existingUser = _queryDbService.CheckExisting(username);
+            var existingUser = _getUserData.GetUser(username);
             
             // TODO custom exception class
-            if (!existingUser)
-                  throw new Exception("non-existing user");
+            if (existingUser == null)
+                  throw new NonExistingUserException(_path,"Delete()");
 
-            _queryDbService.DeleteUser(username);
+            // TODO | $"DELETE FROM user_table WHERE username = {username};";
         }
         
     }

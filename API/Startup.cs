@@ -1,4 +1,5 @@
 using System.Text;
+using API.Middleware;
 using Core.Services.ArtPieceServices;
 using Core.Services.JwtAuthentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,6 +47,8 @@ namespace API
             app.UseAuthorization();
 
             app.UseSpaStaticFiles();
+
+            app.UseMiddleware<ExceptionMiddleware>();
             
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

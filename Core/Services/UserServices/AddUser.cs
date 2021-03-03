@@ -1,6 +1,6 @@
-using System;
+using System.IO;
 using Core.Entities;
-using Core.Services.DbServices;
+using Infrastructure.Exceptions;
 
 namespace Core.Services.UserServices
 {
@@ -11,24 +11,26 @@ namespace Core.Services.UserServices
     
     public class AddUser : IAddUser
     {
-        private readonly IQueryDbService _queryDbService;
+        private readonly IGetUserData _getUserData;
+        private readonly string _path;
 
-        public AddUser(IQueryDbService queryDbService)
+        public AddUser(IGetUserData getUserData)
         {
-            _queryDbService = queryDbService;
+            _getUserData = getUserData;
+            _path = Path.GetFullPath(ToString());
         }
 
         public void Add(string username, string password)
         {
-            var existingUser = _queryDbService.CheckExisting(username);
+            var existingUser = _getUserData.GetUser(username);
             
-            // TODO custom exception class
-            if (existingUser)
-                  throw new Exception("existing user");
+            if (existingUser != null)
+                  throw new ExistingUserException(_path, "Add()");
 
             var user = new User(username, password);
 
-            _queryDbService.AddUser(user);
+            // TODO | $"INSERT INTO user_table (username, password, created_at)
+            //          VALUES ({user.Username}, {user.Password}, {user.CreatedAt});";
         }
     }
 }
