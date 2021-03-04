@@ -16,23 +16,26 @@ namespace API.Controllers
         private readonly IAddArtWork _addArtWork;
         private readonly IMapPiece _mapPiece;
         private readonly IEditArtWork _editArtWork;
+        private readonly IDeleteArtWork _deleteArtWork;
 
         public ArtsController(
             IAddArtWork addArtWork,
             IMapPiece mapPiece,
-            IEditArtWork editArtWork)
+            IEditArtWork editArtWork,
+            IDeleteArtWork deleteArtWork)
         {
             _addArtWork = addArtWork;
             _mapPiece = mapPiece;
             _editArtWork = editArtWork;
+            _deleteArtWork = deleteArtWork;
             _path = Path.GetFullPath(ToString()!);
         }
 
-        // TODO should be a void method
         [Authorize]
         [HttpPost]
         public void AddPiece(ArtWorkInputModel artWorkInput)
         {
+            // TODO | check what for null?
             var artWork = _mapPiece.Map(artWorkInput);
             _addArtWork.Add(artWork);
         }
@@ -41,6 +44,7 @@ namespace API.Controllers
         [HttpPut]
         public void EditPiece(ArtWorkInputModel artInput)
         {
+            // TODO | check what for null?
             var artWork = _mapPiece.Map(artInput);
             _editArtWork.Edit(artWork);
         }
@@ -49,8 +53,8 @@ namespace API.Controllers
         [HttpDelete]
         public void DeletePiece(ArtWorkInputModel artInput)
         {
-            var artWork = _mapPiece.Map(artInput);
-            _editArtWork.Edit(artWork);
+            // TODO | check what for null?
+            _deleteArtWork.Delete(artInput.PieceId);
         }
     }
 }
