@@ -1,6 +1,7 @@
 using API.Services;
 using Core.Services.ArtWorkServices;
 using Core.Services.UserServices;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace API
@@ -18,6 +19,7 @@ namespace API
             services.AddScoped<IGetArtWork, GetArtWork>();
             services.AddScoped<IEditArtWork, EditArtWork>();
             services.AddScoped<IDeleteArtWork, DeleteArtWork>();
+            services.AddScoped<IAwsImage, AwsImage>();
         }
     }
 }

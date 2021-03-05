@@ -21,8 +21,8 @@
 .navbar {
     position: fixed;
     background-color: var(--gray);
-    transition: 100ms ease;
-    filter: grayscale(30%);
+    transition: 200ms ease;
+    filter: grayscale(20%);
 }
 
 .navbar-nav {
@@ -39,8 +39,8 @@
     width: 100%;
     padding: 1rem;
     border-radius: 5%;
-    color: var(--offwhite);
-    transition: 200ms ease;
+    color: var(--white);
+    transition: 100ms ease;
     white-space: nowrap;
 }
 

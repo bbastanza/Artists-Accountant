@@ -8,6 +8,7 @@ namespace Core.Services.ArtWorkServices
     {
         void Edit(ArtWork newArtWork);
     }
+
     public class EditArtWork : IEditArtWork
     {
         private readonly IGetArtWork _getArtWork;

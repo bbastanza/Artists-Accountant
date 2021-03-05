@@ -6,6 +6,7 @@ namespace Core.Services.ArtWorkServices
     {
         void Add(ArtWork artWork);
     }
+
     public class AddArtWork : IAddArtWork
     {
         public void Add(ArtWork artWork)
