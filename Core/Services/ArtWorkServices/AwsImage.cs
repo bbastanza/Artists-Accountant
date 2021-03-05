@@ -27,7 +27,7 @@ namespace Core.Services.ArtWorkServices
             _secretKey = configuration["Aws:SecretKey"];
         }
 
-        public void async UploadFile()
+        public string UploadFile()
         {
             var client = new AmazonS3Client(_accessKey, _secretKey, RegionEndpoint.USEast1);
 
@@ -40,10 +40,7 @@ namespace Core.Services.ArtWorkServices
                 BucketName = _bucketName,
                 Key = folderPath
             };
-            var response = client.PutObjectAsync(request); 
-            
-            
-            
+            var response = client.PutObjectAsync(request);
             return "";
         }
     }
