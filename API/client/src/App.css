@@ -1,21 +1,26 @@
 :root {
     font-size: 16;
-    --pink: #ffa69e;
+    --pink: #ffbbb5;
     --beige: #ffd8be;
     --offwhite: #ffeedd;
     --white: #f8f7ff;
     --lightpurple: #b8b8ff;
     --darkpurple: #9381ff;
-    --gray: #5e6472;
-    --darkgray: #41454f;
-    --darkerpurple: #6d60be;
+    --darkerpurple: #6b5fb9;
+    --gray: #505050;
+    --darkgray: #404040;
+    --darkergray: #212121;
 }
 
+.accent {
+    color: var(--darkerpurple);
+    animation: pulse 10s infinite;
+}
 .App {
     padding: 1rem;
     text-align: center;
     background-color: var(--white);
-    color: var(--gray);
+    color: var(--darkgray);
 }
 
 .navbar {
@@ -91,7 +96,6 @@
         height: 2.5rem;
     }
 }
-
 @media only screen and (min-width: 600px) {
     .App {
         margin-left: 5rem;
@@ -110,11 +114,38 @@
         transition: opacity 200ms;
     }
 }
+.splash-text-container {
+    text-align: left;
+    margin-right: 20rem;
+    min-width: 300px;
+}
 
+@media only screen and (max-width: 1200px) {
+    .splash-img {
+        display: none;
+        width: 0;
+    }
+    .splash-text-container {
+        text-align: center;
+        margin-right: 0;
+    }
+}
+.splash-img {
+    width: 60rem;
+    position: fixed;
+    right: -23rem;
+    bottom: -10rem;
+}
 .title {
+    font-size: 5rem;
+    color: var(--darkergray);
+    font-weight: lighter;
+}
+
+.title2 {
     font-size: 4rem;
-    color: var(--gray);
-    animation: pulse 4s infinite;
+    color: var(--darkergray);
+    font-weight: lighter;
 }
 
 @keyframes pulse {
