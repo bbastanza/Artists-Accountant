@@ -35,7 +35,7 @@ namespace Core.Services.UserServices
             var connection = _sqlServer.Connect();
             
             var query = $"DELETE FROM user_table WHERE username = '{username}'";
-            
+
             try
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -43,6 +43,10 @@ namespace Core.Services.UserServices
                     command.ExecuteNonQuery();
                 }
             }
+            catch
+            {
+                // TODO
+            } 
             finally
             {
                 _sqlServer.CloseConnection();

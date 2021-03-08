@@ -22,7 +22,7 @@ namespace Core.Services.UserServices
         {
             var connection = _sqlServer.Connect();
 
-            var query =$"SELECT * FROM user_table WHERE username = '{username}'"; 
+            var query =$"SELECT * FROM user_table WHERE username = '{username}'";
 
             try
             {
@@ -46,6 +46,10 @@ namespace Core.Services.UserServices
                     }
                 }
             }
+            catch
+            {
+                // TODO
+            } 
             finally
             {
                 _sqlServer.CloseConnection();

@@ -39,7 +39,8 @@ namespace Core.Services.UserServices
             var connection = _sqlServer.Connect();
 
             var query =
-                $"INSERT INTO user_table (username, password, date_created) VALUES ('{user.Username}', '{user.Password}', '{user.CreatedAt}');";
+                $"INSERT INTO user_table (username, password, date_created) " +
+                $"VALUES ('{user.Username}', '{user.Password}', '{user.CreatedAt}');";
 
             try
             {
@@ -47,6 +48,10 @@ namespace Core.Services.UserServices
                 {
                     command.ExecuteNonQuery();
                 }
+            }
+            catch
+            {
+                // TODO
             }
             finally
             {
