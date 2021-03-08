@@ -13,6 +13,7 @@ namespace Core.Entities
         {
             Username = username;
             Password = password;
+            CreatedAt = DateTime.Now;
         }
 
         public virtual string Username { get; set; }

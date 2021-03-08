@@ -67,12 +67,12 @@ namespace API.Controllers
             _editUser.Edit(userInput.Username, userInput.Password);
         }
 
-        [Authorize]
-        [HttpDelete]
-        public void DeleteUser(UserInputModel userInput)
+        // [Authorize]
+        [HttpDelete("{username}")]
+        public void DeleteUser(string username)
         {
             // TODO should this check password against database???
-            _deleteUser.Delete(userInput.Username);
+            _deleteUser.Delete(username);
         }
     }
 }

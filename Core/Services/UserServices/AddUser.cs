@@ -1,4 +1,3 @@
-using System;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
@@ -31,7 +30,7 @@ namespace Core.Services.UserServices
         public void Add(string username, string password)
         {
             var existingUser = _getUserData.GetUser(username);
-            
+
             if (existingUser != null)
                 throw new ExistingUserException(_path, "Add()");
 
@@ -39,13 +38,12 @@ namespace Core.Services.UserServices
 
             var connection = _sqlServer.Connect();
 
-            var query = new StringBuilder();
-            query.Append("INSERT INTO user_table (username, password, date_created) VALUES");
-            query.Append($" ('{user.Username}', '{user.Password}', CURRENT_TIMESTAMP);");
+            var query =
+                $"INSERT INTO user_table (username, password, date_created) VALUES ('{user.Username}', '{user.Password}', '{user.CreatedAt}');";
 
             try
             {
-                using (SqlCommand command = new SqlCommand(query.ToString(), connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.ExecuteNonQuery();
                 }

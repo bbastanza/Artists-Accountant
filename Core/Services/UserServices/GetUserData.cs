@@ -1,6 +1,4 @@
-using System;
 using System.Data.SqlClient;
-using System.Text;
 using Core.Entities;
 using Core.Services.DbServices;
 
@@ -24,12 +22,11 @@ namespace Core.Services.UserServices
         {
             var connection = _sqlServer.Connect();
 
-            var query = new StringBuilder();
-            query.Append($"SELECT * FROM user_table WHERE username = '{username}'");
+            var query =$"SELECT * FROM user_table WHERE username = '{username}'"; 
 
             try
             {
-                using (SqlCommand command = new SqlCommand(query.ToString(), connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -37,10 +34,12 @@ namespace Core.Services.UserServices
                         {
                             while (reader.Read())
                             {
-                                var user = new User();
-                                user.Username = reader.GetString(reader.GetOrdinal("username"));
-                                user.Password = reader.GetString(reader.GetOrdinal("password"));
-                                user.CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created"));
+                                var user = new User
+                                {
+                                    Username = reader.GetString(reader.GetOrdinal("username")),
+                                    Password = reader.GetString(reader.GetOrdinal("password")),
+                                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created"))
+                                };
                                 return user;
                             }
                         }

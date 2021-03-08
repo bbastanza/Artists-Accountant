@@ -1,4 +1,6 @@
+using System.Data.SqlClient;
 using System.IO;
+using Core.Services.DbServices;
 using Infrastructure.Exceptions;
 
 namespace Core.Services.UserServices
@@ -11,11 +13,15 @@ namespace Core.Services.UserServices
     public class DeleteUser : IDeleteUser
     {
         private readonly IGetUserData _getUserData;
+        private readonly ISqlServer _sqlServer;
         private readonly string _path;
 
-        public DeleteUser(IGetUserData getUserData)
+        public DeleteUser(
+            IGetUserData getUserData,
+            ISqlServer sqlServer)
         {
             _getUserData = getUserData;
+            _sqlServer = sqlServer;
             _path = Path.GetFullPath(ToString());
         }
 
@@ -23,11 +29,24 @@ namespace Core.Services.UserServices
         {
             var existingUser = _getUserData.GetUser(username);
 
-            // TODO custom exception class
             if (existingUser == null)
                 throw new NonExistingUserException(_path, "Delete()");
 
-            // TODO | $"DELETE FROM user_table WHERE username = {username};";
+            var connection = _sqlServer.Connect();
+            
+            var query = $"DELETE FROM user_table WHERE username = '{username}'";
+            
+            try
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                _sqlServer.CloseConnection();
+            }
         }
     }
 }
