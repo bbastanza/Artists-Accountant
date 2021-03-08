@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using API.Models;
 using Core.Entities;
@@ -34,14 +35,16 @@ namespace API.Controllers
         //
         // TODO check all inputs for null
         //
-        
-        [Authorize]
-        [HttpGet("/{username}")]
+
+        // [Authorize]
+        // 
+
+        [HttpGet("{username}")]
         public User Get(string username)
         {
             if (username == null)
                 throw new InvalidInputException(_path, "Get()");
-            
+
             return _getUserData.GetUser(username);
         }
 
@@ -50,7 +53,7 @@ namespace API.Controllers
         {
             if (userInput.Username == null || userInput.Password == null)
                 throw new InvalidInputException(_path, "Get()");
-            
+
             _addUser.Add(userInput.Username, userInput.Password);
         }
 
@@ -60,7 +63,7 @@ namespace API.Controllers
         {
             if (userInput.Username == null && userInput.Password == null)
                 throw new InvalidInputException(_path, "Get()");
-            
+
             _editUser.Edit(userInput.Username, userInput.Password);
         }
 

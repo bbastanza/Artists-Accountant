@@ -27,7 +27,7 @@ namespace API
             services.AddSpaStaticFiles(config => { config.RootPath = "client/build"; });
             
             JwtConfig.Configure(services, _configuration["JwtKey"]);
-            InterfaceConfig.Configure(services);
+            InterfaceConfig.Configure(services, _configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

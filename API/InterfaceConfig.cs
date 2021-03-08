@@ -9,7 +9,7 @@ namespace API
 {
     public static class InterfaceConfig
     {
-        public static void Configure(IServiceCollection services)
+        public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAddArtWork, AddArtWork>();
             services.AddScoped<IMapPiece, MapPiece>();
@@ -20,7 +20,7 @@ namespace API
             services.AddScoped<IGetArtWork, GetArtWork>();
             services.AddScoped<IEditArtWork, EditArtWork>();
             services.AddScoped<IDeleteArtWork, DeleteArtWork>();
-            services.AddScoped<ISqlServer, SqlServer>();
+            services.AddSingleton<ISqlServer>(new SqlServer(configuration));
             services.AddScoped<IAwsImage, AwsImage>();
         }
     }

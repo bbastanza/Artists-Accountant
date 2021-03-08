@@ -6,41 +6,44 @@ namespace Core.Services.DbServices
 {
     public interface ISqlServer
     {
-        void Connect();
+        SqlConnection Connect();
+        void CloseConnection();
     }
 
     public class SqlServer : ISqlServer
     {
-        private readonly string _datasource;
-        private readonly string _database;
-        private readonly string _username;
-        private readonly string _password;
+        private readonly SqlConnection _connection;
 
         public SqlServer(IConfiguration configuration)
         {
-            _datasource = configuration["SqlServer:Datasource"];
-            _database = configuration["SqlServer:Database"];
-            _username = configuration["SqlServer:Username"];
-            _password = configuration["SqlServer:Password"];
+            var datasource = configuration["SqlServer:Datasource"];
+            var database = configuration["SqlServer:Database"];
+            var username = configuration["SqlServer:Username"];
+            var password = configuration["SqlServer:Password"];
+            var connectionString = @"Data Source=" + datasource +
+                                   ";Initial Catalog=" + database + 
+                                   ";Persist Security Info=True;User ID=" + username +
+                                   ";Password=" + password;
+            _connection = new SqlConnection(connectionString);
         }
 
-        // TODO | return void?
-        public void Connect()
+        public SqlConnection Connect()
         {
-            var connectionString = @"Data Source=" + _datasource +
-                                   ";Initial Catalog=" + _database +
-                                   ";Persist Security Info=True;User ID=" + _username +
-                                   ";Password=" + _password;
-
-            var connection = new SqlConnection(connectionString);
             try
             {
-                connection.Open();
+                _connection.Open();
+                return _connection;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error: " + e.Message);
+                return null;
             }
+        }
+
+        public void CloseConnection()
+        {
+            _connection.Close();
         }
     }
 }

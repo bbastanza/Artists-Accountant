@@ -17,7 +17,7 @@ namespace Core.Entities
 
         public virtual string Username { get; set; }
         public virtual string Password { get; set; }
-        public virtual DateTime CreatedAt { get; } = DateTime.Now;
+        public virtual DateTime CreatedAt { get; set; }
         public virtual IList<ArtWork> Pieces { get; } = new List<ArtWork>();
 
         public double TotalUncollectedIncome
