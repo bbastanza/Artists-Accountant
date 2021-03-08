@@ -1,14 +1,10 @@
-using System.Text;
 using API.Middleware;
-using Core.Services.JwtAuthentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 
 namespace API
 {
@@ -26,8 +22,8 @@ namespace API
             services.AddControllers();
             services.AddSpaStaticFiles(config => { config.RootPath = "client/build"; });
             
-            JwtConfig.Configure(services, _configuration["JwtKey"]);
             InterfaceConfig.Configure(services, _configuration);
+            JwtConfig.Configure(services, _configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

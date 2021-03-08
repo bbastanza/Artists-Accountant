@@ -23,7 +23,6 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("authenticate")]
         public IActionResult Authenticate(UserAuthenticationModel user)
         {
             if (user.Username == null || user.Password == null)

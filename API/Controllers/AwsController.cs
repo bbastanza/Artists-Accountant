@@ -1,7 +1,5 @@
 using System.IO;
-using API.Models;
 using Core.Services.ArtWorkServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

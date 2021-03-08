@@ -43,7 +43,7 @@ namespace Core.Services.UserServices
 
             try
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.ExecuteNonQuery();
                 }

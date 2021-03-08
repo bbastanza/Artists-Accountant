@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using API.Models;
 using Core.Entities;
@@ -32,13 +31,7 @@ namespace API.Controllers
             _path = Path.GetFullPath(ToString()!);
         }
 
-        //
-        // TODO check all inputs for null
-        //
-
         // [Authorize]
-        // 
-
         [HttpGet("{username}")]
         public User Get(string username)
         {

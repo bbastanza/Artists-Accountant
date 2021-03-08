@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using Core.Services.UserServices;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Services.JwtAuthentication
@@ -16,25 +15,21 @@ namespace Core.Services.JwtAuthentication
     public class GenerateJwtToken : IGenerateJwtToken
     {
         private readonly string _key;
+        private readonly IGetUserData _getUserData;
 
-        private readonly IDictionary<string, string> _users = new Dictionary<string, string>
-        {
-            {"brian", "password"},
-            {"sammy", "password2"}
-        };
-
-        public GenerateJwtToken(string key)
+        public GenerateJwtToken(string key, IGetUserData getUserData)
         {
             _key = key;
+            _getUserData = getUserData;
         }
 
         public string Authenticate(string username, string password)
         {
-            // TODO this should be making a SQL statement to see if username and password match
-            
-            if (!_users.Any(user => user.Key == username && user.Value == password))
-                return null;
+            var user = _getUserData.GetUser(username);
 
+            if (user == null || user.Password != password)
+                return null;
+                
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(_key);
             var tokenDescriptor = new SecurityTokenDescriptor()
