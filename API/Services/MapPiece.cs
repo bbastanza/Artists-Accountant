@@ -31,6 +31,7 @@ namespace API.Services
                 IsCommission = artWorkInput.IsCommission,
                 SalePrice = artWorkInput.SalePrice,
                 IsPaymentCollected = artWorkInput.IsPaymentCollected,
+                Username = artWorkInput.Username
             };
         }
     }

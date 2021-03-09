@@ -3,6 +3,7 @@ using API.Models;
 using API.Services;
 using Core.Entities;
 using Core.Services.ArtWorkServices;
+using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public sealed class ArtsController : Controller
+    public sealed class ArtWorksController : Controller
     {
         private readonly string _path;
         private readonly IAddArtWork _addArtWork;
@@ -18,7 +19,7 @@ namespace API.Controllers
         private readonly IEditArtWork _editArtWork;
         private readonly IDeleteArtWork _deleteArtWork;
 
-        public ArtsController(
+        public ArtWorksController(
             IAddArtWork addArtWork,
             IMapPiece mapPiece,
             IEditArtWork editArtWork,
@@ -31,12 +32,14 @@ namespace API.Controllers
             _path = Path.GetFullPath(ToString()!);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost]
-        public void AddPiece(ArtWorkInputModel artWorkInput)
+        public void AddPiece(ArtWorkInputModel artInput)
         {
-            // TODO | check what for null?
-            var artWork = _mapPiece.Map(artWorkInput);
+            if (artInput.Username == null)
+                throw new InvalidInputException(_path, "AddPieces()");
+            
+            var artWork = _mapPiece.Map(artInput);
             _addArtWork.Add(artWork);
         }
 
@@ -44,7 +47,9 @@ namespace API.Controllers
         [HttpPut]
         public void EditPiece(ArtWorkInputModel artInput)
         {
-            // TODO | check what for null?
+            if (artInput.Username == null)
+                throw new InvalidInputException(_path, "AddPieces()");
+            
             var artWork = _mapPiece.Map(artInput);
             _editArtWork.Edit(artWork);
         }
@@ -53,7 +58,9 @@ namespace API.Controllers
         [HttpDelete]
         public void DeletePiece(ArtWorkInputModel artInput)
         {
-            // TODO | check what for null?
+            if (artInput.Username == null)
+                throw new InvalidInputException(_path, "AddPieces()");
+            
             _deleteArtWork.Delete(artInput.PieceId);
         }
     }

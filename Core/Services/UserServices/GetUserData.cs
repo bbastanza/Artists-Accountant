@@ -22,39 +22,30 @@ namespace Core.Services.UserServices
         {
             var connection = _sqlServer.Connect();
 
-            var query =$"SELECT * FROM user_table WHERE username = '{username}'";
+            var query = $"SELECT * FROM user_table WHERE username = '{username}'";
 
-            try
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            var user = new User
                             {
-                                var user = new User
-                                {
-                                    Username = reader.GetString(reader.GetOrdinal("username")),
-                                    Password = reader.GetString(reader.GetOrdinal("password")),
-                                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created"))
-                                };
-                                return user;
-                            }
+                                Username = reader.GetString(reader.GetOrdinal("username")),
+                                Password = reader.GetString(reader.GetOrdinal("password")),
+                                CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created"))
+                            };
+                            _sqlServer.CloseConnection();
+                            return user;
                         }
                     }
                 }
             }
-            catch
-            {
-                // TODO
-            } 
-            finally
-            {
-                _sqlServer.CloseConnection();
-            }
 
+            _sqlServer.CloseConnection();
             return null;
         }
     }

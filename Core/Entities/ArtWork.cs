@@ -22,5 +22,6 @@ namespace Core.Entities
         public virtual DateTime DateStarted { get; set; }
         public virtual DateTime DateFinished { get; set; }
         public virtual User User { get; set; }
+        public virtual string Username { get; set; }
     }
 }
