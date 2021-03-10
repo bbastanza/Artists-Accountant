@@ -62,7 +62,7 @@ namespace API.Controllers
             if (artInput.Username == null)
                 throw new InvalidInputException(_path, "AddPieces()");
             
-            _deleteArtWork.Delete(artInput.PieceId);
+            _deleteArtWork.Delete(artInput.Id);
         }
     }
 }

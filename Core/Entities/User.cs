@@ -14,18 +14,19 @@ namespace Core.Entities
             Username = username;
             Password = password;
             CreatedAt = DateTime.Now;
+            ArtWorks = new List<ArtWork>();
         }
 
         public virtual string Username { get; set; }
         public virtual string Password { get; set; }
         public virtual DateTime CreatedAt { get; set; }
-        public virtual IList<ArtWork> ArtWorks { get; set; } = new List<ArtWork>();
+        public virtual IList<ArtWork> ArtWorks { get; set; } 
 
-        public double TotalUncollectedIncome
+        public decimal TotalUncollectedIncome
         {
             get
             {
-                double total = 0;
+                decimal total = 0;
                 foreach (var piece in ArtWorks)
                 {
                     if (!piece.IsPaymentCollected)
@@ -36,11 +37,11 @@ namespace Core.Entities
             }
         }
         
-        public double TotalCollectedIncome
+        public decimal TotalCollectedIncome
         {
             get
             {
-                double total = 0;
+                decimal total = 0;
                 foreach (var piece in ArtWorks)
                 {
                     if (piece.IsPaymentCollected)
@@ -51,11 +52,11 @@ namespace Core.Entities
             }
         }
 
-        public double TotalExpenses
+        public decimal TotalExpenses
         {
             get
             {
-                double total = 0;
+                decimal total = 0;
                 foreach (var piece in ArtWorks)
                 {
                     total += piece.MaterialCost;

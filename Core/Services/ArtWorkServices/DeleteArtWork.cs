@@ -4,7 +4,7 @@ namespace Core.Services.ArtWorkServices
 {
     public interface IDeleteArtWork
     {
-        void Delete(string id);
+        void Delete(int id);
     }
 
     public class DeleteArtWork : IDeleteArtWork
@@ -16,7 +16,7 @@ namespace Core.Services.ArtWorkServices
             _path = Path.GetFullPath(ToString());
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             // DELETE FROM artwork_table WHERE id = {id};
         }

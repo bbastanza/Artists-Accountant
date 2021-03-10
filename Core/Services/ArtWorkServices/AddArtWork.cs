@@ -1,4 +1,3 @@
-using System;
 using System.Data.SqlClient;
 using Core.Entities;
 using Core.Services.DbServices;
@@ -27,7 +26,6 @@ namespace Core.Services.ArtWorkServices
         public void Add(ArtWork artWork)
         {
             var user = _getUserData.GetUser(artWork.Username);
-            artWork.User = user;
             user.ArtWorks.Add(artWork);
             
             var connection = _sqlServer.Connect();

@@ -16,6 +16,7 @@ namespace API.Services
             
             return new ArtWork
             {
+                Id = artWorkInput.Id,
                 PieceName = artWorkInput.PieceName,
                 DateStarted = artWorkInput.DateStarted,
                 DateFinished = artWorkInput.DateFinished,

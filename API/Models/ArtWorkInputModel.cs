@@ -5,8 +5,8 @@ namespace API.Models
 {
     public class ArtWorkInputModel
     {
-        [JsonPropertyName("pieceId")]
-        public string PieceId { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
         
         [JsonPropertyName("pieceName")] 
         public string PieceName { get; set; }
@@ -18,13 +18,13 @@ namespace API.Models
         public string CustomerContact { get; set; }
 
         [JsonPropertyName("shippingCost")] 
-        public float ShippingCost { get; set; }
+        public decimal ShippingCost { get; set; }
 
         [JsonPropertyName("materialCost")] 
-        public float MaterialCost { get; set; }
+        public decimal MaterialCost { get; set; }
 
         [JsonPropertyName("salePrice")] 
-        public float SalePrice { get; set; }
+        public decimal SalePrice { get; set; }
 
         [JsonPropertyName("height")] 
         public int HeightInches { get; set; }
