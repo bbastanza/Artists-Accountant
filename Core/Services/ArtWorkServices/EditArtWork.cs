@@ -11,18 +11,18 @@ namespace Core.Services.ArtWorkServices
 
     public class EditArtWork : IEditArtWork
     {
-        private readonly IGetArtWork _getArtWork;
+        private readonly IGetArtWorks _getArtWorks;
         private readonly string _path;
 
-        public EditArtWork(IGetArtWork getArtWork)
+        public EditArtWork(IGetArtWorks getArtWorks)
         {
-            _getArtWork = getArtWork;
+            _getArtWorks = getArtWorks;
             _path = Path.GetFullPath(ToString());
         }
         
         public void Edit(ArtWork newArtWork)
         {
-            var artWork = _getArtWork.GetArt(newArtWork.PieceId);
+            // var artWork = _getArtWorks.GetAll(newArtWork.PieceId);
 
             // compare with new, write changes to the database
         }

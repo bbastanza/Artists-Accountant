@@ -1,5 +1,6 @@
 using System.Data.SqlClient;
 using Core.Entities;
+using Core.Services.ArtWorkServices;
 using Core.Services.DbServices;
 
 namespace Core.Services.UserServices
@@ -12,10 +13,14 @@ namespace Core.Services.UserServices
     public class GetUserData : IGetUserData
     {
         private readonly ISqlServer _sqlServer;
+        private readonly IGetArtWorks _getArtworks;
 
-        public GetUserData(ISqlServer sqlServer)
+        public GetUserData(
+            ISqlServer sqlServer,
+            IGetArtWorks getArtworks = null)
         {
             _sqlServer = sqlServer;
+            _getArtworks = getArtworks;
         }
 
         public User GetUser(string username)
@@ -24,29 +29,29 @@ namespace Core.Services.UserServices
 
             var query = $"SELECT * FROM user_table WHERE username = '{username}'";
 
-            using (SqlCommand command = new SqlCommand(query, connection))
+            User user = null;
+
+            using (var command = new SqlCommand(query, connection))
             {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
+                using (var reader = command.ExecuteReader())
                     if (reader.HasRows)
-                    {
                         while (reader.Read())
                         {
-                            var user = new User
+                            user = new User
                             {
+                                Id = reader.GetInt32(reader.GetOrdinal("id")),
                                 Username = reader.GetString(reader.GetOrdinal("username")),
                                 Password = reader.GetString(reader.GetOrdinal("password")),
                                 CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created"))
                             };
-                            _sqlServer.CloseConnection();
-                            return user;
                         }
-                    }
-                }
             }
 
+            if (user != null && _getArtworks != null)
+                user.ArtWorks = _getArtworks.GetAll(user.Id, connection);
+
             _sqlServer.CloseConnection();
-            return null;
+            return user;
         }
     }
 }

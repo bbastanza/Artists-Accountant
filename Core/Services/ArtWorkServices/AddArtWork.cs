@@ -1,3 +1,4 @@
+using System;
 using System.Data.SqlClient;
 using Core.Entities;
 using Core.Services.DbServices;
@@ -27,8 +28,8 @@ namespace Core.Services.ArtWorkServices
         {
             var user = _getUserData.GetUser(artWork.Username);
             artWork.User = user;
-            user.Pieces.Add(artWork);
-
+            user.ArtWorks.Add(artWork);
+            
             var connection = _sqlServer.Connect();
 
             var query =
@@ -37,7 +38,7 @@ namespace Core.Services.ArtWorkServices
                 $"piece_name, " +
                 $"customer_name, " +
                 $"customer_contact, " +
-                $"shipping_cost," +
+                $"shipping_cost, " +
                 $"material_cost, " +
                 $"sale_price, " +
                 $"height, " +
@@ -50,34 +51,29 @@ namespace Core.Services.ArtWorkServices
                 $"date_finished, " +
                 $"time_spent_minutes) " +
                 $"VALUES (" +
-                $"'{user.Id}'," +
-                $"'{artWork.PieceName}'," +
-                $"'{artWork.CustomerName}'," +
-                $"'{artWork.CustomerContact}'," +
-                $"'{artWork.ShippingCost}'," +
-                $"'{artWork.MaterialCost}'," +
-                $"'{artWork.SalePrice}'," +
-                $"'{artWork.WidthInches}'," +
-                $"'{artWork.HeightInches}'," +
-                $"'{artWork.Shape}'," +
-                $"'{artWork.PaymentType}'," +
-                $"'{artWork.IsCommission}'," +
-                $"'{artWork.IsPaymentCollected}'," +
-                $"'{artWork.DateStarted}'," +
-                $"'{artWork.DateFinished}'," +
-                $"'{artWork.TimeSpentMinutes}'," +
-                $");";
-            
+                $"{user.Id}, " +
+                $"'{artWork.PieceName}', " +
+                $"'{artWork.CustomerName}', " +
+                $"'{artWork.CustomerContact}', " +
+                $"{artWork.ShippingCost}, " +
+                $"{artWork.MaterialCost}, " +
+                $"{artWork.SalePrice}, " +
+                $"{artWork.WidthInches}, " +
+                $"{artWork.HeightInches}, " +
+                $"'{artWork.Shape}', " +
+                $"'{artWork.PaymentType}', " +
+                $"{(artWork.IsCommission ? 1 : 0)}, " +
+                $"{(artWork.IsPaymentCollected ? 1 : 0)}, " +
+                $"'{artWork.DateStarted.ToString("MM/dd/yyyy")}', " +
+                $"'{artWork.DateFinished.ToString("MM/dd/yyyy")}', " +
+                $"{artWork.TimeSpentMinutes});";
+
             try
             {
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.ExecuteNonQuery();
                 }
-            }
-            catch
-            {
-                // TODO should there be a try catch at all?
             }
             finally
             {

@@ -17,7 +17,7 @@ namespace API
             services.AddScoped<IAddUser, AddUser>();
             services.AddScoped<IDeleteUser, DeleteUser>();
             services.AddScoped<IEditUser, EditUser>();
-            services.AddScoped<IGetArtWork, GetArtWork>();
+            services.AddScoped<IGetArtWorks, GetArtWorks>();
             services.AddScoped<IEditArtWork, EditArtWork>();
             services.AddScoped<IDeleteArtWork, DeleteArtWork>();
             services.AddSingleton<ISqlServer>(new SqlServer(configuration));

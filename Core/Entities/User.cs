@@ -19,14 +19,14 @@ namespace Core.Entities
         public virtual string Username { get; set; }
         public virtual string Password { get; set; }
         public virtual DateTime CreatedAt { get; set; }
-        public virtual IList<ArtWork> Pieces { get; } = new List<ArtWork>();
+        public virtual IList<ArtWork> ArtWorks { get; set; } = new List<ArtWork>();
 
         public double TotalUncollectedIncome
         {
             get
             {
                 double total = 0;
-                foreach (var piece in Pieces)
+                foreach (var piece in ArtWorks)
                 {
                     if (!piece.IsPaymentCollected)
                         total += piece.SalePrice;
@@ -41,7 +41,7 @@ namespace Core.Entities
             get
             {
                 double total = 0;
-                foreach (var piece in Pieces)
+                foreach (var piece in ArtWorks)
                 {
                     if (piece.IsPaymentCollected)
                         total += piece.SalePrice;
@@ -56,7 +56,7 @@ namespace Core.Entities
             get
             {
                 double total = 0;
-                foreach (var piece in Pieces)
+                foreach (var piece in ArtWorks)
                 {
                     total += piece.MaterialCost;
                     total += piece.ShippingCost;
