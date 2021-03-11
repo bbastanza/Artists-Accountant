@@ -4,6 +4,8 @@ namespace Core.Entities
 {
     public class ArtWork : Entity
     {
+        public virtual string Username { get; set; }
+        public virtual string ImgUrl { get; set; }
         public virtual string PieceName { get; set; }
         public virtual string CustomerName { get; set; }
         public virtual string CustomerContact { get; set; }
@@ -20,6 +22,5 @@ namespace Core.Entities
         public virtual bool IsPaymentCollected { get; set; }
         public virtual DateTime DateStarted { get; set; }
         public virtual DateTime DateFinished { get; set; }
-        public virtual string Username { get; set; }
     }
 }

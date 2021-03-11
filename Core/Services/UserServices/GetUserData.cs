@@ -26,7 +26,7 @@ namespace Core.Services.UserServices
         public User GetUser(string username)
         {
             var connection = _sqlServer.Connect();
-
+            
             var query = $"SELECT * FROM user_table WHERE username = '{username}'";
 
             User user = null;
@@ -37,19 +37,23 @@ namespace Core.Services.UserServices
                     if (reader.HasRows)
                         while (reader.Read())
                         {
+                            var profileImgUrl = reader.GetOrdinal("profile_image_url");
+                            
                             user = new User
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("id")),
                                 Username = reader.GetString(reader.GetOrdinal("username")),
                                 Password = reader.GetString(reader.GetOrdinal("password")),
-                                CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created"))
+                                CreatedAt = reader.GetDateTime(reader.GetOrdinal("date_created")),
+                                ProfileImgUrl = reader.IsDBNull(profileImgUrl) ? null : reader.GetString(profileImgUrl)
                             };
                         }
             }
-
+            
             if (user != null && _getArtworks != null)
                 user.ArtWorks = _getArtworks.GetAll(user.Id, connection);
 
+            // todo _sqlServer.CloseConnection middleware?
             _sqlServer.CloseConnection();
             return user;
         }

@@ -55,5 +55,8 @@ namespace API.Models
 
         [JsonPropertyName("username")] 
         public string Username { get; set; }
+        
+        [JsonPropertyName("imgUrl")] 
+        public string ImgUrl { get; set; }
     }
 }

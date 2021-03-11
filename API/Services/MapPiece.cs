@@ -11,7 +11,7 @@ namespace API.Services
     {
         public ArtWork Map(ArtWorkInputModel artWorkInput)
         {
-            if (artWorkInput.Shape == "Round")
+            if (artWorkInput.Shape == "round")
                 artWorkInput.HeightInches = artWorkInput.WidthInches;
             
             return new ArtWork
@@ -32,7 +32,8 @@ namespace API.Services
                 IsCommission = artWorkInput.IsCommission,
                 SalePrice = artWorkInput.SalePrice,
                 IsPaymentCollected = artWorkInput.IsPaymentCollected,
-                Username = artWorkInput.Username
+                Username = artWorkInput.Username,
+                ImgUrl = artWorkInput.ImgUrl
             };
         }
     }

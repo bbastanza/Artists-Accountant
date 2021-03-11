@@ -24,7 +24,6 @@ namespace Core.Services.UserServices
         {
             var user = _getUserData.GetUser(username);
 
-            // TODO custom exception class
             if (user == null)
                 throw new NonExistingUserException(_path, "Edit()");
 

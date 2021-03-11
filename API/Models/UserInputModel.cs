@@ -6,7 +6,11 @@ namespace API.Models
     {
         [JsonPropertyName("userName")]
         public virtual string Username { get; set; }
+        
         [JsonPropertyName("password")]
         public virtual string Password { get; set; }
+        
+        [JsonPropertyName("profileImgUrl")] 
+        public string ProfileImgUrl { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace Core.Entities
 
         public virtual string Username { get; set; }
         public virtual string Password { get; set; }
+        public virtual string ProfileImgUrl { get; set; }
         public virtual DateTime CreatedAt { get; set; }
         public virtual IList<ArtWork> ArtWorks { get; set; } 
 
