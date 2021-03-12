@@ -4,23 +4,23 @@ namespace Core.Entities
 {
     public class ArtWork : Entity
     {
-        public virtual string Username { get; set; }
-        public virtual string ImgUrl { get; set; }
-        public virtual string PieceName { get; set; }
-        public virtual string CustomerName { get; set; }
-        public virtual string CustomerContact { get; set; }
-        public virtual decimal ShippingCost { get; set; }
-        public virtual decimal MaterialCost { get; set; }
-        public virtual decimal SalePrice { get; set; }
-        public virtual decimal Margin => SalePrice - (ShippingCost + MaterialCost);
-        public virtual int HeightInches { get; set; }
-        public virtual int WidthInches { get; set; }
-        public virtual int TimeSpentMinutes { get; set; }
-        public virtual string Shape { get; set; }
-        public virtual string PaymentType { get; set; }
-        public virtual bool IsCommission { get; set; }
-        public virtual bool IsPaymentCollected { get; set; }
-        public virtual DateTime DateStarted { get; set; }
-        public virtual DateTime DateFinished { get; set; }
+        public string Username { get; set; }
+        public string ImgUrl { get; set; }
+        public string PieceName { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerContact { get; set; }
+        public decimal ShippingCost { get; set; }
+        public decimal MaterialCost { get; set; }
+        public decimal SalePrice { get; set; }
+        public decimal Margin => SalePrice - (ShippingCost + MaterialCost);
+        public int HeightInches { get; set; }
+        public int WidthInches { get; set; }
+        public int TimeSpentMinutes { get; set; }
+        public string Shape { get; set; }
+        public string PaymentType { get; set; }
+        public bool IsCommission { get; set; }
+        public bool IsPaymentCollected { get; set; }
+        public DateTime? DateStarted { get; set; }
+        public DateTime? DateFinished { get; set; }
     }
 }

@@ -17,11 +17,13 @@ namespace Core.Entities
             ArtWorks = new List<ArtWork>();
         }
 
-        public virtual string Username { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string ProfileImgUrl { get; set; }
-        public virtual DateTime CreatedAt { get; set; }
-        public virtual IList<ArtWork> ArtWorks { get; set; } 
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string ProfileImgUrl { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public IList<ArtWork> ArtWorks { get; set; }
+        public decimal TotalMarginCollected => TotalCollectedIncome - TotalExpenses;
+        public decimal TotalMarginPotential => TotalCollectedIncome + TotalUncollectedIncome - TotalExpenses;
 
         public decimal TotalUncollectedIncome
         {
@@ -37,7 +39,7 @@ namespace Core.Entities
                 return total;
             }
         }
-        
+
         public decimal TotalCollectedIncome
         {
             get
@@ -67,5 +69,6 @@ namespace Core.Entities
                 return total;
             }
         }
+
     }
 }

@@ -25,6 +25,7 @@ const App: React.FC = () => {
         <>
             <ArtistNavbar />
             <div className="App">
+                <ImageUploader />
                 <div
                     style={{
                         display: "flex",

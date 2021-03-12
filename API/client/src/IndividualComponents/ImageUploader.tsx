@@ -33,7 +33,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ returnImage }) => {
                 multiple={false}
                 accept=".jpeg, .png"
                 onChange={ev => {
-                    if (!!ev) setEvent(ev);
+                    setEvent(ev);
                 }}
             />
             <button onClick={uploadImage}>Upload</button>

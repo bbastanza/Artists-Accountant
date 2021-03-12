@@ -27,18 +27,18 @@ namespace Core.Services.ArtWorkServices
         public void Add(ArtWork artWork)
         {
             var user = _getUserData.GetUser(artWork.Username);
-            user.ArtWorks.Add(artWork);
-            
+            // user.ArtWorks.Add(artWork);
+
             var connection = _sqlServer.Connect();
-            var shippingCost = artWork.ShippingCost;
-            var materialCost = artWork.MaterialCost;
-            var salePrice = artWork.SalePrice;
-            var height = artWork.HeightInches;
-            var width = artWork.WidthInches;
-            var isCommission = artWork.IsCommission;
-            var isPaymentCollected = artWork.IsPaymentCollected;
-            var dateStarted = artWork.DateStarted;
-            var dateFinished = artWork.DateFinished;
+
+            var dateStarted = artWork.DateStarted != null
+                ? $"'{(DateTime) artWork.DateStarted:MM/dd/yyyy}', "
+                : "NULL, ";
+
+            var dateFinished = artWork.DateFinished != null
+                ? $"'{(DateTime) artWork.DateFinished:MM/dd/yyyy}', "
+                : "NULL, ";
+
 
             var query =
                 $"INSERT INTO artwork_table (" +
@@ -55,33 +55,44 @@ namespace Core.Services.ArtWorkServices
                 $"payment_type, " +
                 $"is_commission, " +
                 $"is_payment_collected, " +
+                $"image_url, " +
                 $"date_started, " +
                 $"date_finished, " +
-                $"image_url, " +
                 $"time_spent_minutes) " +
                 $"VALUES (" +
                 $"{user.Id}, " +
                 $"'{artWork.PieceName}', " +
                 $"'{artWork.CustomerName}', " +
                 $"'{artWork.CustomerContact}', " +
-                $"{shippingCost}, " +
-                $"{materialCost}, " +
-                $"{salePrice}, " +
-                $"{height}, " +
-                $"{width}, " +
+                $"{artWork.ShippingCost}, " +
+                $"{artWork.MaterialCost}, " +
+                $"{artWork.SalePrice}, " +
+                $"{artWork.HeightInches}, " +
+                $"{artWork.WidthInches}, " +
                 $"'{artWork.Shape}', " +
                 $"'{artWork.PaymentType}', " +
-                $"{(isCommission ? 1 : 0)}, " +
-                $"{(isPaymentCollected ? 1 : 0)}, " +
-                $"'{dateStarted.ToString("MM/dd/yyyy")}', " +
-                $"'{dateFinished.ToString("MM/dd/yyyy")}', " +
+                $"{(artWork.IsCommission ? 1 : 0)}, " +
+                $"{(artWork.IsPaymentCollected ? 1 : 0)}, " +
                 $"'{artWork.ImgUrl}', " +
+                $"{dateStarted}" +
+                $"{dateFinished}" +
                 $"{artWork.TimeSpentMinutes});";
+
 
             try
             {
                 using (var command = new SqlCommand(query, connection))
                 {
+                    // if (artWork.DateStarted != null)
+                    // command.Parameters.AddWithValue("date_started", artWork.DateStarted?.ToString("MM/dd/yyyy"));
+                    // else
+                    //     command.Parameters.AddWithValue("date_started", DBNull.Value);
+
+                    // if (artWork.DateStarted != null)
+                    //     command.Parameters.AddWithValue("date_finished", dateStarted);
+                    // else
+                    //     command.Parameters.AddWithValue("date_finished", DBNull.Value);
+
                     command.ExecuteNonQuery();
                 }
             }

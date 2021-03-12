@@ -48,10 +48,10 @@ namespace API.Models
         public bool IsPaymentCollected { get; set; }
 
         [JsonPropertyName("dateStarted")] 
-        public DateTime DateStarted { get; set; }
+        public DateTime? DateStarted { get; set; }
 
         [JsonPropertyName("dateFinished")] 
-        public DateTime DateFinished { get; set; }
+        public DateTime? DateFinished { get; set; }
 
         [JsonPropertyName("username")] 
         public string Username { get; set; }

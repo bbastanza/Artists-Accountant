@@ -49,13 +49,18 @@ namespace Core.Services.UserServices
                             };
                         }
             }
+
+            if (user == null) return null;
             
-            if (user != null && _getArtworks != null)
+            if (_getArtworks != null)
                 user.ArtWorks = _getArtworks.GetAll(user.Id, connection);
 
-            // todo _sqlServer.CloseConnection middleware?
+            foreach (var artWork in user.ArtWorks)
+                artWork.Username = username;
+            
             _sqlServer.CloseConnection();
             return user;
+            // todo _sqlServer.CloseConnection middleware?
         }
     }
 }
