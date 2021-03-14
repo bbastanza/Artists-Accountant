@@ -1,7 +1,6 @@
 using System.Data.SqlClient;
 using Core.Entities;
 using Core.ExtensionMethods;
-using Core.Services.ArtWorkServices;
 using Core.Services.DbServices;
 
 namespace Core.Services.UserServices

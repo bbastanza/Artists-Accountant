@@ -1,8 +1,6 @@
-using System;
 using System.IO;
 using API.Models;
 using API.Services;
-using Core.Entities;
 using Core.Services.ArtWorkServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;

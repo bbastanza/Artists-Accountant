@@ -1,8 +1,5 @@
-using System;
 using System.IO;
-using System.Threading.Tasks;
 using Amazon;
-using Amazon.Internal;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Configuration;

@@ -1,5 +1,4 @@
 using System.Data.SqlClient;
-using System.Linq;
 using Core.Entities;
 using Core.ExtensionMethods;
 using Core.Services.DbServices;
@@ -27,6 +26,8 @@ namespace Core.Services.UserServices
 
             var query = $"SELECT username, password FROM user_table WHERE username = '{username}';";
 
+            User user = null;
+            
             using (var command = new SqlCommand(query, connection))
             {
                 using (var reader = command.ExecuteReader())
@@ -34,7 +35,7 @@ namespace Core.Services.UserServices
                     if (reader.HasRows)
                         while (reader.Read())
                         {
-                            return new User
+                            user =  new User
                             {
                                 Username = reader.GetDefaultString("username"),
                                 Password = reader.GetDefaultString("password")
@@ -43,7 +44,9 @@ namespace Core.Services.UserServices
                 }
             }
 
-            return null;
+            _sqlServer.CloseConnection();
+            
+            return user;
         }
     }
 }

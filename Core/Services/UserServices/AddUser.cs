@@ -1,7 +1,6 @@
 using System;
 using System.Data.SqlClient;
 using System.IO;
-using System.Text;
 using Core.Entities;
 using Core.Services.DbServices;
 using Infrastructure.Exceptions;

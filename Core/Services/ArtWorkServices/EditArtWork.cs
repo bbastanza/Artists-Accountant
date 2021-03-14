@@ -1,6 +1,5 @@
 using System.IO;
 using Core.Entities;
-using Core.Services.UserServices;
 
 namespace Core.Services.ArtWorkServices
 {

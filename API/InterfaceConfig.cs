@@ -14,14 +14,13 @@ namespace API
             services.AddScoped<IAddArtWork, AddArtWork>();
             services.AddScoped<IMapPiece, MapPiece>();
             services.AddScoped<IGetUserData, GetUserData>();
+            services.AddScoped<IGetUserAuth, GetUserAuth>();
             services.AddScoped<IAddUser, AddUser>();
             services.AddScoped<IDeleteUser, DeleteUser>();
             services.AddScoped<IEditUser, EditUser>();
             services.AddScoped<IEditArtWork, EditArtWork>();
             services.AddScoped<IDeleteArtWork, DeleteArtWork>();
             services.AddSingleton<ISqlServer>(new SqlServer(configuration));
-            services.AddScoped<IAwsImage, AwsImage>();
-            services.AddScoped<IGetUserAuth, GetUserAuth>();
         }
     }
 }

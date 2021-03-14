@@ -1,6 +1,5 @@
 using System.IO;
 using API.Models;
-using Core.Entities;
 using Core.Services.UserServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
