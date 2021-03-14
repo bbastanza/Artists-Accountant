@@ -11,12 +11,10 @@ namespace Core.Services.ArtWorkServices
 
     public class EditArtWork : IEditArtWork
     {
-        private readonly IGetArtWorks _getArtWorks;
         private readonly string _path;
 
-        public EditArtWork(IGetArtWorks getArtWorks)
+        public EditArtWork()
         {
-            _getArtWorks = getArtWorks;
             _path = Path.GetFullPath(ToString());
         }
         

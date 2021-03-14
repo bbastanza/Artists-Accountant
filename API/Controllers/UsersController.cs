@@ -33,12 +33,12 @@ namespace API.Controllers
 
         // [Authorize]
         [HttpGet("{username}")]
-        public User Get(string username)
+        public UserModel Get(string username)
         {
             if (username == null)
                 throw new InvalidInputException(_path, "Get()");
 
-            return _getUserData.GetUser(username);
+            return new UserModel(_getUserData.GetUser(username));
         }
 
         [HttpPost]
@@ -64,7 +64,6 @@ namespace API.Controllers
         [HttpDelete("{username}")]
         public void DeleteUser(string username)
         {
-            // TODO should this check password against database???
             _deleteUser.Delete(username);
         }
     }

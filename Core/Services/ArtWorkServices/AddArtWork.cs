@@ -27,7 +27,6 @@ namespace Core.Services.ArtWorkServices
         public void Add(ArtWork artWork)
         {
             var user = _getUserData.GetUser(artWork.Username);
-            // user.ArtWorks.Add(artWork);
 
             var connection = _sqlServer.Connect();
 
@@ -83,16 +82,6 @@ namespace Core.Services.ArtWorkServices
             {
                 using (var command = new SqlCommand(query, connection))
                 {
-                    // if (artWork.DateStarted != null)
-                    // command.Parameters.AddWithValue("date_started", artWork.DateStarted?.ToString("MM/dd/yyyy"));
-                    // else
-                    //     command.Parameters.AddWithValue("date_started", DBNull.Value);
-
-                    // if (artWork.DateStarted != null)
-                    //     command.Parameters.AddWithValue("date_finished", dateStarted);
-                    // else
-                    //     command.Parameters.AddWithValue("date_finished", DBNull.Value);
-
                     command.ExecuteNonQuery();
                 }
             }

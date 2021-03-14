@@ -55,12 +55,12 @@ namespace API.Controllers
             _editArtWork.Edit(artWork);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete]
         public void DeletePiece(ArtWorkInputModel artInput)
         {
-            if (artInput.Username == null)
-                throw new InvalidInputException(_path, "AddPieces()");
+            if (artInput.Id == 0)
+                throw new InvalidInputException(_path, "DeletePiece()");
             
             _deleteArtWork.Delete(artInput.Id);
         }

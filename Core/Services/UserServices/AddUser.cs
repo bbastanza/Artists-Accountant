@@ -1,3 +1,4 @@
+using System;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
@@ -34,7 +35,13 @@ namespace Core.Services.UserServices
             if (existingUser != null)
                 throw new ExistingUserException(_path, "Add()");
 
-            var user = new User(username, password);
+            var user = new User
+            {
+                Username = username,
+                Password = password,
+                CreatedAt = DateTime.Now,
+            };
+            
 
             var connection = _sqlServer.Connect();
 
@@ -55,7 +62,7 @@ namespace Core.Services.UserServices
             }
             finally
             {
-                _sqlServer.CloseConnection();
+                    _sqlServer.CloseConnection();
             }
         }
     }

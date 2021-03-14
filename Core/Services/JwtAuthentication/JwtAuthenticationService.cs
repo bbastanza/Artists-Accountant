@@ -15,17 +15,17 @@ namespace Core.Services.JwtAuthentication
     public class GenerateJwtToken : IGenerateJwtToken
     {
         private readonly string _key;
-        private readonly IGetUserData _getUserData;
+        private readonly IGetUserAuth _getUserAuth;
 
-        public GenerateJwtToken(string key, IGetUserData getUserData)
+        public GenerateJwtToken(string key, IGetUserAuth getUserAuth)
         {
             _key = key;
-            _getUserData = getUserData;
+            _getUserAuth = getUserAuth;
         }
 
         public string Authenticate(string username, string password)
         {
-            var user = _getUserData.GetUser(username);
+            var user = _getUserAuth.Get(username);
 
             if (user == null || user.Password != password)
                 return null;

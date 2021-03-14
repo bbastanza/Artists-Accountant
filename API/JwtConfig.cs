@@ -34,7 +34,7 @@ namespace API
             });
 
             services.AddSingleton<IGenerateJwtToken>(
-                new GenerateJwtToken(key, new GetUserData(new SqlServer(configuration))));
+                new GenerateJwtToken(key, new GetUserAuth(new SqlServer(configuration))));
         }
     }
 }
