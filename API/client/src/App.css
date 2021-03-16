@@ -12,6 +12,16 @@
     --darkergray: #212121;
 }
 
+.btn-purple{
+     height: "3rem"; 
+     background: var(--darkpurple); 
+     color: var(--white);
+     margin: 5px 
+}
+.btn-purple:hover{
+    background: var(--darkerpurple);
+    color: var(--white)
+}
 .accent {
     color: var(--darkerpurple);
     animation: pulse 10s infinite;
@@ -23,49 +33,48 @@
     color: var(--darkgray);
 }
 
-.navbar {
+.art-navbar {
     position: fixed;
     background-color: var(--gray);
     transition: 200ms ease;
     filter: grayscale(20%);
 }
 
-.navbar-nav {
+.art-navbar-nav {
     list-style: none;
-    padding: 20px;
+    padding: 3px;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-items: center;
 }
 
-.nav-item {
+.art-nav-item {
     width: 100%;
     padding: 1rem;
-    border-radius: 5%;
+    border-radius: 3%;
     color: var(--white);
     transition: 100ms ease;
     white-space: nowrap;
 }
 
-.nav-item:hover {
+.art-nav-item:hover {
     background-color: var(--darkgray);
     color: var(--pink);
 }
 
-.nav-img {
+.art-nav-img {
     width: 3.5rem;
     height: 3.5rem;
 }
 
-.nav-link {
+.art-nav-link {
     display: flex;
     align-items: center;
     width: 5rem;
 }
 
-.link-text {
+.art-link-text {
     display: none;
     font-size: 1.2rem;
     margin-left: 2rem;
@@ -80,24 +89,24 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .navbar {
+    .art-navbar {
         bottom: 0;
         width: 100vw;
         height: 6rem;
     }
-    .navbar-nav {
+    .art-navbar-nav {
         flex-direction: row;
         height: 4rem;
         justify-content: center;
     }
-    .nav-link {
+    .art-nav-link {
         justify-content: center;
         width: 3rem;
     }
     .App {
         margin: 0;
     }
-    .nav-img {
+    .art-nav-img {
         width: 2.5rem;
         height: 2.5rem;
     }
@@ -107,16 +116,16 @@
     .App {
         margin-left: 5rem;
     }
-    .navbar {
+    .art-navbar {
         top: 0;
         width: 6rem;
         height: 100vh;
     }
-    .navbar:hover {
+    .art-navbar:hover {
         width: 16rem;
         filter: grayscale(0%);
     }
-    .navbar:hover .link-text {
+    .art-navbar:hover .art-link-text {
         display: block;
         transition: opacity 200ms;
     }
@@ -139,13 +148,13 @@
     right: -23rem;
     bottom: -10rem;
 }
-.title {
+.art-title {
     font-size: 5rem;
     color: var(--darkergray);
     font-weight: lighter;
 }
 
-.title2 {
+.art-title2 {
     font-size: 4rem;
     color: var(--darkergray);
     font-weight: lighter;
