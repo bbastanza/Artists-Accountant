@@ -39,6 +39,8 @@ namespace Core.Services.ArtWorkServices
                 : "NULL, ";
 
 
+            var properties = new ArtworkPropertyHash();
+            
             var query =
                 $"INSERT INTO artwork_table (" +
                 $"user_id, " +
@@ -76,7 +78,6 @@ namespace Core.Services.ArtWorkServices
                 $"{dateStarted}" +
                 $"{dateFinished}" +
                 $"{artWork.TimeSpentMinutes});";
-
 
             try
             {

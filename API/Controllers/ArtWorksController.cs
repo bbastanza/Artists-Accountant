@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using API.Models;
 using API.Services;
@@ -5,6 +6,7 @@ using Core.Services.ArtWorkServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ThirdParty.Json.LitJson;
 
 namespace API.Controllers
 {
@@ -42,15 +44,18 @@ namespace API.Controllers
             _addArtWork.Add(artWork);
         }
 
-        [Authorize]
-        [HttpPut]
-        public void EditPiece(ArtWorkInputModel artInput)
+        // [Authorize]
+        [HttpPatch]
+        public void EditPiece(JsonData artInput)
         {
-            if (artInput.Username == null)
-                throw new InvalidInputException(_path, "AddPieces()");
-            
-            var artWork = _mapPiece.Map(artInput);
-            _editArtWork.Edit(artWork);
+            // if (artInput.Username == null)
+            //     throw new InvalidInputException(_path, "AddPieces()");
+
+            Console.WriteLine("Controller: " + artInput);
+            var table = new ArtworkPropertyHash();
+            table.GetSqlProperty(artInput);
+            // var artWork = _mapPiece.Map(artInput);
+            _editArtWork.Edit(artInput);
         }
 
         // [Authorize]

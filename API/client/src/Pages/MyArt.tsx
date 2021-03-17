@@ -44,6 +44,9 @@ const MyArt: React.FC = () => {
         dateFinished: new Date(1, 4, 3),
         margin: 1130.64,
     };
+    const addPiece = () => {
+        console.log("Adding Piece");
+    };
     return (
         <>
             <ArtistNavbar />
@@ -51,11 +54,19 @@ const MyArt: React.FC = () => {
                 <h1 className="art-title">
                     My <span className="accent">Art</span>
                 </h1>
-                <button className="btn btn-purple">Add Piece</button>
-                <Artwork artwork={artwork} />
-                <Artwork artwork={artwork2} />
-                <Artwork artwork={artwork} />
-                <Artwork artwork={artwork2} />
+                <button className="btn btn-purple" onClick={addPiece}>
+                    Add Piece
+                </button>
+                <div className="row justify-content-start">
+                    <Artwork artwork={artwork} />
+                    <Artwork artwork={artwork2} />
+                    <Artwork artwork={artwork} />
+                    <Artwork artwork={artwork2} />
+                    <Artwork artwork={artwork} />
+                    <Artwork artwork={artwork2} />
+                    <Artwork artwork={artwork} />
+                    <Artwork artwork={artwork2} />
+                </div>
             </div>
             ;
         </>
