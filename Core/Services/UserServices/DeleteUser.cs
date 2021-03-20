@@ -7,7 +7,7 @@ namespace Core.Services.UserServices
 {
     public interface IDeleteUser
     {
-        void Delete(string username);
+        void Delete(int? id);
     }
 
     public class DeleteUser : IDeleteUser
@@ -25,16 +25,16 @@ namespace Core.Services.UserServices
             _path = Path.GetFullPath(ToString());
         }
 
-        public void Delete(string username)
+        public void Delete(int? id)
         {
-            var existingUser = _getUserData.GetUser(username);
+            var existingUser = _getUserData.GetDataWithoutArtworks(id);
 
             if (existingUser == null)
                 throw new NonExistingUserException(_path, "Delete()");
 
             var connection = _sqlServer.Connect();
             
-            var query = $"DELETE FROM user_table WHERE username = '{username}'";
+            var query = $"DELETE FROM user_table WHERE id = {id}";
 
             try
             {

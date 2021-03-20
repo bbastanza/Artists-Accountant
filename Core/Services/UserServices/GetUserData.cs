@@ -1,3 +1,4 @@
+using System;
 using System.Data.SqlClient;
 using Core.Entities;
 using Core.ExtensionMethods;
@@ -7,7 +8,8 @@ namespace Core.Services.UserServices
 {
     public interface IGetUserData
     {
-        User GetUser(string username);
+        User GetUserWithArtworks(int? id);
+        User GetDataWithoutArtworks(int? id);
     }
 
     public class GetUserData : IGetUserData
@@ -19,7 +21,7 @@ namespace Core.Services.UserServices
             _sqlServer = sqlServer;
         }
 
-        public User GetUser(string username)
+        public User GetUserWithArtworks(int? id)
         {
             var connection = _sqlServer.Connect();
 
@@ -28,7 +30,7 @@ namespace Core.Services.UserServices
                     $"u.username, " +
                     $"u.id, " +
                     $"u.profile_image_url, " +
-                    $"a.id AS artworkId,  " +
+                    $"a.id AS artworkId, " +
                     $"a.piece_name, " +
                     $"a.customer_name, " +
                     $"a.image_url, " +
@@ -37,8 +39,8 @@ namespace Core.Services.UserServices
                     $"a.material_cost, " +
                     $"a.sale_price, " +
                     $"a.height, " +
-                    $"a.width,  " +
-                    $"a.time_spent_minutes,  " +
+                    $"a.width, " +
+                    $"a.time_spent_minutes, " +
                     $"a.shape, " +
                     $"a.payment_type, " +
                     $"a.is_commission, " +
@@ -46,8 +48,9 @@ namespace Core.Services.UserServices
                     $"a.date_started, " +
                     $"a.date_finished " +
                 $"FROM user_table u " +
-                $"INNER JOIN  artwork_table a " +
-                $"ON u.id = a.user_id;";
+                $"INNER JOIN artwork_table a " +
+                $"ON u.id = a.user_id " +
+                $"WHERE u.id = {id};";
 
             User user = null;
 
@@ -96,6 +99,38 @@ namespace Core.Services.UserServices
             return user;
 
             // todo _sqlServer.CloseConnection middleware?
+        }
+
+        public User GetDataWithoutArtworks(int? id)
+        {
+            var connection = _sqlServer.Connect();
+
+            var query =
+                $"SELECT " +
+                $"username, password, profile_image_url " +
+                $"FROM user_table " +
+                $"WHERE id = {id};";
+
+
+            User user = new User {Id = id};
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                        while (reader.Read())
+                        {
+                            user.Username = reader.GetDefaultString("username");
+                            user.ProfileImgUrl = reader.GetDefaultString("profile_image_url");
+                            user.Password = reader.GetDefaultString("password");
+                        }
+                }
+            }
+
+            _sqlServer.CloseConnection();
+
+            return user;
         }
     }
 }

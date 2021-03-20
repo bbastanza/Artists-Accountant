@@ -10,6 +10,12 @@ namespace Core.ExtensionMethods
             var index = reader.GetOrdinal(column);
             return reader.IsDBNull(index) ? 0 : reader.GetInt32(index);
         }
+        
+        public static string GetDefaultString(this SqlDataReader reader, string column)
+        {
+            var index = reader.GetOrdinal(column);
+            return reader.IsDBNull(index) || reader.GetString(index) == "" ? null : reader.GetString(index);
+        }
 
         public static int? GetNullableInt(this SqlDataReader reader, string column)
         {
@@ -21,12 +27,6 @@ namespace Core.ExtensionMethods
         {
             var index = reader.GetOrdinal(column);
             return reader.IsDBNull(index) ? null : (decimal?) reader.GetDecimal(index);
-        }
-
-        public static string GetDefaultString(this SqlDataReader reader, string column)
-        {
-            var index = reader.GetOrdinal(column);
-            return reader.IsDBNull(index) || reader.GetString(index) == "" ? null : reader.GetString(index);
         }
 
         public static bool? GetNullableBool(this SqlDataReader reader, string column)

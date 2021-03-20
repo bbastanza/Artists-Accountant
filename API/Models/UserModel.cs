@@ -16,10 +16,10 @@ namespace API.Models
             }
         }
 
-        public int? Id { get; set; }
-        public string Username { get; set; }
-        public string ProfileImgUrl { get; set; }
-        public IList<ArtWorkModel> ArtWorks { get; set; } = new List<ArtWorkModel>();
+        public int? Id { get; }
+        public string Username { get; }
+        public string ProfileImgUrl { get; }
+        public IList<ArtWorkModel> ArtWorks { get; } = new List<ArtWorkModel>();
         public decimal? TotalMarginCollected => TotalCollectedIncome - TotalExpenses;
         public decimal? TotalMarginPotential => TotalCollectedIncome + TotalUncollectedIncome - TotalExpenses;
 
@@ -30,8 +30,9 @@ namespace API.Models
                 decimal? total = 0;
                 foreach (var piece in ArtWorks)
                 {
-                    if (piece.IsPaymentCollected != null
-                        && !(bool) piece.IsPaymentCollected)
+                    if (piece.IsPaymentCollected != null && 
+                        !(bool) piece.IsPaymentCollected && 
+                        piece.SalePrice != null)
                         total += piece.SalePrice;
                 }
 
@@ -47,7 +48,8 @@ namespace API.Models
                 foreach (var piece in ArtWorks)
                 {
                     if (piece.IsPaymentCollected != null
-                        && (bool) piece.IsPaymentCollected)
+                        && (bool) piece.IsPaymentCollected
+                        && piece.SalePrice != null)
                         total += piece.SalePrice;
                 }
 
@@ -62,6 +64,8 @@ namespace API.Models
                 decimal? total = 0;
                 foreach (var piece in ArtWorks)
                 {
+                    if (piece.MaterialCost == null &&
+                        piece.ShippingCost == null) continue;
                     total += piece.MaterialCost;
                     total += piece.ShippingCost;
                 }

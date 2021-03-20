@@ -3,22 +3,27 @@ using System.Data.SqlClient;
 using System.IO;
 using Core.Entities;
 using Core.Services.DbServices;
+using Core.Services.SqlBuilders;
 
 namespace Core.Services.ArtWorkServices
 {
-    public interface IEditArtWork
+    public interface IPatchArtWork
     {
         void Edit(ArtWork artwork);
     }
 
-    public class EditArtWork : IEditArtWork
+    public class PatchArtWork : IPatchArtWork
     {
         private readonly ISqlServer _sqlServer;
+        private readonly IArtworkSqlBuilder _sqlBuilder;
         private readonly string _path;
 
-        public EditArtWork(ISqlServer sqlServer)
+        public PatchArtWork(
+            ISqlServer sqlServer,
+            IArtworkSqlBuilder sqlBuilder)
         {
             _sqlServer = sqlServer;
+            _sqlBuilder = sqlBuilder;
             _path = Path.GetFullPath(ToString());
         }
 
@@ -26,13 +31,7 @@ namespace Core.Services.ArtWorkServices
         {
             var connection = _sqlServer.Connect();
 
-            var sqlBuilder = new ArtworkSqlBuilder();
-
-            var query =
-                $"UPDATE artwork_table " +
-                $"SET " +
-                sqlBuilder.GetSqlSet(artwork) +
-                $"WHERE id = {artwork.Id};";
+            var query = _sqlBuilder.GenerateUpdateStatement(artwork);
 
             try
             {

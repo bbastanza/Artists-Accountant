@@ -14,12 +14,12 @@ namespace Core.Services.UserServices
 
     public class AddUser : IAddUser
     {
-        private readonly IGetUserData _getUserData;
+        private readonly IGetUserAuth _getUserData;
         private readonly ISqlServer _sqlServer;
         private readonly string _path;
 
         public AddUser(
-            IGetUserData getUserData,
+            IGetUserAuth getUserData,
             ISqlServer sqlServer)
         {
             _getUserData = getUserData;
@@ -29,7 +29,7 @@ namespace Core.Services.UserServices
 
         public void Add(string username, string password)
         {
-            var existingUser = _getUserData.GetUser(username);
+            var existingUser = _getUserData.Get(username);
 
             if (existingUser != null)
                 throw new ExistingUserException(_path, "Add()");

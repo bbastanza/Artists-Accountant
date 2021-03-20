@@ -4,11 +4,14 @@ namespace API.Models
 {
     public class UserInputModel
     {
+        [JsonPropertyName("id")] 
+        public int? Id { get; set; }
+        
         [JsonPropertyName("userName")]
-        public virtual string Username { get; set; }
+        public string Username { get; set; }
         
         [JsonPropertyName("password")]
-        public virtual string Password { get; set; }
+        public string Password { get; set; }
         
         [JsonPropertyName("profileImgUrl")] 
         public string ProfileImgUrl { get; set; }

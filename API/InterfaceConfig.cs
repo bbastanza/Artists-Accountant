@@ -1,6 +1,7 @@
 using API.Services;
 using Core.Services.ArtWorkServices;
 using Core.Services.DbServices;
+using Core.Services.SqlBuilders;
 using Core.Services.UserServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +18,11 @@ namespace API
             services.AddScoped<IGetUserAuth, GetUserAuth>();
             services.AddScoped<IAddUser, AddUser>();
             services.AddScoped<IDeleteUser, DeleteUser>();
-            services.AddScoped<IEditUser, EditUser>();
-            services.AddScoped<IEditArtWork, EditArtWork>();
+            services.AddScoped<IPatchUser, PatchUser>();
+            services.AddScoped<IPatchArtWork, PatchArtWork>();
             services.AddScoped<IDeleteArtWork, DeleteArtWork>();
+            services.AddScoped<IArtworkSqlBuilder, ArtworkSqlBuilder>();
+            services.AddScoped<IUserSqlBuilder, UserSqlBuilder>();
             services.AddSingleton<ISqlServer>(new SqlServer(configuration));
         }
     }

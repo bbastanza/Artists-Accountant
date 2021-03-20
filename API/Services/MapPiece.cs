@@ -16,6 +16,7 @@ namespace API.Services
             
             return new ArtWork
             {
+                UserId = artWorkInput.UserId,
                 Id = artWorkInput.Id,
                 PieceName = artWorkInput.PieceName,
                 DateStarted = artWorkInput.DateStarted,
@@ -32,7 +33,6 @@ namespace API.Services
                 IsCommission = artWorkInput.IsCommission,
                 SalePrice = artWorkInput.SalePrice,
                 IsPaymentCollected = artWorkInput.IsPaymentCollected,
-                Username = artWorkInput.Username,
                 ImgUrl = artWorkInput.ImgUrl
             };
         }

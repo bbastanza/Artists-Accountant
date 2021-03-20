@@ -24,7 +24,7 @@ namespace Core.Services.UserServices
         {
             var connection = _sqlServer.Connect();
 
-            var query = $"SELECT username, password FROM user_table WHERE username = '{username}';";
+            var query = $"SELECT id, username, password FROM user_table WHERE username = '{username}';";
 
             User user = null;
             

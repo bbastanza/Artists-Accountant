@@ -17,18 +17,18 @@ namespace API.Controllers
         private readonly string _path;
         private readonly IAddArtWork _addArtWork;
         private readonly IMapPiece _mapPiece;
-        private readonly IEditArtWork _editArtWork;
+        private readonly IPatchArtWork _patchArtWork;
         private readonly IDeleteArtWork _deleteArtWork;
 
         public ArtWorksController(
             IAddArtWork addArtWork,
             IMapPiece mapPiece,
-            IEditArtWork editArtWork,
+            IPatchArtWork patchArtWork,
             IDeleteArtWork deleteArtWork)
         {
             _addArtWork = addArtWork;
             _mapPiece = mapPiece;
-            _editArtWork = editArtWork;
+            _patchArtWork = patchArtWork;
             _deleteArtWork = deleteArtWork;
             _path = Path.GetFullPath(ToString()!);
         }
@@ -37,7 +37,7 @@ namespace API.Controllers
         [HttpPost]
         public void AddPiece(ArtWorkInputModel artInput)
         {
-            if (artInput.Username == null)
+            if (artInput.UserId == null)
                 throw new InvalidInputException(_path, "AddPieces()");
             
             var artWork = _mapPiece.Map(artInput);
@@ -52,17 +52,17 @@ namespace API.Controllers
                 throw new InvalidInputException(_path, "AddPieces()");
 
             var artWork = _mapPiece.Map(artInput);
-            _editArtWork.Edit(artWork);
+            _patchArtWork.Edit(artWork);
         }
 
         // [Authorize]
-        [HttpDelete]
-        public void DeletePiece(ArtWorkInputModel artInput)
+        [HttpDelete("{id}")]
+        public void DeletePiece(int? id)
         {
-            if (artInput.Id == null)
+            if (id == null)
                 throw new InvalidInputException(_path, "DeletePiece()");
             
-            _deleteArtWork.Delete(artInput.Id);
+            _deleteArtWork.Delete(id);
         }
     }
 }

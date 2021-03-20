@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Entities;
 
-namespace Core.Services.ArtWorkServices
+namespace Core.Services.SqlBuilders
 {
-    public class ArtworkSqlBuilder
+    public interface IArtworkSqlBuilder
+    {
+        string GenerateUpdateStatement(ArtWork artwork);
+        string GenerateInsertStatement(ArtWork artWork);
+    }
+
+    public class ArtworkSqlBuilder : IArtworkSqlBuilder
     {
         private Dictionary<string, string> Properties { get; } = new Dictionary<string, string>
         {
+            {"UserId", "user_id"},
             {"ImgUrl", "image_url"},
             {"PieceName", "piece_name"},
             {"CustomerName", "customer_name"},
@@ -27,7 +34,7 @@ namespace Core.Services.ArtWorkServices
             {"DateFinished", "date_finished"},
         };
 
-        public string GetSqlSet(ArtWork artwork)
+        public string GenerateUpdateStatement(ArtWork artwork)
         {
             var properties = artwork.GetType().GetProperties();
 
@@ -39,7 +46,7 @@ namespace Core.Services.ArtWorkServices
                 if (Properties.ContainsKey(property.Name) && propertyValue != null)
                 {
                     sqlStatement.Append($"{Properties[property.Name]} = ");
-                    
+
                     switch (propertyValue)
                     {
                         case string _:
@@ -57,14 +64,27 @@ namespace Core.Services.ArtWorkServices
                     }
                 }
             }
-            
+
             if (sqlStatement.ToString().Contains(","))
                 sqlStatement.Remove(sqlStatement.ToString().LastIndexOf(",", StringComparison.Ordinal), 1);
 
-            return sqlStatement.ToString();
+            return $"UPDATE artwork_table " +
+                   $"SET " +
+                   sqlStatement +
+                   $"WHERE id = {artwork.Id};";
         }
 
-        public string GetSqlProperties(ArtWork artwork)
+        public string GenerateInsertStatement(ArtWork artWork)
+        {
+            var properties = GetSqlProperties(artWork);
+            var values = GetSqlValues(artWork);
+            return $"INSERT INTO artwork_table (" +
+                   $"{(properties.Length > 0 ? $"{properties}" : "")}" +
+                   $") VALUES (" +
+                   $"{(values.Length > 0 ? $"{values}" : "")});";
+        }
+
+        private string GetSqlProperties(ArtWork artwork)
         {
             var properties = artwork.GetType().GetProperties();
 
@@ -85,15 +105,13 @@ namespace Core.Services.ArtWorkServices
             return sqlStatement.ToString();
         }
 
-        public string GetSqlValues(ArtWork artwork)
+        private string GetSqlValues(ArtWork artwork)
         {
             var properties = artwork.GetType().GetProperties();
 
             var sqlStatement = new StringBuilder("");
             foreach (var property in properties)
             {
-                if (property.Name == "Id" || property.Name == "Username") continue;
-                
                 var propertyValue = artwork.GetType().GetProperty(property.Name)?.GetValue(artwork);
 
                 if (Properties.ContainsKey(property.Name) && propertyValue != null)

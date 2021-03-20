@@ -4,7 +4,7 @@ namespace Core.Entities
 {
     public class ArtWork : Entity
     {
-        public string Username { get; set; }
+        public int? UserId { get; set; }
         public string ImgUrl { get; set; }
         public string PieceName { get; set; }
         public string CustomerName { get; set; }
