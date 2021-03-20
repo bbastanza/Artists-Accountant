@@ -6,7 +6,7 @@ namespace Core.Services.ArtWorkServices
 {
     public interface IDeleteArtWork
     {
-        void Delete(int id);
+        void Delete(int? id);
     }
 
     public class DeleteArtWork : IDeleteArtWork
@@ -20,7 +20,7 @@ namespace Core.Services.ArtWorkServices
             _path = Path.GetFullPath(ToString());
         }
 
-        public void Delete(int id)
+        public void Delete(int? id)
         {
             var connection = _sqlServer.Connect();
 

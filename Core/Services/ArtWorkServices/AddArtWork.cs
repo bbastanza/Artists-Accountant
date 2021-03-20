@@ -30,54 +30,15 @@ namespace Core.Services.ArtWorkServices
 
             var connection = _sqlServer.Connect();
 
-            var dateStarted = artWork.DateStarted != null
-                ? $"'{(DateTime) artWork.DateStarted:MM/dd/yyyy}', "
-                : "NULL, ";
+            var sqlBuilder = new ArtworkSqlBuilder();
+            var properties = sqlBuilder.GetSqlProperties(artWork);
+            var values = sqlBuilder.GetSqlValues(artWork);
 
-            var dateFinished = artWork.DateFinished != null
-                ? $"'{(DateTime) artWork.DateFinished:MM/dd/yyyy}', "
-                : "NULL, ";
-
-
-            var properties = new ArtworkPropertyHash();
-            
             var query =
-                $"INSERT INTO artwork_table (" +
-                $"user_id, " +
-                $"piece_name, " +
-                $"customer_name, " +
-                $"customer_contact, " +
-                $"shipping_cost, " +
-                $"material_cost, " +
-                $"sale_price, " +
-                $"height, " +
-                $"width, " +
-                $"shape, " +
-                $"payment_type, " +
-                $"is_commission, " +
-                $"is_payment_collected, " +
-                $"image_url, " +
-                $"date_started, " +
-                $"date_finished, " +
-                $"time_spent_minutes) " +
-                $"VALUES (" +
-                $"{user.Id}, " +
-                $"'{artWork.PieceName}', " +
-                $"'{artWork.CustomerName}', " +
-                $"'{artWork.CustomerContact}', " +
-                $"{artWork.ShippingCost}, " +
-                $"{artWork.MaterialCost}, " +
-                $"{artWork.SalePrice}, " +
-                $"{artWork.HeightInches}, " +
-                $"{artWork.WidthInches}, " +
-                $"'{artWork.Shape}', " +
-                $"'{artWork.PaymentType}', " +
-                $"{(artWork.IsCommission ? 1 : 0)}, " +
-                $"{(artWork.IsPaymentCollected ? 1 : 0)}, " +
-                $"'{artWork.ImgUrl}', " +
-                $"{dateStarted}" +
-                $"{dateFinished}" +
-                $"{artWork.TimeSpentMinutes});";
+                $"INSERT INTO artwork_table (user_id" +
+                $"{(properties.Length > 0 ? $", {properties}" : "")}" +
+                $") VALUES ({user.Id}" +
+                $"{(values.Length > 0 ? $", {values}" : "")});";
 
             try
             {

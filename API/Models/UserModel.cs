@@ -16,21 +16,22 @@ namespace API.Models
             }
         }
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Username { get; set; }
         public string ProfileImgUrl { get; set; }
         public IList<ArtWorkModel> ArtWorks { get; set; } = new List<ArtWorkModel>();
-        public decimal TotalMarginCollected => TotalCollectedIncome - TotalExpenses;
-        public decimal TotalMarginPotential => TotalCollectedIncome + TotalUncollectedIncome - TotalExpenses;
+        public decimal? TotalMarginCollected => TotalCollectedIncome - TotalExpenses;
+        public decimal? TotalMarginPotential => TotalCollectedIncome + TotalUncollectedIncome - TotalExpenses;
 
-        public decimal TotalUncollectedIncome
+        public decimal? TotalUncollectedIncome
         {
             get
             {
-                decimal total = 0;
+                decimal? total = 0;
                 foreach (var piece in ArtWorks)
                 {
-                    if (!piece.IsPaymentCollected)
+                    if (piece.IsPaymentCollected != null
+                        && !(bool) piece.IsPaymentCollected)
                         total += piece.SalePrice;
                 }
 
@@ -38,14 +39,15 @@ namespace API.Models
             }
         }
 
-        public decimal TotalCollectedIncome
+        public decimal? TotalCollectedIncome
         {
             get
             {
-                decimal total = 0;
+                decimal? total = 0;
                 foreach (var piece in ArtWorks)
                 {
-                    if (piece.IsPaymentCollected)
+                    if (piece.IsPaymentCollected != null
+                        && (bool) piece.IsPaymentCollected)
                         total += piece.SalePrice;
                 }
 
@@ -53,11 +55,11 @@ namespace API.Models
             }
         }
 
-        public decimal TotalExpenses
+        public decimal? TotalExpenses
         {
             get
             {
-                decimal total = 0;
+                decimal? total = 0;
                 foreach (var piece in ArtWorks)
                 {
                     total += piece.MaterialCost;

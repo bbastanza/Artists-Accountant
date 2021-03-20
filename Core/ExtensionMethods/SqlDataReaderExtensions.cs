@@ -10,29 +10,35 @@ namespace Core.ExtensionMethods
             var index = reader.GetOrdinal(column);
             return reader.IsDBNull(index) ? 0 : reader.GetInt32(index);
         }
-        
-        public static decimal GetDefaultDecimal(this SqlDataReader reader, string column)
+
+        public static int? GetNullableInt(this SqlDataReader reader, string column)
         {
             var index = reader.GetOrdinal(column);
-            return reader.IsDBNull(index) ? 0 : reader.GetDecimal(index);
+            return reader.IsDBNull(index) ? null : (int?) reader.GetInt32(index);
         }
-        
+
+        public static decimal? GetNullableDecimal(this SqlDataReader reader, string column)
+        {
+            var index = reader.GetOrdinal(column);
+            return reader.IsDBNull(index) ? null : (decimal?) reader.GetDecimal(index);
+        }
+
         public static string GetDefaultString(this SqlDataReader reader, string column)
         {
             var index = reader.GetOrdinal(column);
             return reader.IsDBNull(index) || reader.GetString(index) == "" ? null : reader.GetString(index);
         }
-        
-        public static bool GetDefaultBool(this SqlDataReader reader, string column)
+
+        public static bool? GetNullableBool(this SqlDataReader reader, string column)
         {
             var index = reader.GetOrdinal(column);
             return !reader.IsDBNull(index) && reader.GetBoolean(index);
         }
-        
-        public static DateTime GetDefaultDateTime(this SqlDataReader reader, string column)
+
+        public static DateTime? GetNullableDateTime(this SqlDataReader reader, string column)
         {
             var index = reader.GetOrdinal(column);
-            return reader.IsDBNull(index) ? new DateTime(0) : reader.GetDateTime(index);
+            return reader.IsDBNull(index) ? null : (DateTime?) reader.GetDateTime(index);
         }
     }
 }

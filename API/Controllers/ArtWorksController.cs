@@ -46,23 +46,20 @@ namespace API.Controllers
 
         // [Authorize]
         [HttpPatch]
-        public void EditPiece(JsonData artInput)
+        public void EditPiece(ArtWorkInputModel artInput)
         {
-            // if (artInput.Username == null)
-            //     throw new InvalidInputException(_path, "AddPieces()");
+            if (artInput.Id == null)
+                throw new InvalidInputException(_path, "AddPieces()");
 
-            Console.WriteLine("Controller: " + artInput);
-            var table = new ArtworkPropertyHash();
-            table.GetSqlProperty(artInput);
-            // var artWork = _mapPiece.Map(artInput);
-            _editArtWork.Edit(artInput);
+            var artWork = _mapPiece.Map(artInput);
+            _editArtWork.Edit(artWork);
         }
 
         // [Authorize]
         [HttpDelete]
         public void DeletePiece(ArtWorkInputModel artInput)
         {
-            if (artInput.Id == 0)
+            if (artInput.Id == null)
                 throw new InvalidInputException(_path, "DeletePiece()");
             
             _deleteArtWork.Delete(artInput.Id);

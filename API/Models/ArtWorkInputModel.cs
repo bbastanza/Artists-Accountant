@@ -6,7 +6,7 @@ namespace API.Models
     public class ArtWorkInputModel
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         
         [JsonPropertyName("pieceName")] 
         public string PieceName { get; set; }
@@ -18,22 +18,22 @@ namespace API.Models
         public string CustomerContact { get; set; }
 
         [JsonPropertyName("shippingCost")] 
-        public decimal ShippingCost { get; set; }
+        public decimal? ShippingCost { get; set; }
 
         [JsonPropertyName("materialCost")] 
-        public decimal MaterialCost { get; set; }
+        public decimal? MaterialCost { get; set; }
 
         [JsonPropertyName("salePrice")] 
-        public decimal SalePrice { get; set; }
+        public decimal? SalePrice { get; set; }
 
         [JsonPropertyName("height")] 
-        public int HeightInches { get; set; }
+        public int? HeightInches { get; set; }
 
         [JsonPropertyName("width")] 
-        public int WidthInches { get; set; }
+        public int? WidthInches { get; set; }
 
         [JsonPropertyName("timeSpent")] 
-        public int TimeSpentMinutes { get; set; }
+        public int? TimeSpentMinutes { get; set; }
 
         [JsonPropertyName("shape")] 
         public string Shape { get; set; }
@@ -42,10 +42,10 @@ namespace API.Models
         public string PaymentType { get; set; }
 
         [JsonPropertyName("isCommission")] 
-        public bool IsCommission { get; set; }
+        public bool? IsCommission { get; set; }
 
         [JsonPropertyName("isPaymentCollected")]
-        public bool IsPaymentCollected { get; set; }
+        public bool? IsPaymentCollected { get; set; }
 
         [JsonPropertyName("dateStarted")] 
         public DateTime? DateStarted { get; set; }
