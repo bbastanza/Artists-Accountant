@@ -1,6 +1,7 @@
 using System.IO;
 using API.Models;
 using Core.Services.JwtAuthentication;
+using Core.Services.SqlBuilders;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

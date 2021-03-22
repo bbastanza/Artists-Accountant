@@ -6,7 +6,6 @@ using Core.Services.ArtWorkServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ThirdParty.Json.LitJson;
 
 namespace API.Controllers
 {

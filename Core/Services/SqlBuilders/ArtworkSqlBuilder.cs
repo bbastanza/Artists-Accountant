@@ -31,7 +31,7 @@ namespace Core.Services.SqlBuilders
             {"IsCommission", "is_commission"},
             {"IsPaymentCollected", "is_payment_collected"},
             {"DateStarted", "date_started"},
-            {"DateFinished", "date_finished"},
+            {"DateFinished", "date_finished"}
         };
 
         public string GenerateUpdateStatement(ArtWork artwork)
@@ -39,6 +39,7 @@ namespace Core.Services.SqlBuilders
             var properties = artwork.GetType().GetProperties();
 
             var sqlStatement = new StringBuilder("");
+            
             foreach (var property in properties)
             {
                 var propertyValue = artwork.GetType().GetProperty(property.Name)?.GetValue(artwork);

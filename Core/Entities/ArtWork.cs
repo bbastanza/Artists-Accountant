@@ -21,6 +21,5 @@ namespace Core.Entities
         public bool?  IsPaymentCollected { get; set; }
         public DateTime? DateStarted { get; set; } 
         public DateTime? DateFinished { get; set; }
-
     }
 }
