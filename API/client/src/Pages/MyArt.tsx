@@ -8,7 +8,7 @@ const MyArt: React.FC = () => {
         userId: 1,
         pieceName: "Mandala",
         customerName: "Brian",
-        customerContact: "b@g.com",
+        customerContact: "bbastanza@gmail.com",
         shippingCost: 15.82,
         materialCost: 10.32,
         salePrice: 1250.43,
@@ -57,7 +57,7 @@ const MyArt: React.FC = () => {
                 <button className="btn btn-purple" onClick={addPiece}>
                     Add Piece
                 </button>
-                <div className="row justify-content-start">
+                <div className="row justify-content-start" style={{ overflow: "hidden" }}>
                     <Artwork artwork={artwork} />
                     <Artwork artwork={artwork2} />
                     <Artwork artwork={artwork} />

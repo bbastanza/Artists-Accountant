@@ -11,7 +11,6 @@ const ArtistNavbar: React.FC = () => {
     };
 
     return (
-        // <Router>
         <nav className="art-navbar">
             <ul className="art-navbar-nav">
                 <Link to="/" className="art-nav-item" style={linkStyle}>
@@ -40,7 +39,6 @@ const ArtistNavbar: React.FC = () => {
                 </Link>
             </ul>
         </nav>
-        // </Router>
     );
 };
 

@@ -1,61 +1,68 @@
 import React from "react";
 import Modal from "./Modal";
 import { artwork } from "./Artwork";
-import DateTime from "luxon";
+import "./CSS/ShowMore.css";
 
 interface showMoreProps {
     artwork: artwork;
     setShowMore: Function;
 }
 
-const modalContainer: React.CSSProperties = {
-    width: "80vw",
-    height: "90vh",
-    minWidth: 300,
-    background: "white",
-    border: "2px solid purple",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    color: "#313131",
-    overflow: "hidden",
-    textAlign: "left",
-    margin: "auto",
-};
 const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore }: showMoreProps) => {
-    const defaultImageUrl =
-        "https://rlv.zcache.com/svc/view?realview=113070396694079804&design=0e2557d4-ca0f-4d5d-ab28-5a3543e6d157&rlvnet=1&style=standard_apron&max_dim=180&hide=bleed%2Csafe%2Cvisible%2CvisibleMask";
+    const defaultImageUrl = "https://webstockreview.net/images/easel-clipart-color-pallet-18.png";
     const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImageUrl;
 
     return (
         <Modal>
-            <div style={modalContainer}>
-                <div className="row" style={{ justifyContent: "center" }}>
-                    <img
-                        className="offset-1 col-10"
-                        style={{ borderRadius: "3%", padding: 30 }}
-                        src={imageUrl}
-                        alt=""
-                    />
-                    <div className="offset-1 col-sm-12 col-md-4">
-                        <h4>Name: {artwork.pieceName}</h4>
-                        <h4>Customer Name: {artwork.customerName}</h4>
-                        <h4>Contact: {artwork.customerContact}</h4>
-                        <h4>Shipping Cost: {artwork.shippingCost}</h4>
-                        <h4>Material Cost: {artwork.materialCost}</h4>
-                        <h4>Sale Price: {artwork.salePrice}</h4>
-                        <h4>Margin: {artwork.margin}</h4>
-                        <h4>Shape: {artwork.shape}</h4>
+            <div className="modal-container">
+                <div className="row inner-modal-container">
+                    <img className="col-12 modal-img" src={imageUrl} alt="" />
+                    <div className="x-btn" onClick={() => setShowMore(false)}>
+                        &times;
                     </div>
-                    <div className="offset-1 col-sm-12 col-md-4">
-                        <h4>Height: {artwork.height}"</h4>
-                        <h4>Width: {artwork.width}"</h4>
-                        <h4>Payment Type: {artwork.paymentType}</h4>
-                        <h4>Commission? {artwork.isCommission ? "Yes" : "No"}</h4>
-                        <h4>Payment Collected? {artwork.isPaymentCollected ? "Yes" : "No"}</h4>
-                        <h4>Time Spent: {artwork.timeSpent}</h4>
-                        <h4>Date Started: {artwork.dateStarted.toLocaleDateString()}</h4>
-                        <h4>Date Finished: {artwork.dateFinished.toLocaleDateString()}</h4>
+                    <div className="col-sm-10 col-md-4 row">
+                        <div className="col-5 keys">
+                            <h6>Height:</h6>
+                            <h6>Width: </h6>
+                            <h6 style={{ whiteSpace: "nowrap" }}>Payment Type: </h6>
+                            <h6>Commission? </h6>
+                            <h6>Paid? </h6>
+                            <h6 style={{ whiteSpace: "nowrap" }}>Time Spent: </h6>
+                            <h6>Started: </h6>
+                            <h6>Finished: </h6>
+                        </div>
+                        <div className="col-4 values">
+                            <h6>{artwork.height}"</h6>
+                            <h6>{artwork.width}"</h6>
+                            <h6>{artwork.paymentType}</h6>
+                            <h6>{artwork.isCommission ? "Yes" : "No"}</h6>
+                            <h6>{artwork.isPaymentCollected ? "Yes" : "No"}</h6>
+                            <h6>{artwork.timeSpent}</h6>
+                            <h6>{artwork.dateStarted.toLocaleDateString()}</h6>
+                            <h6>{artwork.dateFinished.toLocaleDateString()}</h6>
+                        </div>
+                    </div>
+                    <div className="col-sm-10 col-md-4 row">
+                        <div className="col-5 keys">
+                            <h6>Name: </h6>
+                            <h6>Customer: </h6>
+                            <h6>Contact: </h6>
+                            <h6>Shipping: </h6>
+                            <h6>Material: </h6>
+                            <h6 style={{ whiteSpace: "nowrap" }}>Sale Price: </h6>
+                            <h6>Margin: </h6>
+                            <h6>Shape: </h6>
+                        </div>
+                        <div className="col-4 values">
+                            <h6>{artwork.pieceName}</h6>
+                            <h6>{artwork.customerName}</h6>
+                            <h6>{artwork.customerContact}</h6>
+                            <h6>{artwork.shippingCost}</h6>
+                            <h6>{artwork.materialCost}</h6>
+                            <h6>{artwork.salePrice}</h6>
+                            <h6>{artwork.margin}</h6>
+                            <h6>{artwork.shape}</h6>
+                        </div>
                     </div>
                 </div>
             </div>
