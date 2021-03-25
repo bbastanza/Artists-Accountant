@@ -30,13 +30,14 @@ export interface artwork {
 const Artwork: React.FC<artworkProps> = ({ artwork }: artworkProps) => {
     const [showMore, setShowMore] = useState<boolean>(false);
 
-    const defaultImageUrl = "https://webstockreview.net/images/easel-clipart-color-pallet-18.png";
-    const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImageUrl;
+    const defaultImgUrl =
+        "https://1.bp.blogspot.com/-Bxk8AKjiW6Y/TdTf86SJg1I/AAAAAAAAFnE/nn9X5nNhvgQ/s1600/4+Horizontal+%2526+Vertical+lines+%25286%2529.JPG";
+    const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImgUrl;
 
     return (
         <>
             {showMore ? (
-                <ArtworkShowMore setShowMore={setShowMore} artwork={artwork} />
+                <ArtworkShowMore setShowMore={setShowMore} artwork={artwork} defaultImgUrl={defaultImgUrl} />
             ) : (
                 <div className="row flex-start artwork-container">
                     <div className="col-4 img-btn-container">
@@ -55,7 +56,7 @@ const Artwork: React.FC<artworkProps> = ({ artwork }: artworkProps) => {
                         <p>
                             Customer: <b>{artwork.customerName}</b>{" "}
                         </p>
-                        <p className="d-none d-sm-block">
+                        <p className="d-none d-md-block">
                             Contact: <b>{artwork.customerContact}</b>
                         </p>
                     </div>

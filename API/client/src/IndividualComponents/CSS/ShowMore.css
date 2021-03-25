@@ -4,6 +4,7 @@
     top: 0;
     right: 5px;
     font-size: 3rem;
+    padding-left: 10px;
 }
 .x-btn:hover {
     cursor: pointer;
@@ -35,17 +36,30 @@
 }
 
 .modal-img {
-    border-radius: 5%;
-    padding: 30px;
-    max-height: 600px;
-    width: auto;
-}
-.keys {
-    font-weight: 100;
-    color: #606060;
+    padding: 30px 50px 30px 30px;
+    max-height: 25rem;
+    max-width: 25rem;
 }
 
-.values {
+.key {
+    font-weight: 300;
+    color: #3d3d3d;
+    text-align: left;
+    display: flex;
+}
+
+.value {
+    font-weight: 500;
     text-align: right;
+}
+.caps {
     text-transform: capitalize;
+}
+
+.prop-div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted #bdbdbd;
+    max-width: 500px;
+    margin: 10px auto 0;
 }

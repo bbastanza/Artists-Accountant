@@ -2,15 +2,16 @@ import React from "react";
 import Modal from "./Modal";
 import { artwork } from "./Artwork";
 import "./CSS/ShowMore.css";
+import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTime } from "./../helpers/beautifyNumber";
 
 interface showMoreProps {
     artwork: artwork;
     setShowMore: Function;
+    defaultImgUrl: string;
 }
 
-const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore }: showMoreProps) => {
-    const defaultImageUrl = "https://webstockreview.net/images/easel-clipart-color-pallet-18.png";
-    const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImageUrl;
+const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore, defaultImgUrl }: showMoreProps) => {
+    const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImgUrl;
 
     return (
         <Modal>
@@ -20,48 +21,74 @@ const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore }: show
                     <div className="x-btn" onClick={() => setShowMore(false)}>
                         &times;
                     </div>
-                    <div className="col-sm-10 col-md-4 row">
-                        <div className="col-5 keys">
-                            <h6>Height:</h6>
-                            <h6>Width: </h6>
-                            <h6 style={{ whiteSpace: "nowrap" }}>Payment Type: </h6>
-                            <h6>Commission? </h6>
-                            <h6>Paid? </h6>
-                            <h6 style={{ whiteSpace: "nowrap" }}>Time Spent: </h6>
-                            <h6>Started: </h6>
-                            <h6>Finished: </h6>
+                    <div className="row col-12">
+                        <div className="col-sm-12 col-md-6">
+                            <div className="prop-div">
+                                <h6 className="key">Customer:</h6>
+                                <h6 className="value">{formatForNull(artwork.customerName)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Contact:</h6>
+                                <h6 className="value">{formatForNull(artwork.customerContact)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Name:</h6>
+                                <h6 className="value">{formatForNull(artwork.pieceName)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Sale Price:</h6>
+                                <h6 className="value">{formatMoney(artwork.salePrice)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Margin:</h6>
+                                <h6 className="value">{formatMoney(artwork.margin)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Material Cost:</h6>
+                                <h6 className="value">{formatMoney(artwork.materialCost)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Shipping Cost:</h6>
+                                <h6 className="value">{formatMoney(artwork.shippingCost)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Payment Type:</h6>
+                                <h6 className="value caps">{formatForNull(artwork.paymentType)}</h6>
+                            </div>
                         </div>
-                        <div className="col-4 values">
-                            <h6>{artwork.height}"</h6>
-                            <h6>{artwork.width}"</h6>
-                            <h6>{artwork.paymentType}</h6>
-                            <h6>{artwork.isCommission ? "Yes" : "No"}</h6>
-                            <h6>{artwork.isPaymentCollected ? "Yes" : "No"}</h6>
-                            <h6>{artwork.timeSpent}</h6>
-                            <h6>{artwork.dateStarted.toLocaleDateString()}</h6>
-                            <h6>{artwork.dateFinished.toLocaleDateString()}</h6>
-                        </div>
-                    </div>
-                    <div className="col-sm-10 col-md-4 row">
-                        <div className="col-5 keys">
-                            <h6>Name: </h6>
-                            <h6>Customer: </h6>
-                            <h6>Contact: </h6>
-                            <h6>Shipping: </h6>
-                            <h6>Material: </h6>
-                            <h6 style={{ whiteSpace: "nowrap" }}>Sale Price: </h6>
-                            <h6>Margin: </h6>
-                            <h6>Shape: </h6>
-                        </div>
-                        <div className="col-4 values">
-                            <h6>{artwork.pieceName}</h6>
-                            <h6>{artwork.customerName}</h6>
-                            <h6>{artwork.customerContact}</h6>
-                            <h6>{artwork.shippingCost}</h6>
-                            <h6>{artwork.materialCost}</h6>
-                            <h6>{artwork.salePrice}</h6>
-                            <h6>{artwork.margin}</h6>
-                            <h6>{artwork.shape}</h6>
+                        <div className="col-sm-12 col-md-6">
+                            <div className="prop-div">
+                                <h6 className="key">Paid?</h6>
+                                <h6 className="value">{checkBool(artwork.isPaymentCollected)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Commission?</h6>
+                                <h6 className="value">{checkBool(artwork.isCommission)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Height:</h6>
+                                <h6 className="value">{formatSize(artwork.height)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Width:</h6>
+                                <h6 className="value">{formatSize(artwork.width)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Time Spent:</h6>
+                                <h6 className="value">{formatTime(artwork.timeSpent)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Date Started:</h6>
+                                <h6 className="value">{checkDate(artwork.dateStarted)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Date Finished:</h6>
+                                <h6 className="value">{checkDate(artwork.dateFinished)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Shape:</h6>
+                                <h6 className="value caps">{formatForNull(artwork.shape)}</h6>
+                            </div>
                         </div>
                     </div>
                 </div>
