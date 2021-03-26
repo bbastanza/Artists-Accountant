@@ -43,6 +43,7 @@ const Artwork: React.FC<artworkProps> = ({ artwork }: artworkProps) => {
             {showMore ? (
                 <ArtworkShowMore setShowMore={setShowMore} artwork={artwork} defaultImgUrl={defaultImgUrl} />
             ) : null}
+
             {showEdit ? <ArtworkForm setShowEdit={setShowEdit} artwork={artwork} userId={1} /> : null}
 
             <div className="row flex-start artwork-container">

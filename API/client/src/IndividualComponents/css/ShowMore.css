@@ -6,6 +6,7 @@
     font-size: 3rem;
     padding-left: 10px;
 }
+
 .x-btn:hover {
     cursor: pointer;
     color: #7b64ff;
@@ -52,6 +53,7 @@
     font-weight: 500;
     text-align: right;
 }
+
 .caps {
     text-transform: capitalize;
 }

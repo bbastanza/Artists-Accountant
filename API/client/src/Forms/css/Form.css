@@ -10,6 +10,7 @@
     cursor: pointer;
     color: #7b64ff;
 }
+
 .pad {
     margin: 5px;
 }
@@ -35,6 +36,4 @@
 .inner-modal-container {
     position: relative;
     padding-top: 5rem;
-    /* max-width: 1000px; */
-    /* justify-content: center; */
 }

@@ -33,6 +33,7 @@ const ArtworkForm: React.FC<props> = ({ setShowEdit, setShowAddPiece, userId, ar
               }
             : artwork
     );
+
     const handleChange = e => {
         const { name, value, type, checked } = e.target;
         type === "checkbox" ? setState({ ...state, [name]: checked }) : setState({ ...state, [name]: value });
