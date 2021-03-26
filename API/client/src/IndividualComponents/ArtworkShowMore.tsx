@@ -1,8 +1,8 @@
 import React from "react";
 import Modal from "./Modal";
 import { artwork } from "./Artwork";
-import "./CSS/ShowMore.css";
 import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTime } from "./../helpers/beautifyNumber";
+import "./CSS/ShowMore.css";
 
 interface showMoreProps {
     artwork: artwork;
@@ -16,12 +16,12 @@ const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore, defaul
     return (
         <Modal>
             <div className="modal-container">
-                <div className="row inner-modal-container">
-                    <img className="col-12 modal-img" src={imageUrl} alt="" />
+                <div className="inner-modal-container row">
+                    <img className="modal-img" src={imageUrl} alt="" />
                     <div className="x-btn" onClick={() => setShowMore(false)}>
                         &times;
                     </div>
-                    <div className="row col-12">
+                    <div className="col-12 row">
                         <div className="col-sm-12 col-md-6">
                             <div className="prop-div">
                                 <h6 className="key">Customer:</h6>
@@ -58,7 +58,7 @@ const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore, defaul
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="prop-div">
-                                <h6 className="key">Paid?</h6>
+                                <h6 className="key">Sold?</h6>
                                 <h6 className="value">{checkBool(artwork.isPaymentCollected)}</h6>
                             </div>
                             <div className="prop-div">
