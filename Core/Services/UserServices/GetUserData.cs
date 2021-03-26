@@ -8,8 +8,9 @@ namespace Core.Services.UserServices
 {
     public interface IGetUserData
     {
-        User GetUserWithArtworks(int? id);
+        User GetUserWithArtworks(string username);
         User GetDataWithoutArtworks(int? id);
+        User GetDataByUsername(string username);
     }
 
     public class GetUserData : IGetUserData
@@ -21,7 +22,7 @@ namespace Core.Services.UserServices
             _sqlServer = sqlServer;
         }
 
-        public User GetUserWithArtworks(int? id)
+        public User GetUserWithArtworks(string username)
         {
             var connection = _sqlServer.Connect();
 
@@ -50,7 +51,7 @@ namespace Core.Services.UserServices
                 $"FROM user_table u " +
                 $"INNER JOIN artwork_table a " +
                 $"ON u.id = a.user_id " +
-                $"WHERE u.id = {id};";
+                $"WHERE u.username = {username};";
 
             User user = null;
 
@@ -121,6 +122,38 @@ namespace Core.Services.UserServices
                     if (reader.HasRows)
                         while (reader.Read())
                         {
+                            user.Username = reader.GetDefaultString("username");
+                            user.ProfileImgUrl = reader.GetDefaultString("profile_image_url");
+                            user.Password = reader.GetDefaultString("password");
+                        }
+                }
+            }
+
+            _sqlServer.CloseConnection();
+
+            return user;
+        }
+        
+        public User GetDataByUsername(string username)
+        {
+            var connection = _sqlServer.Connect();
+
+            var query =
+                $"SELECT " +
+                $"id, username, password, profile_image_url " +
+                $"FROM user_table " +
+                $"WHERE username = '{username}';";
+
+            User user = new User();
+
+            using (var command = new SqlCommand(query, connection))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                        while (reader.Read())
+                        {
+                            user.Id = reader.GetDefaultInt("id");
                             user.Username = reader.GetDefaultString("username");
                             user.ProfileImgUrl = reader.GetDefaultString("profile_image_url");
                             user.Password = reader.GetDefaultString("password");

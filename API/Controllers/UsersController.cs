@@ -36,24 +36,33 @@ namespace API.Controllers
         }
 
         // [Authorize]
-        [HttpGet("{id}")]
-        public UserModel Get(int? id)
+        [HttpGet("{username}")]
+        public UserModel Get(string username)
         {
-            if (id == null)
+            if (username == null)
                 throw new InvalidInputException(_path, "Get()");
 
-            return new UserModel(_getUserData.GetUserWithArtworks(id));
+            return new UserModel(_getUserData.GetUserWithArtworks(username));
         }
 
         [HttpPost]
-        public string AddUser(UserInputModel userInput)
+        public UserAuthModel AddUser(UserInputModel userInput)
         {
             if (userInput.Username == null || userInput.Password == null)
                 throw new InvalidInputException(_path, "Get()");
 
-            var user = _addUser.CreateUser(userInput.Username, userInput.Password);
+            _addUser.CreateUser(userInput.Username, userInput.Password);
 
-            return _generateJwtToken.NewUserToken(user);
+            var user = _getUserData.GetDataByUsername(userInput.Username);
+
+            var userModel = new UserAuthModel
+            {
+                Id  = user.Id,
+                Username = user.Username,
+                JwtToken = _generateJwtToken.NewUserToken(user)
+            };
+            
+            return userModel;
         }
 
         // [Authorize]

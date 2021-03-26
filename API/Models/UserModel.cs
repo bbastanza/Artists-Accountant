@@ -19,6 +19,7 @@ namespace API.Models
         public int? Id { get; }
         public string Username { get; }
         public string ProfileImgUrl { get; }
+        public string JwtToken { get; set; }
         public IList<ArtWorkModel> ArtWorks { get; } = new List<ArtWorkModel>();
         public decimal? TotalMarginCollected => TotalCollectedIncome - TotalExpenses;
         public decimal? TotalMarginPotential => TotalCollectedIncome + TotalUncollectedIncome - TotalExpenses;

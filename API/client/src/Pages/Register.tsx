@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { addUser } from "./../helpers/authRequests";
 import "./css/Login.css";
 
 interface registerState {
@@ -30,9 +31,13 @@ const Register: React.FC = () => {
         setState({ ...state, [name]: value });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const validInput: boolean = matchingPassword && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
+
+        // TODO error handling
+        const data = await addUser(state);
+        localStorage.setItem("UserData", JSON.stringify(data));
     };
 
     return (

@@ -1,7 +1,9 @@
 using System.IO;
 using API.Models;
+using Core.Entities;
 using Core.Services.JwtAuthentication;
 using Core.Services.SqlBuilders;
+using Core.Services.UserServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,16 @@ namespace API.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IGenerateJwtToken _generateJwtToken;
+        private readonly IGetUserData _getUserData;
         private readonly string _path;
 
-        public AuthenticationController(IGenerateJwtToken generateJwtToken)
+        public AuthenticationController(
+            IGenerateJwtToken generateJwtToken,
+            IGetUserData getUserData)
         {
             _generateJwtToken = generateJwtToken;
+            _getUserData = getUserData;
+
             _path = Path.GetFullPath(ToString()!);
         }
 
@@ -30,10 +37,20 @@ namespace API.Controllers
                 throw new InvalidInputException(_path, "Authenticate()");
                     
             var token = _generateJwtToken.Authenticate(user.Username, user.Password);
+            
             if (token == null)
                 return Unauthorized();
 
-            return Ok(token);
+            var userData = _getUserData.GetDataByUsername(user.Username);
+            
+            var userAuth = new UserAuthModel
+            {
+                Id = userData.Id,
+                Username = userData.Username,
+                JwtToken = token
+            };
+            
+            return Ok(userAuth);
         }
     }
 }

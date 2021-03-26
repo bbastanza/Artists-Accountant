@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { authenticateLogin } from "./../helpers/authRequests";
 import "./css/Login.css";
 
 interface loginState {
@@ -9,11 +10,21 @@ interface loginState {
 
 const Login: React.FC = () => {
     const [state, setState] = useState<loginState>({ username: "", password: "" });
+    const [validSubmission, setValidSubmission] = useState<boolean>(true);
     const history = useHistory();
 
     const handleChange = e => {
+        setValidSubmission(true);
         const { name, value } = e.target;
         setState({ ...state, [name]: value });
+    };
+
+    const handleSubmit = async () => {
+        const validInput: boolean = state.password.length > 0 && state.username.length > 0;
+        if (!validInput) return setValidSubmission(false);
+
+        const data = await authenticateLogin(state);
+        localStorage.setItem("UserData", JSON.stringify(data));
     };
 
     return (
@@ -45,7 +56,8 @@ const Login: React.FC = () => {
                         id="password"
                     />
                 </div>
-                <button type="submit" className="btn btn-purple">
+                {!!!validSubmission ? <p className="form-error">Please fill out all fields.</p> : null}
+                <button onClick={handleSubmit} type="submit" className="btn btn-purple">
                     Sign In
                 </button>
             </div>
