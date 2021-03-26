@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using API.Models;
 using Core.Entities;
+using Core.Services.JwtAuthentication;
 using Core.Services.UserServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -15,18 +17,21 @@ namespace API.Controllers
         private readonly IAddUser _addUser;
         private readonly IDeleteUser _deleteUser;
         private readonly IPatchUser _patchUser;
+        private readonly IGenerateJwtToken _generateJwtToken;
         private readonly string _path;
 
         public UsersController(
             IGetUserData getUserData,
             IAddUser addUser,
             IDeleteUser deleteUser,
-            IPatchUser patchUser)
+            IPatchUser patchUser,
+            IGenerateJwtToken generateJwtToken)
         {
             _getUserData = getUserData;
             _addUser = addUser;
             _deleteUser = deleteUser;
             _patchUser = patchUser;
+            _generateJwtToken = generateJwtToken;
             _path = Path.GetFullPath(ToString()!);
         }
 
@@ -41,12 +46,14 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public void AddUser(UserInputModel userInput)
+        public string AddUser(UserInputModel userInput)
         {
             if (userInput.Username == null || userInput.Password == null)
                 throw new InvalidInputException(_path, "Get()");
 
-            _addUser.Add(userInput.Username, userInput.Password);
+            var user = _addUser.CreateUser(userInput.Username, userInput.Password);
+
+            return _generateJwtToken.NewUserToken(user);
         }
 
         // [Authorize]

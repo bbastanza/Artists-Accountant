@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./CSS/Modal.css";
+import "./css/Modal.css";
 
 const modalStyle: React.CSSProperties = {
     position: "fixed",

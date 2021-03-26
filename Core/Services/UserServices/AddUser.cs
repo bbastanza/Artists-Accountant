@@ -9,7 +9,7 @@ namespace Core.Services.UserServices
 {
     public interface IAddUser
     {
-        void Add(string username, string password);
+        User CreateUser(string username, string password);
     }
 
     public class AddUser : IAddUser
@@ -27,7 +27,7 @@ namespace Core.Services.UserServices
             _path = Path.GetFullPath(ToString());
         }
 
-        public void Add(string username, string password)
+        public User CreateUser(string username, string password)
         {
             var existingUser = _getUserData.Get(username);
 
@@ -41,7 +41,6 @@ namespace Core.Services.UserServices
                 CreatedAt = DateTime.Now,
             };
             
-
             var connection = _sqlServer.Connect();
 
             var query =
@@ -58,11 +57,14 @@ namespace Core.Services.UserServices
             catch
             {
                 // TODO
+                return null;
             }
             finally
             {
                     _sqlServer.CloseConnection();
             }
+            
+            return user;
         }
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ArtworkShowMore from "./ArtworkShowMore";
 import ArtworkForm from "../Forms/ArtworkForm";
-import "./CSS/Artwork.css";
+import "./css/Artwork.css";
 import { formatMoney, formatForNull } from "./../helpers/beautifyNumber";
 
 export interface artworkProps {

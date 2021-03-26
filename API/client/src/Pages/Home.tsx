@@ -22,6 +22,7 @@ const Home: React.FC = () => {
                 height: "80vh",
                 position: "relative",
                 minWidth: 300,
+                textAlign: "center",
             }}>
             <div className="splash-text-container">
                 <h1 className="art-title">
@@ -32,7 +33,7 @@ const Home: React.FC = () => {
                 </h1>
                 <br />
                 <br />
-                <div onClick={() => history.push("/myart")} className="spin-btn" style={box}>
+                <div onClick={() => history.push("/login")} className="spin-btn" style={box}>
                     enter
                 </div>
             </div>

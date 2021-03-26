@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "./Modal";
 import { artwork } from "./Artwork";
 import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTime } from "./../helpers/beautifyNumber";
-import "./CSS/ShowMore.css";
+import "./css/ShowMore.css";
 
 interface showMoreProps {
     artwork: artwork;
