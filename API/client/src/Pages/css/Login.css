@@ -11,6 +11,7 @@
         height: 80vh;
     }
 }
+
 @media only screen and (max-width: 600px) {
     .login-page {
         height: 100vh;
@@ -20,7 +21,6 @@
 .login-box {
     width: 80%;
     max-width: 420px;
-    min-width: 300px;
     border-radius: 7px;
     border: 1px solid rgba(225, 220, 233, 0.6);
     background-color: rgb(239, 234, 246, 0.5);

@@ -23,6 +23,7 @@ const Login: React.FC = () => {
         const validInput: boolean = state.password.length > 0 && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
 
+        // TODO error handling
         const data = await authenticateLogin(state);
         localStorage.setItem("UserData", JSON.stringify(data));
     };

@@ -18,14 +18,17 @@
     color: var(--white);
     margin: 5px;
 }
+
 .btn-purple:hover {
     background: var(--darkerpurple);
     color: var(--white);
 }
+
 .accent {
     color: var(--darkerpurple);
     animation: pulse 10s infinite;
 }
+
 .App {
     padding: 1rem;
     text-align: center;
@@ -126,13 +129,23 @@
         width: 6rem;
         height: 100vh;
     }
+    /* todo what the fuck is going on with the text!!! */
+    .art-navbar .art-link-text {
+        display: block;
+        /* visibility: hidden; */
+        opacity: 0;
+        transition: opacity 100ms ease-in;
+    }
     .art-navbar:hover {
         width: 16rem;
         filter: grayscale(0%);
     }
     .art-navbar:hover .art-link-text {
-        display: block;
-        transition: opacity 200ms;
+        opacity: 1;
+        /* visibility: visible; */
+    }
+    .art-navbar:active .art-link-text {
+        transition: opacity none;
     }
 }
 
