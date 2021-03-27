@@ -8,7 +8,7 @@ namespace Core.Services.UserServices
 {
     public interface IGetUserData
     {
-        User GetUserWithArtworks(string username);
+        User GetUserWithArtworks(int? id);
         User GetDataWithoutArtworks(int? id);
         User GetDataByUsername(string username);
     }
@@ -22,7 +22,7 @@ namespace Core.Services.UserServices
             _sqlServer = sqlServer;
         }
 
-        public User GetUserWithArtworks(string username)
+        public User GetUserWithArtworks(int? id)
         {
             var connection = _sqlServer.Connect();
 
@@ -51,7 +51,7 @@ namespace Core.Services.UserServices
                 $"FROM user_table u " +
                 $"INNER JOIN artwork_table a " +
                 $"ON u.id = a.user_id " +
-                $"WHERE u.username = {username};";
+                $"WHERE u.id = {id};";
 
             User user = null;
 

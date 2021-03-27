@@ -32,7 +32,7 @@ namespace API.Controllers
             _path = Path.GetFullPath(ToString()!);
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost]
         public void AddPiece(ArtWorkInputModel artInput)
         {

@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Services.JwtAuthentication;
 using Core.Services.UserServices;
 using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -35,14 +36,14 @@ namespace API.Controllers
             _path = Path.GetFullPath(ToString()!);
         }
 
-        // [Authorize]
-        [HttpGet("{username}")]
-        public UserModel Get(string username)
+        [Authorize]
+        [HttpGet("{id}")]
+        public UserModel Get(int? id)
         {
-            if (username == null)
+            if (id == null)
                 throw new InvalidInputException(_path, "Get()");
 
-            return new UserModel(_getUserData.GetUserWithArtworks(username));
+            return new UserModel(_getUserData.GetUserWithArtworks(id));
         }
 
         [HttpPost]

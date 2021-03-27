@@ -1,14 +1,8 @@
 import React from "react";
 import Modal from "./Modal";
-import { artwork } from "./Artwork";
+import { showMoreProps } from "./../helpers/interfaces";
 import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTime } from "./../helpers/beautifyNumber";
 import "./css/ShowMore.css";
-
-interface showMoreProps {
-    artwork: artwork;
-    setShowMore: Function;
-    defaultImgUrl: string;
-}
 
 const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore, defaultImgUrl }: showMoreProps) => {
     const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImgUrl;

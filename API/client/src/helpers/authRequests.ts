@@ -1,10 +1,5 @@
 import axios from "axios";
-
-interface userData {
-    userId: number;
-    username: string;
-    jwtToken: string;
-}
+import { userAuthData } from "./interfaces";
 
 // TODO => try catch
 export const addUser = async register => {
@@ -13,7 +8,7 @@ export const addUser = async register => {
         password: register.password,
     });
 
-    const userData: userData = {
+    const userData: userAuthData = {
         username: response.data.username,
         jwtToken: response.data.jwtToken,
         userId: response.data.id,
@@ -30,11 +25,11 @@ export const authenticateLogin = async login => {
     });
     console.log(response);
 
-    // const userData: userData = {
-    //     userId: response.data.id,
-    //     username: response.data.username,
-    //     jwtToken: response.data.jwtToken,
-    // };
+    const userData: userAuthData = {
+        userId: response.data.id,
+        username: response.data.username,
+        jwtToken: response.data.jwtToken,
+    };
 
-    // return userData;
+    return userData;
 };

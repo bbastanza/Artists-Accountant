@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import Modal from "../IndividualComponents/Modal";
-import { artwork } from "../IndividualComponents/Artwork";
 import "./css/Form.css";
+import { formProps, artwork } from "./../helpers/interfaces";
+import { addArtwork, patchArtwork } from "./../helpers/artworkRequests";
 
-interface props {
-    setShowAddPiece?: Function;
-    setShowEdit?: Function;
-    userId?: number;
-    artwork?: artwork;
-}
-
-const ArtworkForm: React.FC<props> = ({ setShowEdit, setShowAddPiece, userId, artwork }: props) => {
+const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, userId, artwork }: formProps) => {
+    const isAddNewArtwork: boolean = !!!artwork;
     const [state, setState] = useState<artwork>(
-        !!!artwork
+        isAddNewArtwork
             ? {
-                  id: userId,
+                  id: null,
                   pieceName: null,
                   customerName: null,
                   customerContact: null,
@@ -26,8 +21,8 @@ const ArtworkForm: React.FC<props> = ({ setShowEdit, setShowAddPiece, userId, ar
                   timeSpent: null,
                   shape: "round",
                   paymentType: "cash",
-                  isCommission: null,
-                  isPaymentCollected: null,
+                  isCommission: false,
+                  isPaymentCollected: false,
                   dateStarted: null,
                   dateFinished: null,
               }
@@ -36,12 +31,31 @@ const ArtworkForm: React.FC<props> = ({ setShowEdit, setShowAddPiece, userId, ar
 
     const handleChange = e => {
         const { name, value, type, checked } = e.target;
-        type === "checkbox" ? setState({ ...state, [name]: checked }) : setState({ ...state, [name]: value });
+
+        if (type === "number") return setState({ ...state, [name]: parseFloat(value) });
+
+        if (type === "checkbox") return setState({ ...state, [name]: checked });
+
+        setState({ ...state, [name]: value });
     };
+
+    const addNewArtwork = async e => {
+        e.preventDefault();
+        await addArtwork(state);
+        console.log("adding new artwork");
+    };
+
+    const patchExistingArtwork = e => {
+        e.preventDefault();
+        console.log("patching existing artwork");
+    };
+    console.log(state);
 
     return (
         <Modal>
-            <div className="modal-container">
+            <form
+                onSubmit={e => (isAddNewArtwork ? addNewArtwork(e) : patchExistingArtwork(e))}
+                className="modal-container">
                 <div className="inner-modal-container row">
                     <div
                         className="x-btn"
@@ -222,11 +236,11 @@ const ArtworkForm: React.FC<props> = ({ setShowEdit, setShowAddPiece, userId, ar
                             id="dateFinished"
                         />
                     </div>
-                    <button type="submit" className="btn btn-purple">
-                        {artwork ? "Apply Changes" : "Add My Art!"}
+                    <button type="submit" className="btn btn-purple col-12">
+                        {isAddNewArtwork ? "Add My Art!" : "Apply Changes"}
                     </button>
                 </div>
-            </div>
+            </form>
         </Modal>
     );
 };

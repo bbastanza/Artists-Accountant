@@ -3,31 +3,7 @@ import ArtworkShowMore from "./ArtworkShowMore";
 import ArtworkForm from "../Forms/ArtworkForm";
 import "./css/Artwork.css";
 import { formatMoney, formatForNull } from "./../helpers/beautifyNumber";
-
-export interface artworkProps {
-    artwork: artwork;
-}
-export interface artwork {
-    id: number;
-    userId?: number;
-    imgUrl?: string;
-    pieceName?: string;
-    customerName?: string;
-    customerContact?: string;
-    shippingCost?: number;
-    materialCost?: number;
-    salePrice?: number;
-    height?: number;
-    width?: number;
-    timeSpent?: number;
-    shape?: string;
-    paymentType?: string;
-    isCommission?: boolean;
-    isPaymentCollected?: boolean;
-    dateStarted?: Date;
-    dateFinished?: Date;
-    margin?: number;
-}
+import { artworkProps } from "./../helpers/interfaces";
 
 const Artwork: React.FC<artworkProps> = ({ artwork }: artworkProps) => {
     const [showMore, setShowMore] = useState<boolean>(false);
