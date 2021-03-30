@@ -4,7 +4,7 @@ import "./css/Form.css";
 import { formProps, artwork } from "./../helpers/interfaces";
 import { addArtwork, patchArtwork } from "./../helpers/artworkRequests";
 
-const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, userId, artwork }: formProps) => {
+const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwork }: formProps) => {
     const isAddNewArtwork: boolean = !!!artwork;
     const [state, setState] = useState<artwork>(
         isAddNewArtwork
@@ -39,14 +39,15 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, userId
         setState({ ...state, [name]: value });
     };
 
-    const addNewArtwork = async e => {
+    const addNewArtwork = async (e): Promise<void> => {
         e.preventDefault();
-        await addArtwork(state);
+        const successfulAdd = await addArtwork(state);
         console.log("adding new artwork");
     };
 
-    const patchExistingArtwork = e => {
+    const patchExistingArtwork = async (e): Promise<void> => {
         e.preventDefault();
+        const successfulPatch = await patchArtwork(state);
         console.log("patching existing artwork");
     };
     console.log(state);

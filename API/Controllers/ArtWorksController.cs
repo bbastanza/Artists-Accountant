@@ -43,18 +43,18 @@ namespace API.Controllers
             _addArtWork.Add(artWork);
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPatch]
         public void EditPiece(ArtWorkInputModel artInput)
         {
             if (artInput.Id == null)
-                throw new InvalidInputException(_path, "AddPieces()");
+                throw new InvalidInputException(_path, "EditPiece()");
 
             var artWork = _mapPiece.Map(artInput);
             _patchArtWork.Edit(artWork);
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete("{id}")]
         public void DeletePiece(int? id)
         {

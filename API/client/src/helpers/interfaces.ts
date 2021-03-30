@@ -37,6 +37,11 @@ export interface artwork {
     margin?: number;
 }
 
+export interface userInput {
+    username: string;
+    password: string;
+}
+
 export interface userAuthData {
     userId: number;
     username: string;
