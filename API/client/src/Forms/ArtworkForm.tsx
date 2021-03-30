@@ -42,12 +42,20 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwor
     const addNewArtwork = async (e): Promise<void> => {
         e.preventDefault();
         const successfulAdd = await addArtwork(state);
+
+        if (successfulAdd) return setShowAddPiece(false);
+
+        // TODO setError
         console.log("adding new artwork");
     };
 
     const patchExistingArtwork = async (e): Promise<void> => {
         e.preventDefault();
         const successfulPatch = await patchArtwork(state);
+
+        if (successfulPatch) return setShowEdit(false);
+
+        // TODO setError
         console.log("patching existing artwork");
     };
     console.log(state);

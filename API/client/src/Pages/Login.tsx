@@ -11,6 +11,7 @@ interface loginState {
 const Login: React.FC = () => {
     const [state, setState] = useState<loginState>({ username: "", password: "" });
     const [validSubmission, setValidSubmission] = useState<boolean>(true);
+    const [loginError, setLoginError] = useState<boolean>(false);
     const history = useHistory();
 
     const handleChange = e => {
@@ -23,9 +24,11 @@ const Login: React.FC = () => {
         const validInput: boolean = state.password.length > 0 && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
 
-        // TODO error handling
-        const data = await authenticateLogin(state);
-        localStorage.setItem("UserData", JSON.stringify(data));
+        const successfulLogin = await authenticateLogin(state);
+
+        if (successfulLogin) return history.push("/myart");
+
+        setLoginError(true);
     };
 
     return (
@@ -58,6 +61,9 @@ const Login: React.FC = () => {
                     />
                 </div>
                 {!!!validSubmission ? <p className="form-error">Please fill out all fields.</p> : null}
+                {!!!loginError ? (
+                    <p className="form-error">Oops! There was a problem. Please check your login credentials.</p>
+                ) : null}
                 <button onClick={handleSubmit} type="submit" className="btn btn-purple">
                     Sign In
                 </button>

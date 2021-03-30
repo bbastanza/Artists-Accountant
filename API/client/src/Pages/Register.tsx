@@ -13,6 +13,7 @@ const Register: React.FC = () => {
     const [state, setState] = useState<registerState>({ username: "", password: "", confirmPassword: "" });
     const [matchingPassword, setMatchingPassword] = useState<boolean>(true);
     const [validSubmission, setValidSubmission] = useState<boolean>(true);
+    const [registrationError, setRegistrationError] = useState<boolean>(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -35,9 +36,11 @@ const Register: React.FC = () => {
         const validInput: boolean = matchingPassword && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
 
-        // TODO error handling
-        const data = await addUser(state);
-        localStorage.setItem("UserData", JSON.stringify(data));
+        const successfulAddUser = await addUser(state);
+
+        if (successfulAddUser) return history.push("/myart");
+
+        setRegistrationError(true);
     };
 
     return (
@@ -81,6 +84,9 @@ const Register: React.FC = () => {
                     />
                 </div>
                 {!!!validSubmission ? <p className="form-error">Passwords do not match.</p> : null}
+                {!!!registrationError ? (
+                    <p className="form-error">Oops! There was a problem. Please try again.</p>
+                ) : null}
                 <button type="submit" className="btn btn-purple" onClick={() => handleSubmit()}>
                     Create Account
                 </button>
