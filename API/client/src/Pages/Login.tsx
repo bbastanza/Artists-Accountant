@@ -60,8 +60,8 @@ const Login: React.FC = () => {
                         id="password"
                     />
                 </div>
-                {!!!validSubmission ? <p className="form-error">Please fill out all fields.</p> : null}
-                {!!!loginError ? (
+                {!validSubmission ? <p className="form-error">Please fill out all fields.</p> : null}
+                {loginError ? (
                     <p className="form-error">Oops! There was a problem. Please check your login credentials.</p>
                 ) : null}
                 <button onClick={handleSubmit} type="submit" className="btn btn-purple">

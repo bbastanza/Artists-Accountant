@@ -83,8 +83,8 @@ const Register: React.FC = () => {
                         id="confirmPassword"
                     />
                 </div>
-                {!!!validSubmission ? <p className="form-error">Passwords do not match.</p> : null}
-                {!!!registrationError ? (
+                {!validSubmission ? <p className="form-error">Passwords do not match.</p> : null}
+                {!!registrationError ? (
                     <p className="form-error">Oops! There was a problem. Please try again.</p>
                 ) : null}
                 <button type="submit" className="btn btn-purple" onClick={() => handleSubmit()}>

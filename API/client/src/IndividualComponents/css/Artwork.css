@@ -25,3 +25,15 @@
     display: flex;
     flex-direction: column;
 }
+
+.btn-red {
+    height: 3rem;
+    background: #e25a5a;
+    color: #f8f7ff;
+    margin: 5px;
+}
+
+.btn-red:hover {
+    background: #923232;
+    color: #f8f7ff;
+}

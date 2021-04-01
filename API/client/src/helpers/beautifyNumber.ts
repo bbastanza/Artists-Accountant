@@ -36,7 +36,8 @@ export const formatForNull = (input: any): string => {
 };
 
 export const checkDate = (date: Date): string => {
-    return !!date ? date.toLocaleDateString() : "N/A";
+    if (!!!date) return "N/A";
+    return new Date(date).toLocaleDateString();
 };
 
 export const checkBool = (bool: boolean): string => {

@@ -1,12 +1,10 @@
 import React from "react";
 import Modal from "./Modal";
-import { showMoreProps } from "./../helpers/interfaces";
+import { ShowMoreProps } from "./../helpers/interfaces";
 import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTime } from "./../helpers/beautifyNumber";
 import "./css/ShowMore.css";
 
-const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore, defaultImgUrl }: showMoreProps) => {
-    const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImgUrl;
-
+const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageUrl }: ShowMoreProps) => {
     return (
         <Modal>
             <div className="modal-container">
@@ -61,15 +59,15 @@ const ArtworkShowMore: React.FC<showMoreProps> = ({ artwork, setShowMore, defaul
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Height:</h6>
-                                <h6 className="value">{formatSize(artwork.height)}</h6>
+                                <h6 className="value">{formatSize(artwork.heightInches)}</h6>
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Width:</h6>
-                                <h6 className="value">{formatSize(artwork.width)}</h6>
+                                <h6 className="value">{formatSize(artwork.widthInches)}</h6>
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Time Spent:</h6>
-                                <h6 className="value">{formatTime(artwork.timeSpent)}</h6>
+                                <h6 className="value">{formatTime(artwork.timeSpentMinutes)}</h6>
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Date Started:</h6>

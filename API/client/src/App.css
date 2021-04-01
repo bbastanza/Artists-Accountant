@@ -129,10 +129,8 @@
         width: 6rem;
         height: 100vh;
     }
-    /* todo what the fuck is going on with the text!!! */
     .art-navbar .art-link-text {
         display: block;
-        /* visibility: hidden; */
         opacity: 0;
         transition: opacity 100ms ease-in;
     }

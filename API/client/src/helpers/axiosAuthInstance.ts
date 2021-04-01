@@ -1,7 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 
-export const authAxios: AxiosInstance = axios.create({
-    headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("UserData")).jwtToken}`,
-    },
-});
+const localStorageData = JSON.parse(localStorage.getItem("UserData"));
+let bearerToken;
+if (!!localStorageData) bearerToken = localStorageData.jwtToken;
+
+export const authAxios: AxiosInstance = !!bearerToken
+    ? axios.create({
+          headers: {
+              Authorization: `Bearer ${bearerToken}`,
+          },
+      })
+    : axios;

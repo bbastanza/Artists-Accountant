@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Modal from "../IndividualComponents/Modal";
 import "./css/Form.css";
-import { formProps, artwork } from "./../helpers/interfaces";
-import { addArtwork, patchArtwork } from "./../helpers/artworkRequests";
+import { FormProps, Artwork } from "./../helpers/interfaces";
+import { addArtwork, patchArtwork, deleteArtwork } from "./../helpers/artworkRequests";
 
-const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwork }: formProps) => {
+const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwork, updateComponent }: FormProps) => {
     const isAddNewArtwork: boolean = !!!artwork;
-    const [state, setState] = useState<artwork>(
+    const [apiError, setApiError] = useState<boolean>(false);
+    const [canSubmit, setCanSubmit] = useState<boolean>(false);
+
+    const [state, setState] = useState<Artwork>(
         isAddNewArtwork
             ? {
                   id: null,
@@ -16,9 +19,9 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwor
                   shippingCost: null,
                   materialCost: null,
                   salePrice: null,
-                  height: null,
-                  width: null,
-                  timeSpent: null,
+                  heightInches: null,
+                  widthInches: null,
+                  timeSpentMinutes: null,
                   shape: "round",
                   paymentType: "cash",
                   isCommission: false,
@@ -30,36 +33,48 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwor
     );
 
     const handleChange = e => {
+        if (!canSubmit) setCanSubmit(true);
         const { name, value, type, checked } = e.target;
+        console.log(name, value, type);
 
         if (type === "number") return setState({ ...state, [name]: parseFloat(value) });
-
         if (type === "checkbox") return setState({ ...state, [name]: checked });
-
         setState({ ...state, [name]: value });
     };
 
     const addNewArtwork = async (e): Promise<void> => {
         e.preventDefault();
-        const successfulAdd = await addArtwork(state);
 
+        const successfulAdd = await addArtwork(state);
         if (successfulAdd) return setShowAddPiece(false);
 
-        // TODO setError
-        console.log("adding new artwork");
+        setApiError(true);
     };
 
     const patchExistingArtwork = async (e): Promise<void> => {
         e.preventDefault();
+
         const successfulPatch = await patchArtwork(state);
+        if (successfulPatch) return updateComponent();
 
-        if (successfulPatch) return setShowEdit(false);
-
-        // TODO setError
-        console.log("patching existing artwork");
+        setApiError(true);
     };
-    console.log(state);
 
+    const deletePiece = async (e): Promise<void> => {
+        e.preventDefault();
+        const successfulDelete = await deleteArtwork(artwork.id);
+
+        if (successfulDelete) return updateComponent();
+
+        setApiError(true);
+    };
+
+    const cancelSubmission = (): void => {
+        if (isAddNewArtwork) return setShowAddPiece(false);
+        setShowEdit(false);
+    };
+
+    console.log(state);
     return (
         <Modal>
             <form
@@ -141,33 +156,33 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwor
                         />
                     </div>
                     <div className="form-group col-sm-12 col-md-4">
-                        <label htmlFor="height">Height (inches)</label>
+                        <label htmlFor="heightInches">Height (inches)</label>
                         <input
                             type="number"
-                            name="height"
-                            value={!!state.height ? state.height : ""}
+                            name="heightInches"
+                            value={!!state.heightInches ? state.heightInches : ""}
                             onChange={e => handleChange(e)}
                             className="form-control"
                             id="height"
                         />
                     </div>
                     <div className="form-group col-sm-12 col-md-4">
-                        <label htmlFor="width">Width (inches)</label>
+                        <label htmlFor="widthInches">Width (inches)</label>
                         <input
                             type="number"
-                            name="width"
-                            value={!!state.width ? state.width : ""}
+                            name="widthInches"
+                            value={!!state.widthInches ? state.widthInches : ""}
                             onChange={e => handleChange(e)}
                             className="form-control"
                             id="width"
                         />
                     </div>
                     <div className="form-group col-sm-12 col-md-4">
-                        <label htmlFor="timeSpent">Time Spent (minutes)</label>
+                        <label htmlFor="timeSpentMinutes">Time Spent (minutes)</label>
                         <input
                             type="number"
-                            name="timeSpent"
-                            value={!!state.timeSpent ? state.timeSpent : ""}
+                            name="timeSpentMinutes"
+                            value={!!state.timeSpentMinutes ? state.timeSpentMinutes : ""}
                             onChange={e => handleChange(e)}
                             className="form-control"
                             id="timeSpent"
@@ -230,6 +245,7 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwor
                         <input
                             type="date"
                             name="dateStarted"
+                            defaultValue={new Date(state.dateStarted).toString() || ""}
                             onChange={e => handleChange(e)}
                             className="date pad"
                             id="dateStarted"
@@ -245,9 +261,26 @@ const ArtworkForm: React.FC<formProps> = ({ setShowEdit, setShowAddPiece, artwor
                             id="dateFinished"
                         />
                     </div>
-                    <button type="submit" className="btn btn-purple col-12">
-                        {isAddNewArtwork ? "Add My Art!" : "Apply Changes"}
-                    </button>
+                    <div className="btn-container">
+                        {!isAddNewArtwork ? (
+                            <button type="button" onClick={deletePiece} className="btn btn-red col-12">
+                                Delete
+                            </button>
+                        ) : null}
+                        <button type="button" onClick={cancelSubmission} className="btn btn-purple col-12">
+                            Cancel
+                        </button>
+                        {canSubmit ? (
+                            <button type="submit" className="btn btn-purple col-12">
+                                {isAddNewArtwork ? "Add My Art!" : "Apply Changes"}
+                            </button>
+                        ) : null}
+                    </div>
+                    {apiError ? (
+                        <p className="col-12 form-error" style={{ paddingTop: 20 }}>
+                            Oops! Something unexpected happeded. Please try again.
+                        </p>
+                    ) : null}
                 </div>
             </form>
         </Modal>

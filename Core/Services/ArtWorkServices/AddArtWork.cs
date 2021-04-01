@@ -32,6 +32,7 @@ namespace Core.Services.ArtWorkServices
             var sqlBuilder = new ArtworkSqlBuilder();
 
             var query = sqlBuilder.GenerateInsertStatement(artWork);
+            Console.WriteLine(query);
 
             try
             {

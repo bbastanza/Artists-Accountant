@@ -66,7 +66,7 @@ namespace API.Controllers
             return userModel;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPatch]
         public void EditUser(UserInputModel userInput)
         {

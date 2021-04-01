@@ -1,21 +1,22 @@
-export interface formProps {
+export interface FormProps {
     setShowAddPiece?: Function;
     setShowEdit?: Function;
-    userId?: number;
-    artwork?: artwork;
+    updateComponent?: Function;
+    artwork?: Artwork;
 }
 
-export interface artworkProps {
-    artwork: artwork;
+export interface ArtworkProps {
+    artwork: Artwork;
+    updateComponent?: Function;
 }
 
-export interface showMoreProps {
-    artwork: artwork;
+export interface ShowMoreProps {
+    artwork: Artwork;
     setShowMore: Function;
-    defaultImgUrl: string;
+    imageUrl: string;
 }
 
-export interface artwork {
+export interface Artwork {
     id?: number;
     userId?: number;
     imgUrl?: string;
@@ -25,9 +26,9 @@ export interface artwork {
     shippingCost?: number;
     materialCost?: number;
     salePrice?: number;
-    height?: number;
-    width?: number;
-    timeSpent?: number;
+    heightInches?: number;
+    widthInches?: number;
+    timeSpentMinutes?: number;
     shape?: string;
     paymentType?: string;
     isCommission?: boolean;
@@ -37,13 +38,31 @@ export interface artwork {
     margin?: number;
 }
 
-export interface userInput {
+export interface UserInput {
     username: string;
     password: string;
 }
 
-export interface userAuthData {
+export interface UserAuthData {
     userId: number;
     username: string;
     jwtToken: string;
+}
+
+export interface UserData {
+    id: number;
+    username: string;
+    profileImgUrl: string;
+    artWorks: Artwork[];
+    totalMarginCollected: number;
+    totalMarginPotential: number;
+    totalUncollectedIncome: number;
+    totalCollectedIncome: number;
+    totalExpences: number;
+}
+
+export enum ResponseType {
+    Ok,
+    ApplicationError,
+    Unauthorized,
 }

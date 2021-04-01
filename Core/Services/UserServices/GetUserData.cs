@@ -92,6 +92,12 @@ namespace Core.Services.UserServices
                             };
                             user.ArtWorks.Add(artwork);
                         }
+
+                    if (user == null)
+                    {
+                        _sqlServer.CloseConnection();
+                        return GetDataWithoutArtworks(id);
+                    }
                 }
             }
 

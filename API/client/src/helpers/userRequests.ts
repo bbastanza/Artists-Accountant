@@ -1,38 +1,49 @@
 import { authAxios } from "./axiosAuthInstance";
-import { userInput } from "./../helpers/interfaces";
+import { UserInput } from "./../helpers/interfaces";
+import { UserData, ResponseType } from "./interfaces";
 
-export const getUserData = async (): Promise<object> => {
+export const getUserData = async (): Promise<UserData> => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem("UserData"));
-        const result = await authAxios.get(`/users/${localStorageData.userId}`);
-        return result.data.artWorks;
+        if (!!localStorageData) {
+            const result = await authAxios.get(`/users/${localStorageData.userId}`);
+            return result.data;
+        }
     } catch (err) {
-        return err;
+        // TODO what to return if unauthorized
+        console.log({ error: err.response.status });
+        return null;
     }
 };
 
-export const deleteUser = async (): Promise<boolean> => {
+export const deleteUser = async (): Promise<ResponseType> => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem("UserData"));
-        await authAxios.delete(`/users/${localStorageData.userId}`);
-        return true;
+        if (!!localStorageData) {
+            await authAxios.delete(`/users/${localStorageData.userId}`);
+            return 1;
+        }
+        return 2;
     } catch (err) {
-        console.log(err);
-        return false;
+        if (err.response.status === 401) return 3;
+        return 2;
     }
 };
 
-export const patchUser = async (userData: userInput): Promise<boolean> => {
+export const patchUser = async (userData: UserInput): Promise<ResponseType> => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem("UserData"));
-        await authAxios.patch(`/users`, {
-            id: localStorageData.userId,
-            username: userData.username,
-            password: userData.password,
-        });
-        return true;
+        if (localStorageData) {
+            await authAxios.patch(`/users`, {
+                id: localStorageData.userId,
+                username: userData.username,
+                password: userData.password,
+            });
+            return 1;
+        }
+        return 2;
     } catch (err) {
-        console.log(err);
-        return false;
+        if (err.response.status === 401) return 3;
+        return 2;
     }
 };
