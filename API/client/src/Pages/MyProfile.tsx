@@ -32,13 +32,13 @@ const MyProfile: React.FC = () => {
                 </div>
                 <img src={defaultProfileImage} alt="" className="profile-img" />
                 <div className="row btn-container-profile">
-                    <button onClick={changeUsername} className="btn btn-purple shadow text-nowrap">
+                    <button onClick={changeUsername} className="col-12 btn btn-purple shadow text-nowrap">
                         Change Username
                     </button>
-                    <button onClick={changePassword} className="btn btn-purple shadow text-nowrap">
+                    <button onClick={changePassword} className="col-12 btn btn-purple shadow text-nowrap">
                         Change Password
                     </button>
-                    <button onClick={deleteUser} className="btn btn-red shadow text-nowrap">
+                    <button onClick={deleteUser} className="col-12 btn btn-red shadow text-nowrap">
                         Delete Account
                     </button>
                 </div>

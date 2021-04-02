@@ -6,8 +6,9 @@
 .btn-container-profile {
     width: 80%;
     min-width: 300px;
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 600px;
+    margin: 20px;
+    margin: auto;
     justify-content: center;
 }
 

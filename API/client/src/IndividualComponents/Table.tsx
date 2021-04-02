@@ -20,7 +20,7 @@ const Table: React.FC<TableProps> = ({ userData }: TableProps) => {
     };
 
     return (
-        <div className="row table-container shadow-lg">
+        <div className="row table-container">
             <table className="col-sm-6 col-xs-12 table table-purple">
                 <thead>
                     <tr>
