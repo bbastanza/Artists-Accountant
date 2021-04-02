@@ -13,7 +13,7 @@
 }
 
 .btn-purple {
-    height: 3rem;
+    height: 2.5rem;
     background: var(--darkpurple);
     color: var(--white);
     margin: 5px;
@@ -22,6 +22,18 @@
 .btn-purple:hover {
     background: var(--darkerpurple);
     color: var(--white);
+}
+
+.btn-red {
+    height: 2.5rem;
+    background: #e25a5a;
+    color: #f8f7ff;
+    margin: 5px;
+}
+
+.btn-red:hover {
+    background: #c35555;
+    color: #f8f7ff;
 }
 
 .accent {
@@ -118,6 +130,12 @@
         width: 2.5rem;
         height: 2.5rem;
     }
+    .art-title {
+        font-size: 4rem;
+    }
+    .art-title2 {
+        font-size: 3rem;
+    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -140,10 +158,15 @@
     }
     .art-navbar:hover .art-link-text {
         opacity: 1;
-        /* visibility: visible; */
     }
     .art-navbar:active .art-link-text {
         transition: opacity none;
+    }
+    .art-title {
+        font-size: 5rem;
+    }
+    .art-title2 {
+        font-size: 4rem;
     }
 }
 
@@ -158,6 +181,11 @@
     }
 }
 
+.form-error {
+    text-align: center;
+    color: rgb(255, 106, 106);
+}
+
 .splash-img {
     width: 60rem;
     position: fixed;
@@ -165,21 +193,13 @@
     bottom: -10rem;
 }
 .art-title {
-    font-size: 5rem;
     color: var(--darkergray);
     font-weight: lighter;
 }
 
 .art-title2 {
-    font-size: 4rem;
     color: var(--darkergray);
     font-weight: lighter;
-}
-
-@keyframes pulse {
-    50% {
-        text-shadow: 0 10px 10px var(--lightpurple);
-    }
 }
 
 .spin-btn {
@@ -209,5 +229,11 @@
     100% {
         border-radius: 50%;
         background: var(--darkerpurple);
+    }
+}
+
+@keyframes pulse {
+    50% {
+        text-shadow: 0 10px 10px var(--lightpurple);
     }
 }

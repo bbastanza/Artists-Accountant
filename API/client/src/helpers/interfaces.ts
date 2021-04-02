@@ -50,15 +50,23 @@ export interface UserAuthData {
 }
 
 export interface UserData {
-    id: number;
-    username: string;
-    profileImgUrl: string;
-    artWorks: Artwork[];
-    totalMarginCollected: number;
-    totalMarginPotential: number;
-    totalUncollectedIncome: number;
-    totalCollectedIncome: number;
-    totalExpences: number;
+    id?: number;
+    username?: string;
+    profileImgUrl?: string;
+    artWorks?: Artwork[];
+    totalMarginCollected?: number;
+    totalMarginPotential?: number;
+    totalUncollectedIncome?: number;
+    totalCollectedIncome?: number;
+    totalExpenses?: number;
+}
+
+export interface ChartProps {
+    artworks: Artwork[];
+}
+
+export interface TableProps {
+    userData: UserData;
 }
 
 export enum ResponseType {

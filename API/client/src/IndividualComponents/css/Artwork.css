@@ -16,24 +16,34 @@
     padding: 0;
 }
 
-.btn-container {
-    width: 150px;
-}
-
 .img-btn-container {
     width: 200px;
     display: flex;
     flex-direction: column;
 }
 
-.btn-red {
-    height: 3rem;
-    background: #e25a5a;
-    color: #f8f7ff;
-    margin: 5px;
+@media only screen and (min-width: 600px) {
+    .prop-div-long {
+        justify-content: space-between;
+    }
+    .artwork-img {
+        width: 150px;
+        height: 150px;
+    }
+    .btn-container {
+        width: 150px;
+    }
 }
 
-.btn-red:hover {
-    background: #923232;
-    color: #f8f7ff;
+@media only screen and (max-width: 600px) {
+    .prop-div-long {
+        justify-content: center;
+    }
+    .artwork-img {
+        width: 80px;
+        height: 80px;
+    }
+    .btn-container {
+        width: 80px;
+    }
 }

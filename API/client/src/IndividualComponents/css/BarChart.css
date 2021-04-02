@@ -1,0 +1,14 @@
+.chart-container {
+    width: 70vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    min-width: 320px;
+    max-width: 1000px;
+}
+
+.btn-container-chart {
+    margin: auto;
+    width: 300;
+}

@@ -26,13 +26,13 @@ namespace API.Models
         [JsonPropertyName("salePrice")] 
         public decimal? SalePrice { get; set; }
 
-        [JsonPropertyName("height")] 
+        [JsonPropertyName("heightInches")] 
         public int? HeightInches { get; set; }
 
-        [JsonPropertyName("width")] 
+        [JsonPropertyName("widthInches")] 
         public int? WidthInches { get; set; }
 
-        [JsonPropertyName("timeSpent")] 
+        [JsonPropertyName("timeSpentMinutes")] 
         public int? TimeSpentMinutes { get; set; }
 
         [JsonPropertyName("shape")] 

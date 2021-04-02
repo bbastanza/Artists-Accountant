@@ -1,0 +1,12 @@
+.table-purple {
+    background-color: rgba(158, 118, 251, 0.034);
+}
+
+.table-container {
+    width: 70%;
+    max-width: 900px;
+    min-width: 300px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}

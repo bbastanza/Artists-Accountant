@@ -4,23 +4,32 @@ import ArtworkForm from "../Forms/ArtworkForm";
 import ArtworkComponent from "./../IndividualComponents/ArtworkComponent";
 import { getUserData } from "./../helpers/userRequests";
 import { Artwork, UserData } from "./../helpers/interfaces";
+import { useHistory } from "react-router";
 
 const MyArt: React.FC = () => {
+    const history = useHistory();
+    if (!!!JSON.parse(localStorage.getItem("UserData"))) history.push("/login");
     const [showAddPiece, setShowAddPiece] = useState<boolean>(false);
     const [userArtworks, setUserArtworks] = useState<Artwork[]>([]);
+    const [apiError, setApiError] = useState<boolean>(false);
     const userHasArtworks: boolean = userArtworks.length > 0;
 
-    useEffect(() => {
-        if (!!!showAddPiece) {
-            (async (): Promise<void> => {
-                await updateComponent();
-            })();
-        }
-    }, [showAddPiece]);
+    useEffect((): void => {
+        (async (): Promise<void> => {
+            if (!showAddPiece) {
+                const userData: UserData = await getUserData();
+                const unauthorized = userData === 401;
+                if (unauthorized) return history.push("/login");
+                if (!!!userData) return setApiError(true);
+                setUserArtworks(userData.artWorks);
+            }
+        })();
+        // eslint-disable-next-line
+    }, []);
 
     const updateComponent = async (): Promise<void> => {
         const userData: UserData = await getUserData();
-        if (!!!userData) return;
+        if (!!!userData) return history.push("/login");
         setUserArtworks(userData.artWorks);
     };
 
@@ -48,7 +57,8 @@ const MyArt: React.FC = () => {
                         : null}
                 </div>
             </div>
-            {showAddPiece ? <ArtworkForm setShowAddPiece={setShowAddPiece} /> : null}
+            {showAddPiece ? <ArtworkForm updateComponent={updateComponent} setShowAddPiece={setShowAddPiece} /> : null}
+            {apiError ? <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3> : null}
         </>
     );
 };

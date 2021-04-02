@@ -12,7 +12,6 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
     const defaultImgUrl = "https://clipground.com/images/art-palette-clipart-transparent-5.png";
     const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImgUrl;
 
-    // TODO move each key/value into thier own div
     return (
         <>
             {showMore ? <ArtworkShowMore setShowMore={setShowMore} artwork={artwork} imageUrl={imageUrl} /> : null}
@@ -33,24 +32,31 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
                         </button>
                     </div>
                 </div>
-                <div className="col-3">
-                    <p>
-                        Name: <b>{formatForNull(artwork.pieceName)}</b>
-                    </p>
-                    <p>
-                        Customer: <b>{formatForNull(artwork.customerName)}</b>{" "}
-                    </p>
-                </div>
-                <div className="col-3 d-none d-sm-block row">
-                    <p>
-                        Sale Price: <b>{formatMoney(artwork.salePrice)}</b>
-                    </p>
-                    <p>
-                        Margin: <b>{formatMoney(artwork.margin)}</b>
-                    </p>
-                    <p>
-                        Sold: <b>{artwork.isPaymentCollected ? "Yes" : "No"}</b>
-                    </p>
+                <div className="col-6">
+                    {!!artwork.pieceName ? (
+                        <div className="prop-div prop-div-long">
+                            <h6 className="key d-none d-sm-block">Name:</h6>
+                            <h6 className="value">{formatForNull(artwork.pieceName)}</h6>
+                        </div>
+                    ) : null}
+                    {!!artwork.customerName ? (
+                        <div className="prop-div prop-div-long">
+                            <h6 className="key d-none d-sm-block">Customer:</h6>
+                            <h6 className="value">{formatForNull(artwork.customerName)}</h6>
+                        </div>
+                    ) : null}
+                    {!!artwork.salePrice ? (
+                        <div className="prop-div prop-div-long">
+                            <h6 className="key d-none d-sm-block">Sale Price:</h6>
+                            <h6 className="value">{formatMoney(artwork.salePrice)}</h6>
+                        </div>
+                    ) : null}
+                    {!!artwork.margin ? (
+                        <div className="prop-div prop-div-long d-none d-sm-flex">
+                            <h6 className="key">Margin:</h6>
+                            <h6 className="value">{formatMoney(artwork.margin)}</h6>
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </>

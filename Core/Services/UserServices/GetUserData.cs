@@ -28,26 +28,26 @@ namespace Core.Services.UserServices
 
             var query =
                 $"SELECT " +
-                    $"u.username, " +
-                    $"u.id, " +
-                    $"u.profile_image_url, " +
-                    $"a.id AS artworkId, " +
-                    $"a.piece_name, " +
-                    $"a.customer_name, " +
-                    $"a.image_url, " +
-                    $"a.customer_contact, " +
-                    $"a.shipping_cost, " +
-                    $"a.material_cost, " +
-                    $"a.sale_price, " +
-                    $"a.height, " +
-                    $"a.width, " +
-                    $"a.time_spent_minutes, " +
-                    $"a.shape, " +
-                    $"a.payment_type, " +
-                    $"a.is_commission, " +
-                    $"a.is_payment_collected, " +
-                    $"a.date_started, " +
-                    $"a.date_finished " +
+                $"u.username, " +
+                $"u.id, " +
+                $"u.profile_image_url, " +
+                $"a.id AS artworkId, " +
+                $"a.piece_name, " +
+                $"a.customer_name, " +
+                $"a.image_url, " +
+                $"a.customer_contact, " +
+                $"a.shipping_cost, " +
+                $"a.material_cost, " +
+                $"a.sale_price, " +
+                $"a.height, " +
+                $"a.width, " +
+                $"a.time_spent_minutes, " +
+                $"a.shape, " +
+                $"a.payment_type, " +
+                $"a.is_commission, " +
+                $"a.is_payment_collected, " +
+                $"a.date_started, " +
+                $"a.date_finished " +
                 $"FROM user_table u " +
                 $"INNER JOIN artwork_table a " +
                 $"ON u.id = a.user_id " +
@@ -55,60 +55,66 @@ namespace Core.Services.UserServices
 
             User user = null;
 
-            using (var command = new SqlCommand(query, connection))
+            try
             {
-                using (var reader = command.ExecuteReader())
+                using (var command = new SqlCommand(query, connection))
                 {
-                    if (reader.HasRows)
-                        while (reader.Read())
-                        {
-                            if (user == null)
-                                user = new User
-                                {
-                                    Id = reader.GetDefaultInt("id"),
-                                    Username = reader.GetDefaultString("username"),
-                                    ProfileImgUrl = reader.GetDefaultString("profile_image_url")
-                                };
-
-                            var artwork = new ArtWork
-                            {
-                                Id = reader.GetDefaultInt("artworkId"),
-                                PieceName = reader.GetDefaultString("piece_name"),
-                                CustomerName = reader.GetDefaultString("customer_name"),
-                                CustomerContact = reader.GetDefaultString("customer_contact"),
-                                ImgUrl = reader.GetDefaultString("image_url"),
-                                Shape = reader.GetDefaultString("shape"),
-                                PaymentType = reader.GetDefaultString("payment_type"),
-                                ShippingCost = reader.GetNullableDecimal("shipping_cost"),
-                                MaterialCost = reader.GetNullableDecimal("material_cost"),
-                                SalePrice = reader.GetNullableDecimal("sale_price"),
-                                HeightInches = reader.GetNullableInt("height"),
-                                WidthInches = reader.GetNullableInt("width"),
-                                TimeSpentMinutes = reader.GetNullableInt("time_spent_minutes"),
-                                DateStarted = reader.GetNullableDateTime("date_started"),
-                                DateFinished = reader.GetNullableDateTime("date_finished"),
-                                IsCommission = reader.GetNullableBool("is_commission"),
-                                IsPaymentCollected = reader.GetNullableBool("is_payment_collected"),
-                            };
-                            user.ArtWorks.Add(artwork);
-                        }
-
-                    if (user == null)
+                    using (var reader = command.ExecuteReader())
                     {
-                        _sqlServer.CloseConnection();
-                        return GetDataWithoutArtworks(id);
+                        if (reader.HasRows)
+                            while (reader.Read())
+                            {
+                                if (user == null)
+                                    user = new User
+                                    {
+                                        Id = reader.GetDefaultInt("id"),
+                                        Username = reader.GetDefaultString("username"),
+                                        ProfileImgUrl = reader.GetDefaultString("profile_image_url")
+                                    };
+
+                                var artwork = new ArtWork
+                                {
+                                    Id = reader.GetDefaultInt("artworkId"),
+                                    PieceName = reader.GetDefaultString("piece_name"),
+                                    CustomerName = reader.GetDefaultString("customer_name"),
+                                    CustomerContact = reader.GetDefaultString("customer_contact"),
+                                    ImgUrl = reader.GetDefaultString("image_url"),
+                                    Shape = reader.GetDefaultString("shape"),
+                                    PaymentType = reader.GetDefaultString("payment_type"),
+                                    ShippingCost = reader.GetNullableDecimal("shipping_cost"),
+                                    MaterialCost = reader.GetNullableDecimal("material_cost"),
+                                    SalePrice = reader.GetNullableDecimal("sale_price"),
+                                    HeightInches = reader.GetNullableInt("height"),
+                                    WidthInches = reader.GetNullableInt("width"),
+                                    TimeSpentMinutes = reader.GetNullableInt("time_spent_minutes"),
+                                    DateStarted = reader.GetNullableDateTime("date_started"),
+                                    DateFinished = reader.GetNullableDateTime("date_finished"),
+                                    IsCommission = reader.GetNullableBool("is_commission"),
+                                    IsPaymentCollected = reader.GetNullableBool("is_payment_collected"),
+                                };
+                                user.ArtWorks.Add(artwork);
+                            }
+
+                        if (user == null)
+                        {
+                            _sqlServer.CloseConnection();
+                            return GetDataWithoutArtworks(id);
+                        }
                     }
                 }
+                return user;
             }
-
-            _sqlServer.CloseConnection();
-
-            return user;
-
-            // todo _sqlServer.CloseConnection middleware?
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                _sqlServer.CloseConnection();
+            }
         }
 
-        public User GetDataWithoutArtworks(int? id)
+    public User GetDataWithoutArtworks(int? id)
         {
             var connection = _sqlServer.Connect();
 

@@ -28,12 +28,18 @@ const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageU
                                 <h6 className="value">{formatForNull(artwork.pieceName)}</h6>
                             </div>
                             <div className="prop-div">
-                                <h6 className="key">Sale Price:</h6>
-                                <h6 className="value">{formatMoney(artwork.salePrice)}</h6>
-                            </div>
-                            <div className="prop-div">
                                 <h6 className="key">Margin:</h6>
                                 <h6 className="value">{formatMoney(artwork.margin)}</h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Hourly Rate:</h6>
+                                <h6 className="value caps">
+                                    {formatMoney(artwork.margin / (artwork.timeSpentMinutes / 60))}
+                                </h6>
+                            </div>
+                            <div className="prop-div">
+                                <h6 className="key">Sale Price:</h6>
+                                <h6 className="value">{formatMoney(artwork.salePrice)}</h6>
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Material Cost:</h6>

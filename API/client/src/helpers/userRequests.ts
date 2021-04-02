@@ -2,7 +2,7 @@ import { authAxios } from "./axiosAuthInstance";
 import { UserInput } from "./../helpers/interfaces";
 import { UserData, ResponseType } from "./interfaces";
 
-export const getUserData = async (): Promise<UserData> => {
+export const getUserData = async (): Promise<any> => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem("UserData"));
         if (!!localStorageData) {
@@ -10,8 +10,7 @@ export const getUserData = async (): Promise<UserData> => {
             return result.data;
         }
     } catch (err) {
-        // TODO what to return if unauthorized
-        console.log({ error: err.response.status });
+        if (err.response.status === 401) return 401;
         return null;
     }
 };

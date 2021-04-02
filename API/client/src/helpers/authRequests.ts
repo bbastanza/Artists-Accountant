@@ -31,6 +31,9 @@ export const authenticateLogin = async (login: UserInput): Promise<boolean> => {
             jwtToken: response.data.jwtToken,
         };
         localStorage.setItem("UserData", JSON.stringify(userData));
+        await new Promise(() => {
+            setTimeout(() => {}, 1000);
+        });
         return true;
     } catch (err) {
         return false;

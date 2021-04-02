@@ -33,7 +33,6 @@ namespace Core.Services.ArtWorkServices
 
             var query = _sqlBuilder.GenerateUpdateStatement(artwork);
 
-            Console.WriteLine(query);
             try
             {
                 using (var command = new SqlCommand(query, connection))

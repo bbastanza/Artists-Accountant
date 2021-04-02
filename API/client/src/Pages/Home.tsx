@@ -1,6 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import woodburn from "./../Images/woodburn.png";
+import { useHistory } from "react-router-dom";
 
 const Home: React.FC = () => {
     const history = useHistory();
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                 </h1>
                 <br />
                 <br />
-                <div onClick={() => history.push("/login")} className="spin-btn" style={box}>
+                <div onClick={() => history.push("/myart")} className="spin-btn" style={box}>
                     enter
                 </div>
             </div>

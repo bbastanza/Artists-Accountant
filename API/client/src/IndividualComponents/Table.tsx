@@ -1,0 +1,64 @@
+import React from "react";
+import { Artwork, TableProps } from "./../helpers/interfaces";
+import { formatMoney, formatTime } from "./../helpers/beautifyNumber";
+import "./css/Table.css";
+
+const Table: React.FC<TableProps> = ({ userData }: TableProps) => {
+    const calculateHourly = (artworks: Artwork[]): number => {
+        let totalSales = 0;
+        let totalHours = 0;
+        artworks.forEach(artwork => {
+            totalSales += artwork.margin;
+            totalHours += artwork.timeSpentMinutes / 60;
+        });
+        return totalSales / totalHours;
+    };
+    const calculateTotalTime = (artworks: Artwork[]): string => {
+        let totalMinutes = 0;
+        artworks.forEach(artwork => (totalMinutes += artwork.timeSpentMinutes));
+        return formatTime(totalMinutes);
+    };
+
+    return (
+        <div className="row table-container">
+            <table className="col-sm-6 col-xs-12 table table-purple">
+                <thead>
+                    <tr>
+                        <th>Collected Margin</th>
+                        <th>Margin Potential</th>
+                        <th>Uncollected Income</th>
+                        <th>Collected Income</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{formatMoney(userData?.totalMarginCollected)}</td>
+                        <td>{formatMoney(userData?.totalMarginPotential)}</td>
+                        <td>{formatMoney(userData?.totalUncollectedIncome)}</td>
+                        <td>{formatMoney(userData?.totalCollectedIncome)}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table className="col-sm-6 col-xs-12  table table-purple">
+                <thead>
+                    <tr>
+                        <th>Total Expences</th>
+                        <th>Total Pieces</th>
+                        <th>Avg. Hourly</th>
+                        <th>Time Working</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{formatMoney(userData?.totalExpenses)}</td>
+                        <td>{userData?.artWorks.length}</td>
+                        <td>{formatMoney(calculateHourly(userData?.artWorks))}</td>
+                        <td>{calculateTotalTime(userData?.artWorks)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+export default Table;

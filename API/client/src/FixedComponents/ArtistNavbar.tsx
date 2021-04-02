@@ -31,10 +31,10 @@ const ArtistNavbar: React.FC = () => {
                         <span className="art-link-text">Analysis</span>
                     </li>
                 </Link>
-                <Link to="/settingsImage" className="art-nav-item" style={linkStyle}>
+                <Link to="/myprofile" className="art-nav-item" style={linkStyle}>
                     <li className="art-nav-link">
                         <img className="art-nav-img" src={settingsImage} alt="settings" />
-                        <span className="art-link-text">Settings</span>
+                        <span className="art-link-text">My Profile</span>
                     </li>
                 </Link>
             </ul>

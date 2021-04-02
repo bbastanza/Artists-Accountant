@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Modal from "../IndividualComponents/Modal";
 import "./css/Form.css";
-import { FormProps, Artwork } from "./../helpers/interfaces";
+import { FormProps, Artwork, ResponseType } from "./../helpers/interfaces";
 import { addArtwork, patchArtwork, deleteArtwork } from "./../helpers/artworkRequests";
+import { useHistory } from "react-router";
 
 const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwork, updateComponent }: FormProps) => {
+    const history = useHistory();
     const isAddNewArtwork: boolean = !!!artwork;
     const [apiError, setApiError] = useState<boolean>(false);
     const [canSubmit, setCanSubmit] = useState<boolean>(false);
@@ -32,11 +34,14 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
             : artwork
     );
 
-    const handleChange = e => {
-        if (!canSubmit) setCanSubmit(true);
+    const handleChange = (e): void => {
         const { name, value, type, checked } = e.target;
-        console.log(name, value, type);
 
+        const invalidCharacters = new RegExp("[^a-zA-Z0-9 _.-@]");
+        if (invalidCharacters.test(value)) return;
+        if (!canSubmit) setCanSubmit(true);
+
+        if (name === "timeSpentMinutes") return setState({ ...state, [name]: parseFloat(value) * 60 });
         if (type === "number") return setState({ ...state, [name]: parseFloat(value) });
         if (type === "checkbox") return setState({ ...state, [name]: checked });
         setState({ ...state, [name]: value });
@@ -45,8 +50,15 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
     const addNewArtwork = async (e): Promise<void> => {
         e.preventDefault();
 
-        const successfulAdd = await addArtwork(state);
-        if (successfulAdd) return setShowAddPiece(false);
+        const responseType: ResponseType = await addArtwork(state);
+        if (responseType === 1) {
+            updateComponent();
+            return setShowAddPiece(false);
+        }
+        if (responseType === 3) {
+            localStorage.clear();
+            return history.push("/login");
+        }
 
         setApiError(true);
     };
@@ -54,17 +66,25 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
     const patchExistingArtwork = async (e): Promise<void> => {
         e.preventDefault();
 
-        const successfulPatch = await patchArtwork(state);
-        if (successfulPatch) return updateComponent();
+        const responseType: ResponseType = await patchArtwork(state);
+        if (responseType === 1) return updateComponent();
+        if (responseType === 3) {
+            localStorage.clear();
+            return history.push("/login");
+        }
 
         setApiError(true);
     };
 
     const deletePiece = async (e): Promise<void> => {
         e.preventDefault();
-        const successfulDelete = await deleteArtwork(artwork.id);
+        const responseType: ResponseType = await deleteArtwork(artwork.id);
 
-        if (successfulDelete) return updateComponent();
+        if (responseType === 1) return updateComponent();
+        if (responseType === 3) {
+            localStorage.clear();
+            return history.push("/login");
+        }
 
         setApiError(true);
     };
@@ -74,7 +94,6 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
         setShowEdit(false);
     };
 
-    console.log(state);
     return (
         <Modal>
             <form
@@ -178,11 +197,12 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                         />
                     </div>
                     <div className="form-group col-sm-12 col-md-4">
-                        <label htmlFor="timeSpentMinutes">Time Spent (minutes)</label>
+                        <label htmlFor="timeSpentMinutes">Time Spent (hours)</label>
                         <input
                             type="number"
                             name="timeSpentMinutes"
-                            value={!!state.timeSpentMinutes ? state.timeSpentMinutes : ""}
+                            step=".25"
+                            value={!!state.timeSpentMinutes ? state.timeSpentMinutes / 60 : ""}
                             onChange={e => handleChange(e)}
                             className="form-control"
                             id="timeSpent"
