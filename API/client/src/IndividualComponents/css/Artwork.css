@@ -1,8 +1,8 @@
 .artwork-container {
-    border: 1px solid #505050;
+    border: 1px solid #e2e2e2;
     border-radius: 5px;
     padding: 10px;
-    margin: 10px auto;
+    margin: 20px auto;
     width: 90%;
     max-width: 600px;
     justify-content: space-around;

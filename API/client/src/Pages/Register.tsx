@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { addUser } from "./../helpers/authRequests";
+import { RegisterState, AuthResponseType } from "./../helpers/interfaces";
 import "./css/Login.css";
 
-interface registerState {
-    username: string;
-    password: string;
-    confirmPassword: string;
-}
-
 const Register: React.FC = () => {
-    const [state, setState] = useState<registerState>({ username: "", password: "", confirmPassword: "" });
+    const [state, setState] = useState<RegisterState>({ username: "", password: "", confirmPassword: "" });
     const [matchingPassword, setMatchingPassword] = useState<boolean>(true);
     const [validSubmission, setValidSubmission] = useState<boolean>(true);
-    const [registrationError, setRegistrationError] = useState<boolean>(false);
+    const [registrationError, setRegistrationError] = useState<string>("");
     const history = useHistory();
 
     useEffect(() => {
@@ -22,11 +17,11 @@ const Register: React.FC = () => {
             state.password.length !== state.confirmPassword.length || state.password.length < 1;
 
         if (!matchingInput || invalidLength) return setMatchingPassword(false);
-
         setMatchingPassword(true);
     }, [state.password, state.confirmPassword]);
 
     const handleChange = e => {
+        setRegistrationError("");
         setValidSubmission(true);
         const { name, value } = e.target;
         setState({ ...state, [name]: value });
@@ -36,11 +31,10 @@ const Register: React.FC = () => {
         const validInput: boolean = matchingPassword && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
 
-        const successfulAddUser = await addUser(state);
-
-        if (successfulAddUser) return history.push("/myart");
-
-        setRegistrationError(true);
+        const responseType: AuthResponseType = await addUser(state);
+        if (responseType === 1) return history.push("/myart");
+        if (responseType === 2) return setRegistrationError("Oops! There was an unexpected error. Please try again.");
+        setRegistrationError("Oops! A user with that name already exists. Pick another name and try again.");
     };
 
     return (
@@ -84,10 +78,8 @@ const Register: React.FC = () => {
                     />
                 </div>
                 {!validSubmission ? <p className="form-error">Passwords do not match.</p> : null}
-                {!!registrationError ? (
-                    <p className="form-error">Oops! There was a problem. Please try again.</p>
-                ) : null}
-                <button type="submit" className="btn btn-purple" onClick={() => handleSubmit()}>
+                {registrationError.length > 0 ? <p className="form-error">{registrationError}</p> : null}
+                <button type="submit" className="btn btn-purple" onClick={handleSubmit}>
                     Create Account
                 </button>
             </div>

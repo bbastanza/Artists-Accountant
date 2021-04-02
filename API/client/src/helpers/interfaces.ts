@@ -1,13 +1,13 @@
 export interface FormProps {
     setShowAddPiece?: Function;
     setShowEdit?: Function;
-    updateComponent?: Function;
+    updateComponent: Function;
     artwork?: Artwork;
 }
 
 export interface ArtworkProps {
     artwork: Artwork;
-    updateComponent?: Function;
+    updateComponent: Function;
 }
 
 export interface ShowMoreProps {
@@ -61,6 +61,17 @@ export interface UserData {
     totalExpenses?: number;
 }
 
+export interface LoginState {
+    username: string;
+    password: string;
+}
+
+export interface RegisterState {
+    username: string;
+    password: string;
+    confirmPassword: string;
+}
+
 export interface ChartProps {
     artworks: Artwork[];
 }
@@ -73,4 +84,12 @@ export enum ResponseType {
     Ok,
     ApplicationError,
     Unauthorized,
+}
+
+export enum AuthResponseType {
+    Ok,
+    ApplicationError,
+    InvalidPassword,
+    ExistingUser,
+    NonExistingUser,
 }

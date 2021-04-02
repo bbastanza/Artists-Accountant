@@ -1,14 +1,16 @@
 import { authAxios } from "./axiosAuthInstance";
 import { UserInput } from "./../helpers/interfaces";
-import { UserData, ResponseType } from "./interfaces";
+import { ResponseType } from "./interfaces";
+import { getLocalStorageData } from "./getLocalStorageData";
 
 export const getUserData = async (): Promise<any> => {
     try {
         const localStorageData = JSON.parse(localStorage.getItem("UserData"));
         if (!!localStorageData) {
-            const result = await authAxios.get(`/users/${localStorageData.userId}`);
+            const result = await authAxios(localStorageData).get(`/users/${localStorageData.userId}`);
             return result.data;
         }
+        return null;
     } catch (err) {
         if (err.response.status === 401) return 401;
         return null;
@@ -17,9 +19,9 @@ export const getUserData = async (): Promise<any> => {
 
 export const deleteUser = async (): Promise<ResponseType> => {
     try {
-        const localStorageData = JSON.parse(localStorage.getItem("UserData"));
+        const localStorageData = getLocalStorageData();
         if (!!localStorageData) {
-            await authAxios.delete(`/users/${localStorageData.userId}`);
+            await authAxios(localStorageData).delete(`/users/${localStorageData.userId}`);
             return 1;
         }
         return 2;
@@ -31,9 +33,9 @@ export const deleteUser = async (): Promise<ResponseType> => {
 
 export const patchUser = async (userData: UserInput): Promise<ResponseType> => {
     try {
-        const localStorageData = JSON.parse(localStorage.getItem("UserData"));
-        if (localStorageData) {
-            await authAxios.patch(`/users`, {
+        const localStorageData = getLocalStorageData();
+        if (!!localStorageData) {
+            await authAxios(localStorageData).patch(`/users`, {
                 id: localStorageData.userId,
                 username: userData.username,
                 password: userData.password,

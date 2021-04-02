@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                 </h1>
                 <br />
                 <br />
-                <div onClick={() => history.push("/myart")} className="spin-btn" style={box}>
+                <div onClick={() => history.push("/myart")} className="spin-btn shadow" style={box}>
                     enter
                 </div>
             </div>

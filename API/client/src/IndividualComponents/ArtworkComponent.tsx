@@ -20,14 +20,14 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
                 <ArtworkForm setShowEdit={setShowEdit} artwork={artwork} updateComponent={updateComponent} />
             ) : null}
 
-            <div className="row flex-start artwork-container">
+            <div className="row flex-start artwork-container shadow">
                 <div className="col-4 img-btn-container">
                     <img className="artwork-img" src={imageUrl} alt="" />
                     <div className="btn-container">
-                        <button onClick={() => setShowMore(true)} className="btn btn-purple">
+                        <button onClick={() => setShowMore(true)} className="btn btn-purple shadow-sm">
                             More
                         </button>
-                        <button onClick={() => setShowEdit(true)} className="btn btn-purple">
+                        <button onClick={() => setShowEdit(true)} className="btn btn-purple shadow-sm">
                             Edit
                         </button>
                     </div>

@@ -21,10 +21,24 @@ namespace API.Middleware
             {
                 await _next(context);
             }
-            catch (ArtistException ex)
+            catch (UserValidationException ex)
             {
                 Console.WriteLine($"{ex.GetType()}\n{ex.Message}\nPath {ex.Path}.{ex.Method}");
-                context.Response.StatusCode = 418;
+                context.Response.StatusCode = 460;
+                context.Response.Headers.Add("content-type", "application/json");
+                await context.Response.WriteAsync(new ArtistExceptionModel(ex).ToString());
+            }
+            catch (ExistingUserException ex)
+            {
+                Console.WriteLine($"{ex.GetType()}\n{ex.Message}\nPath {ex.Path}.{ex.Method}");
+                context.Response.StatusCode = 461;
+                context.Response.Headers.Add("content-type", "application/json");
+                await context.Response.WriteAsync(new ArtistExceptionModel(ex).ToString());
+            }
+            catch (NonExistingUserException ex)
+            {
+                Console.WriteLine($"{ex.GetType()}\n{ex.Message}\nPath {ex.Path}.{ex.Method}");
+                context.Response.StatusCode = 462;
                 context.Response.Headers.Add("content-type", "application/json");
                 await context.Response.WriteAsync(new ArtistExceptionModel(ex).ToString());
             }

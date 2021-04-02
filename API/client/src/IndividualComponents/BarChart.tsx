@@ -45,10 +45,10 @@ const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
             </div>
             <h3>View</h3>
             <div className="btn-container-chart">
-                <button onClick={() => setSortBy("margin")} className="btn btn-purple">
+                <button onClick={() => setSortBy("margin")} className="btn btn-purple shadow">
                     Margin
                 </button>
-                <button onClick={() => setSortBy("hourly")} className="btn btn-purple">
+                <button onClick={() => setSortBy("hourly")} className="btn btn-purple shadow">
                     Hourly Rate
                 </button>
             </div>

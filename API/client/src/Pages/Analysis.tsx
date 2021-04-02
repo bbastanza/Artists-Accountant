@@ -35,9 +35,9 @@ const Analysis: React.FC = () => {
                 {!!userData ? (
                     <>
                         <div className="username">
-                            <h2>{userData.username}</h2>
+                            <h2>{userData?.username}</h2>
                         </div>
-                        <BarChart artworks={userData.artWorks} />
+                        <BarChart artworks={userData?.artWorks} />
                         <Table userData={userData} />
                     </>
                 ) : null}

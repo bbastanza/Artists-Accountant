@@ -8,7 +8,6 @@ import { useHistory } from "react-router";
 
 const MyArt: React.FC = () => {
     const history = useHistory();
-    if (!!!JSON.parse(localStorage.getItem("UserData"))) history.push("/login");
     const [showAddPiece, setShowAddPiece] = useState<boolean>(false);
     const [userArtworks, setUserArtworks] = useState<Artwork[]>([]);
     const [apiError, setApiError] = useState<boolean>(false);
@@ -16,6 +15,8 @@ const MyArt: React.FC = () => {
 
     useEffect((): void => {
         (async (): Promise<void> => {
+            const hasLocalStorage = !!JSON.parse(localStorage.getItem("UserData"));
+            if (hasLocalStorage === false) return history.push("/login");
             if (!showAddPiece) {
                 const userData: UserData = await getUserData();
                 const unauthorized = userData === 401;
@@ -40,7 +41,7 @@ const MyArt: React.FC = () => {
                 <h1 className="art-title">
                     My <span className="accent">Art</span>
                 </h1>
-                <button className="btn btn-purple" onClick={() => setShowAddPiece(true)}>
+                <button className="btn btn-purple shadow" onClick={() => setShowAddPiece(true)}>
                     Add Piece
                 </button>
                 <div className="row justify-content-start" style={{ overflow: "hidden" }}>

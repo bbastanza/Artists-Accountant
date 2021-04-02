@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { AuthResponseType, LoginState } from "../helpers/interfaces";
 import { authenticateLogin } from "./../helpers/authRequests";
 import "./css/Login.css";
 
-interface loginState {
-    username: string;
-    password: string;
-}
-
 const Login: React.FC = () => {
-    const [state, setState] = useState<loginState>({ username: "", password: "" });
+    const [state, setState] = useState<LoginState>({ username: "", password: "" });
     const [validSubmission, setValidSubmission] = useState<boolean>(true);
-    const [loginError, setLoginError] = useState<boolean>(false);
+    const [loginError, setLoginError] = useState<string>("");
     const history = useHistory();
 
     const handleChange = e => {
+        setLoginError("");
         setValidSubmission(true);
         const { name, value } = e.target;
         setState({ ...state, [name]: value });
@@ -24,11 +21,12 @@ const Login: React.FC = () => {
         const validInput: boolean = state.password.length > 0 && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
 
-        const successfulLogin = await authenticateLogin(state);
-
-        if (successfulLogin) return history.push("/myart");
-
-        setLoginError(true);
+        const responseType: AuthResponseType = await authenticateLogin(state);
+        if (responseType === 1) return history.push("/myart");
+        if (responseType === 2) return setLoginError("Oops! There was an unexpected error. Please try again.");
+        if (responseType === 3)
+            return setLoginError("Oops! Your password is invalid. Check your credentials and try again.");
+        setLoginError("Oops! A user with that name does not exist. Check your credentials and try again.");
     };
 
     return (
@@ -61,9 +59,7 @@ const Login: React.FC = () => {
                     />
                 </div>
                 {!validSubmission ? <p className="form-error">Please fill out all fields.</p> : null}
-                {loginError ? (
-                    <p className="form-error">Oops! There was a problem. Please check your login credentials.</p>
-                ) : null}
+                {loginError.length > 0 ? <p className="form-error">{loginError}</p> : null}
                 <button onClick={handleSubmit} type="submit" className="btn btn-purple">
                     Sign In
                 </button>
