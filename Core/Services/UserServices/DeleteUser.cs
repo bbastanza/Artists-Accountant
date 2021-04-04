@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.IO;
 using Core.Services.DbServices;
 using Infrastructure.Exceptions;
+using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.UserServices
 {
@@ -51,7 +52,7 @@ namespace Core.Services.UserServices
             }
             catch
             {
-                // TODO
+                throw new SqlException(_path, "Delete");
             } 
             finally
             {

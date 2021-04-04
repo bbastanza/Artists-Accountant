@@ -47,7 +47,8 @@ namespace API.Controllers
             {
                 Id = userData.Id,
                 Username = userData.Username,
-                JwtToken = token
+                JwtToken = token,
+                ProfileImgUrl = userData.ProfileImgUrl
             };
             
             return Ok(userAuth);

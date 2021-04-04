@@ -6,13 +6,13 @@
     width: 100vw;
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 577px) {
     .login-page {
         height: 80vh;
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 576px) {
     .login-page {
         height: 100vh;
     }

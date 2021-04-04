@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { UserData } from "./../helpers/interfaces";
 import { getUserData } from "./../helpers/userRequests";
 import { pauseForAnimation } from "./../helpers/pauseForAnimation";
+import { getLocalStorageData } from "./../helpers/getLocalStorageData";
 import ArtistNavbar from "./../FixedComponents/ArtistNavbar";
 import Table from "./../IndividualComponents/Table";
 import BarChart from "./../IndividualComponents/BarChart";
@@ -19,12 +20,12 @@ const Analysis: React.FC = () => {
         (async (): Promise<void> => {
             setIsLoading(true);
             setApiError(false);
-            if (!!!JSON.parse(localStorage.getItem("UserData"))) return history.push("/login");
+            if (!!!getLocalStorageData()) return history.push("/login");
 
             const userData: UserData = await getUserData();
             const unAuthorized = userData === 401;
-
             if (unAuthorized) return history.push("/login");
+
             if (!!!userData) {
                 setApiError(true);
                 return await finishLoading();
@@ -54,7 +55,7 @@ const Analysis: React.FC = () => {
                                 <div className="username">
                                     <h2>{userData?.username}</h2>
                                 </div>
-                                <BarChart artworks={userData?.artWorks} />
+                                {userData?.artWorks.length > 0 ? <BarChart artworks={userData.artWorks} /> : null}
                                 <Table userData={userData} />
                             </>
                         ) : null}

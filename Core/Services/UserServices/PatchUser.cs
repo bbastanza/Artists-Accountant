@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Services.DbServices;
 using Core.Services.SqlBuilders;
 using Infrastructure.Exceptions;
+using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.UserServices
 {
@@ -55,7 +56,7 @@ namespace Core.Services.UserServices
             }
             catch
             {
-                throw;
+                throw new SqlException(_path, "Edit");
             }
             finally
             {

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { deleteUser } from "./../helpers/userRequests";
 import { ResponseType } from "../helpers/interfaces";
 import { pauseForAnimation } from "./../helpers/pauseForAnimation";
+import { getLocalStorageData } from "./../helpers/getLocalStorageData";
 import ArtistNavbar from "./../FixedComponents/ArtistNavbar";
 import Confirm from "./../IndividualComponents/Modals/Confirm";
 import defaultProfileImage from "./../Images/defaultUserImage.png";
@@ -44,6 +45,7 @@ const MyProfile: React.FC = () => {
         setIsLoading(false);
         await finishLoading();
     };
+
     const unauthorizedAction = async (): Promise<void> => {
         await pauseForAnimation();
         history.push("login");
@@ -68,9 +70,11 @@ const MyProfile: React.FC = () => {
                         <h1 className="art-title">
                             My <span className="accent">Profile</span>
                         </h1>
-                        <div className="username">
-                            <h1>{JSON.parse(localStorage.getItem("UserData"))?.username}</h1>
-                        </div>
+                        {!!getLocalStorageData() ? (
+                            <div className="username">
+                                <h1>{getLocalStorageData()?.username}</h1>
+                            </div>
+                        ) : null}
                         <img src={defaultProfileImage} alt="" className="profile-img" />
                         {apiError ? (
                             <h3 className="form-error">

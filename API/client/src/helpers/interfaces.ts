@@ -47,6 +47,7 @@ export interface UserAuthData {
     userId: number;
     username: string;
     jwtToken: string;
+    profileImgUrl?: string;
 }
 
 export interface UserData {

@@ -3,6 +3,7 @@ import { pauseForAnimation } from "./../helpers/pauseForAnimation";
 import { getUserData } from "./../helpers/userRequests";
 import { Artwork, UserData } from "./../helpers/interfaces";
 import { useHistory } from "react-router";
+import { getLocalStorageData } from "./../helpers/getLocalStorageData";
 import ArtistNavbar from "../FixedComponents/ArtistNavbar";
 import ArtworkForm from "../Forms/ArtworkForm";
 import ArtworkComponent from "./../IndividualComponents/ArtworkComponent";
@@ -19,7 +20,7 @@ const MyArt: React.FC = () => {
     useEffect((): void => {
         (async (): Promise<void> => {
             setIsLoading(true);
-            if (!!!JSON.parse(localStorage.getItem("UserData"))) return history.push("/login");
+            if (!!!getLocalStorageData()) return history.push("/login");
             if (!showAddPiece) {
                 const userData: UserData = await getUserData();
                 const unauthorized = userData === 401;
@@ -29,8 +30,8 @@ const MyArt: React.FC = () => {
                     return await finishLoading();
                 }
                 setUserArtworks(userData.artWorks);
-            }
-            await finishLoading();
+                await finishLoading();
+            } else setIsLoading(false);
         })();
         // eslint-disable-next-line
     }, []);
@@ -41,10 +42,16 @@ const MyArt: React.FC = () => {
     };
 
     const updateComponent = async (): Promise<void> => {
+        setIsLoading(true);
         const userData: UserData = await getUserData();
-        await pauseForAnimation();
-        if (!!!userData) return history.push("/login");
+        const unauthorized = userData === 401;
+        if (unauthorized) return history.push("/login");
+        if (!!!userData) {
+            setApiError(true);
+            return await finishLoading();
+        }
         setUserArtworks(userData.artWorks);
+        await finishLoading();
     };
 
     return (

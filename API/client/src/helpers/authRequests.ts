@@ -30,6 +30,7 @@ export const authenticateLogin = async (login: UserInput): Promise<AuthResponseT
             userId: response.data.id,
             username: response.data.username,
             jwtToken: response.data.jwtToken,
+            profileImgUrl: response.data.profileImgUrl,
         };
         localStorage.setItem("UserData", JSON.stringify(userData));
         return 1;

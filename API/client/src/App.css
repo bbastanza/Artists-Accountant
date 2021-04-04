@@ -100,13 +100,7 @@
     letter-spacing: 2px;
 }
 
-.splash-text-container {
-    text-align: left;
-    margin-right: 20rem;
-    min-width: 300px;
-}
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 576px) {
     .art-navbar {
         bottom: 0;
         width: 100vw;
@@ -139,7 +133,7 @@
     }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 577px) {
     .App {
         margin-left: 6rem;
     }
@@ -171,28 +165,11 @@
     }
 }
 
-@media only screen and (max-width: 1200px) {
-    .splash-img {
-        display: none;
-        width: 0;
-    }
-    .splash-text-container {
-        text-align: center;
-        margin-right: 0;
-    }
-}
-
 .form-error {
     text-align: center;
     color: rgb(255, 106, 106);
 }
 
-.splash-img {
-    width: 60rem;
-    position: fixed;
-    right: -23rem;
-    bottom: -10rem;
-}
 .art-title {
     color: var(--darkergray);
     font-weight: lighter;
@@ -201,36 +178,6 @@
 .art-title2 {
     color: var(--darkergray);
     font-weight: lighter;
-}
-
-.spin-btn {
-    font-size: 1.3rem;
-    color: var(--white);
-    background: var(--darkpurple);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: transform 700ms;
-    border-radius: 20%;
-    user-select: none;
-}
-
-.spin-btn:hover {
-    animation: rotate 300ms forwards;
-    transform: rotate(360deg);
-    cursor: pointer;
-}
-
-.spin-btn:active {
-    box-shadow: 0 0 20px var(--darkerpurple);
-    border: solid 1px var(--lightpurple);
-    color: var(--offwhite);
-}
-
-@keyframes rotate {
-    100% {
-        border-radius: 50%;
-        background: var(--darkerpurple);
-    }
 }
 
 @keyframes pulse {

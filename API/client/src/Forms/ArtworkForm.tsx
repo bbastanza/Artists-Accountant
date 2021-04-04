@@ -281,17 +281,17 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                             id="dateFinished"
                         />
                     </div>
-                    <div className="btn-container">
+                    <div className="row col-12">
                         {!isAddNewArtwork ? (
-                            <button type="button" onClick={deletePiece} className="btn btn-red col-12">
+                            <button type="button" onClick={deletePiece} className="btn btn-red  col-sm-12 col-md-4 ">
                                 Delete
                             </button>
                         ) : null}
-                        <button type="button" onClick={cancelSubmission} className="btn btn-purple col-12">
+                        <button type="button" onClick={cancelSubmission} className="btn btn-purple  col-sm-12 col-md-3">
                             Cancel
                         </button>
                         {canSubmit ? (
-                            <button type="submit" className="btn btn-purple col-12">
+                            <button type="submit" className="btn btn-purple col-sm-12 col-md-4 text-nowrap">
                                 {isAddNewArtwork ? "Add My Art!" : "Apply Changes"}
                             </button>
                         ) : null}

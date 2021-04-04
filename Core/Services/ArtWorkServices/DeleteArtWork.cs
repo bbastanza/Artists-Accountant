@@ -1,6 +1,8 @@
 using System.Data.SqlClient;
 using System.IO;
 using Core.Services.DbServices;
+using Infrastructure.Exceptions;
+using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.ArtWorkServices
 {
@@ -35,7 +37,7 @@ namespace Core.Services.ArtWorkServices
             }
             catch
             {
-                // TODO
+                throw new SqlException(_path, "Delete(artwork)");
             }
             finally
             {

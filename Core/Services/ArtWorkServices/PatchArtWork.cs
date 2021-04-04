@@ -4,6 +4,8 @@ using System.IO;
 using Core.Entities;
 using Core.Services.DbServices;
 using Core.Services.SqlBuilders;
+using Infrastructure.Exceptions;
+using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.ArtWorkServices
 {
@@ -39,6 +41,10 @@ namespace Core.Services.ArtWorkServices
                 {
                     command.ExecuteNonQuery();
                 }
+            }
+            catch
+            {
+                throw new SqlException(_path, "Edit(artwork)");
             }
             finally
             {

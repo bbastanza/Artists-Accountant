@@ -84,7 +84,7 @@ namespace API.Controllers
             _patchUser.Edit(user);
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete("{id}")]
         public void DeleteUser(int? id)
         {

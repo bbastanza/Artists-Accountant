@@ -5,5 +5,6 @@ namespace API.Models
         public int? Id { get; set; }
         public string JwtToken { get; set; }
         public string Username { get; set; }
+        public string ProfileImgUrl { get; set; }
     }
 }

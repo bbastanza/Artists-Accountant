@@ -1,9 +1,10 @@
-using System;
 using System.Data.SqlClient;
+using System.IO;
 using Core.Entities;
 using Core.Services.DbServices;
 using Core.Services.SqlBuilders;
-using Core.Services.UserServices;
+using Infrastructure.Exceptions;
+using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.ArtWorkServices
 {
@@ -14,15 +15,13 @@ namespace Core.Services.ArtWorkServices
 
     public class AddArtWork : IAddArtWork
     {
-        private readonly IGetUserData _getUserData;
         private readonly ISqlServer _sqlServer;
+        private readonly string _path;
 
-        public AddArtWork(
-            IGetUserData getUserData,
-            ISqlServer sqlServer)
+        public AddArtWork(ISqlServer sqlServer)
         {
-            _getUserData = getUserData;
             _sqlServer = sqlServer;
+            _path = Path.GetFullPath(ToString());
         }
 
         public void Add(ArtWork artWork)
@@ -32,7 +31,6 @@ namespace Core.Services.ArtWorkServices
             var sqlBuilder = new ArtworkSqlBuilder();
 
             var query = sqlBuilder.GenerateInsertStatement(artWork);
-            Console.WriteLine(query);
 
             try
             {
@@ -40,6 +38,10 @@ namespace Core.Services.ArtWorkServices
                 {
                     command.ExecuteNonQuery();
                 }
+            }
+            catch
+            {
+                throw new SqlException(_path, "Delete(artwork)");
             }
             finally
             {

@@ -1,29 +1,13 @@
 import React from "react";
 import woodburn from "./../Images/woodburn.png";
 import { useHistory } from "react-router-dom";
+import "./css/Home.css";
 
 const Home: React.FC = () => {
     const history = useHistory();
-    const box = {
-        height: "6rem",
-        width: "6rem",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "auto",
-    };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                height: "80vh",
-                position: "relative",
-                minWidth: 300,
-                textAlign: "center",
-            }}>
+        <div className="home-container">
             <div className="splash-text-container">
                 <h1 className="art-title">
                     Focus on your <span className="accent">Art</span>
@@ -33,7 +17,7 @@ const Home: React.FC = () => {
                 </h1>
                 <br />
                 <br />
-                <div onClick={() => history.push("/myart")} className="spin-btn shadow" style={box}>
+                <div onClick={() => history.push("/myart")} className="spin-btn shadow">
                     enter
                 </div>
             </div>
