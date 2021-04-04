@@ -6,7 +6,7 @@
 .btn-container-profile {
     width: 80%;
     min-width: 300px;
-    max-width: 600px;
+    max-width: 500px;
     margin: 20px;
     margin: auto;
     justify-content: center;
@@ -14,6 +14,6 @@
 
 .profile-img {
     width: 70%;
-    max-width: 500px;
+    max-width: 400px;
     min-width: 280px;
 }

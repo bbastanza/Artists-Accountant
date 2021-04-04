@@ -32,6 +32,9 @@ namespace Core.Services.JwtAuthentication
         public string Authenticate(string username, string password)
         {
             var user = _getUserAuth.Get(username);
+            
+            if (user == null)
+                throw new NonExistingUserException(_path, "Authenticate()");
 
             if (user.Password != password)
                 throw new UserValidationException(_path, "Authenticate");
@@ -54,7 +57,7 @@ namespace Core.Services.JwtAuthentication
                 {
                     new Claim(ClaimTypes.Name, username)
                 }),
-                Expires = DateTime.Now.AddDays(15),
+                Expires = DateTime.Now.AddDays(30),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature)
