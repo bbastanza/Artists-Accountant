@@ -12,3 +12,47 @@
     margin: auto;
     width: 300;
 }
+
+.tool-tip {
+    position: relative;
+    color: var(--darkerpurple);
+    cursor: help;
+}
+
+.tool-tip::before,
+.tool-tip::after {
+    --scale: 0;
+    --arrow-size: 12px;
+    --tip-color: rgba(92, 92, 92, 0.952);
+
+    position: absolute;
+    top: -0.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+    transition: 200ms transform;
+    transform-origin: bottom center;
+}
+
+.tool-tip::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+    content: "Make sure you set a sale price, material cost, shipping cost and time spent for your piece. You can also set them to 0.";
+    color: var(--white);
+    background: var(--tip-color);
+    width: 180px;
+    border-radius: 5px;
+    padding: 0.5rem;
+    align-items: center;
+}
+
+.tool-tip:hover::before,
+.tool-tip:hover::after {
+    --scale: 1;
+}
+
+.tool-tip::after {
+    --translate-y: calc(-1 * var(--arrow-size));
+    content: "";
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tip-color);
+    transform-origin: top center;
+}

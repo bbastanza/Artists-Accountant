@@ -75,7 +75,15 @@ const MyProfile: React.FC = () => {
                                 <h1>{getLocalStorageData()?.username}</h1>
                             </div>
                         ) : null}
-                        <img src={defaultProfileImage} alt="" className="profile-img" />
+                        <img
+                            src={
+                                !!getLocalStorageData().profileImgUrl
+                                    ? getLocalStorageData().profileImgUrl
+                                    : defaultProfileImage
+                            }
+                            alt=""
+                            className="profile-img"
+                        />
                         {apiError ? (
                             <h3 className="form-error">
                                 Oops! There was an unexpected error. Try refrshing the browser.

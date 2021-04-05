@@ -24,6 +24,7 @@ const Analysis: React.FC = () => {
 
             const userData: UserData = await getUserData();
             const unAuthorized = userData === 401;
+            console.log(userData);
             if (unAuthorized) return history.push("/login");
 
             if (!!!userData) {

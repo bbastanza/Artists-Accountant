@@ -41,6 +41,12 @@
     animation: pulse 10s infinite;
 }
 
+@keyframes pulse {
+    50% {
+        text-shadow: 0 10px 10px var(--lightpurple);
+    }
+}
+
 .App {
     padding: 1rem;
     text-align: center;
@@ -178,10 +184,4 @@
 .art-title2 {
     color: var(--darkergray);
     font-weight: lighter;
-}
-
-@keyframes pulse {
-    50% {
-        text-shadow: 0 10px 10px var(--lightpurple);
-    }
 }

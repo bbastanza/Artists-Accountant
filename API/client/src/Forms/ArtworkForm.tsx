@@ -18,12 +18,12 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                   pieceName: null,
                   customerName: null,
                   customerContact: null,
-                  shippingCost: null,
-                  materialCost: null,
-                  salePrice: null,
+                  shippingCost: 0,
+                  materialCost: 0,
+                  salePrice: 0,
                   heightInches: null,
                   widthInches: null,
-                  timeSpentMinutes: null,
+                  timeSpentMinutes: 0,
                   shape: "round",
                   paymentType: "cash",
                   isCommission: false,
@@ -143,7 +143,7 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                         <input
                             type="number"
                             name="salePrice"
-                            value={!!state.salePrice ? state.salePrice : ""}
+                            value={!!state.salePrice || state.salePrice === 0 ? state.salePrice : ""}
                             onChange={e => handleChange(e)}
                             step=".01"
                             className="form-control"
@@ -155,7 +155,7 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                         <input
                             type="number"
                             name="shippingCost"
-                            value={!!state.shippingCost ? state.shippingCost : ""}
+                            value={!!state.shippingCost || state.shippingCost === 0 ? state.shippingCost : ""}
                             onChange={e => handleChange(e)}
                             step=".01"
                             className="form-control"
@@ -167,7 +167,7 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                         <input
                             type="number"
                             name="materialCost"
-                            value={!!state.materialCost ? state.materialCost : ""}
+                            value={!!state.materialCost || state.materialCost === 0 ? state.materialCost : ""}
                             onChange={e => handleChange(e)}
                             step=".01"
                             className="form-control"
@@ -202,7 +202,11 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                             type="number"
                             name="timeSpentMinutes"
                             step=".25"
-                            value={!!state.timeSpentMinutes ? state.timeSpentMinutes / 60 : ""}
+                            value={
+                                !!state.timeSpentMinutes || state.timeSpentMinutes === 0
+                                    ? state.timeSpentMinutes / 60
+                                    : ""
+                            }
                             onChange={e => handleChange(e)}
                             className="form-control"
                             id="timeSpent"
