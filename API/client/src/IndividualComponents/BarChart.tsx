@@ -48,7 +48,7 @@ const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
                 />
             </div>
             <p>
-                I don't see my art. <span className="tool-tip">Why?</span>
+                I don't see the piece I am looking for. <span className="tool-tip">Why?</span>
             </p>
             <h3>View</h3>
             <div className="btn-container-chart">
