@@ -68,7 +68,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPatch]
-        public void EditUser(UserInputModel userInput)
+        public UserModel EditUser(UserInputModel userInput)
         {
             if (userInput.Id == null || userInput.Username == null && userInput.Password == null && userInput.ProfileImgUrl == null)
                 throw new InvalidInputException(_path, "Patch()");
@@ -81,7 +81,7 @@ namespace API.Controllers
                 ProfileImgUrl = userInput.ProfileImgUrl
             };
             
-            _patchUser.Edit(user);
+            return new UserModel(_patchUser.Edit(user));
         }
 
         [Authorize]

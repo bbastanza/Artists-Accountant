@@ -34,6 +34,7 @@ export const deleteUser = async (): Promise<ResponseType> => {
 export const patchUser = async (userData: UserInput): Promise<ResponseType> => {
     try {
         const localStorageData = getLocalStorageData();
+
         if (!!localStorageData) {
             await authAxios(localStorageData).patch(`/users`, {
                 id: localStorageData.userId,
@@ -46,5 +47,24 @@ export const patchUser = async (userData: UserInput): Promise<ResponseType> => {
     } catch (err) {
         if (err.response.status === 401) return 3;
         return 2;
+    }
+};
+
+export const patchUserImg = async (imgUrl: string): Promise<any> => {
+    try {
+        const localStorageData = getLocalStorageData();
+        if (!!localStorageData) {
+            const userData: any = await authAxios(localStorageData).patch(`/users`, {
+                id: localStorageData.userId,
+                profileImgUrl: imgUrl,
+            });
+            localStorageData.profileImgUrl = userData?.data.profileImgUrl;
+            localStorage.setItem("UserData", JSON.stringify(localStorageData));
+            return userData?.data.profileImgUrl;
+        }
+        return null;
+    } catch (err) {
+        if (err.response.status === 401) return 401;
+        return null;
     }
 };

@@ -39,8 +39,9 @@ export interface Artwork {
 }
 
 export interface UserInput {
-    username: string;
-    password: string;
+    username?: string;
+    password?: string;
+    profileImgUrl?: string;
 }
 
 export interface UserAuthData {

@@ -14,11 +14,9 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
 
     return (
         <>
-            {showMore ? <ArtworkShowMore setShowMore={setShowMore} artwork={artwork} imageUrl={imageUrl} /> : null}
+            {showMore && <ArtworkShowMore setShowMore={setShowMore} artwork={artwork} imageUrl={imageUrl} />}
 
-            {showEdit ? (
-                <ArtworkForm setShowEdit={setShowEdit} artwork={artwork} updateComponent={updateComponent} />
-            ) : null}
+            {showEdit && <ArtworkForm setShowEdit={setShowEdit} artwork={artwork} updateComponent={updateComponent} />}
 
             <div className="row flex-start artwork-container shadow">
                 <div className="col-4 img-btn-container">
@@ -33,30 +31,30 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
                     </div>
                 </div>
                 <div className="col-6">
-                    {!!artwork.pieceName ? (
+                    {!!artwork.pieceName && (
                         <div className="prop-div prop-div-long">
                             <h6 className="key d-none d-sm-block">Name:</h6>
                             <h6 className="value">{formatForNull(artwork.pieceName)}</h6>
                         </div>
-                    ) : null}
-                    {!!artwork.customerName ? (
+                    )}
+                    {!!artwork.customerName && (
                         <div className="prop-div prop-div-long">
                             <h6 className="key d-none d-sm-block">Customer:</h6>
                             <h6 className="value">{formatForNull(artwork.customerName)}</h6>
                         </div>
-                    ) : null}
-                    {!!artwork.salePrice ? (
+                    )}
+                    {!!artwork.salePrice && (
                         <div className="prop-div prop-div-long">
                             <h6 className="key d-none d-sm-block">Sale Price:</h6>
                             <h6 className="value">{formatMoney(artwork.salePrice)}</h6>
                         </div>
-                    ) : null}
-                    {!!artwork.margin ? (
+                    )}
+                    {!!artwork.margin && (
                         <div className="prop-div prop-div-long d-none d-sm-flex">
                             <h6 className="key">Margin:</h6>
                             <h6 className="value">{formatMoney(artwork.margin)}</h6>
                         </div>
-                    ) : null}
+                    )}
                 </div>
             </div>
         </>

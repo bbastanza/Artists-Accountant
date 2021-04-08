@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { deleteUser } from "./../helpers/userRequests";
+import { deleteUser, patchUserImg } from "./../helpers/userRequests";
 import { ResponseType } from "../helpers/interfaces";
 import { pauseForAnimation } from "./../helpers/pauseForAnimation";
 import { getLocalStorageData } from "./../helpers/getLocalStorageData";
 import ArtistNavbar from "./../FixedComponents/ArtistNavbar";
+import ImageUploader from "./../IndividualComponents/ImageUploader";
 import Confirm from "./../IndividualComponents/Modals/Confirm";
 import defaultProfileImage from "./../Images/defaultUserImage.png";
-import "./css/MyProfile.css";
 import BoxAnimation from "../Animations/BoxAnimation";
+import "./css/MyProfile.css";
 
 const MyProfile: React.FC = () => {
     const history = useHistory();
@@ -16,7 +17,18 @@ const MyProfile: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [unauthorized, setUnauthorized] = useState<boolean>(false);
     const [apiError, setApiError] = useState<boolean>(false);
+    const [profileImg, setProfileImg] = useState<string>(null);
 
+    useEffect(() => {
+        setIsLoading(true);
+        const localStorageData = getLocalStorageData();
+        if (localStorageData?.profileImgUrl) {
+            setProfileImg(localStorageData.profileImgUrl);
+            return setIsLoading(false);
+        }
+        setProfileImg(defaultProfileImage);
+        setIsLoading(false);
+    }, []);
     const changePassword = () => {
         console.log("updating password");
     };
@@ -56,6 +68,14 @@ const MyProfile: React.FC = () => {
         setIsLoading(false);
     };
 
+    const patchUserImgUrl = async (imgUrl): Promise<void> => {
+        const response: any = await patchUserImg(imgUrl);
+        console.log(response);
+        if (response === 401) return history.push("/login");
+        if (response === null) return setProfileImg(defaultProfileImage);
+        setProfileImg(response);
+    };
+
     return (
         <>
             {showConfirmDelete ? (
@@ -75,15 +95,7 @@ const MyProfile: React.FC = () => {
                                 <h1>{getLocalStorageData()?.username}</h1>
                             </div>
                         ) : null}
-                        <img
-                            src={
-                                !!getLocalStorageData().profileImgUrl
-                                    ? getLocalStorageData().profileImgUrl
-                                    : defaultProfileImage
-                            }
-                            alt=""
-                            className="profile-img"
-                        />
+                        {!!profileImg && <img src={profileImg} alt="" className="profile-img" />}
                         {apiError ? (
                             <h3 className="form-error">
                                 Oops! There was an unexpected error. Try refrshing the browser.
@@ -95,6 +107,7 @@ const MyProfile: React.FC = () => {
                             </h3>
                         ) : null}
                         <div className="row btn-container-profile">
+                            <ImageUploader saveImgUrl={url => patchUserImgUrl(url)} />
                             <button onClick={logout} className="col-12 btn btn-purple shadow-sm text-nowrap">
                                 Logout
                             </button>

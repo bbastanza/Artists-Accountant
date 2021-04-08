@@ -13,7 +13,33 @@
 }
 
 .profile-img {
-    width: 70%;
-    max-width: 400px;
-    min-width: 280px;
+    border-radius: 50%;
+    margin: 20px;
 }
+
+@media only screen and (max-width: 576px) {
+    .profile-img {
+        max-width: 250px;
+        max-height: 350px;
+    }
+}
+
+@media only screen and (min-width: 577px) {
+    .profile-img {
+        max-width: 500px;
+        max-height: 400px;
+    }
+}
+
+/* .file-input {
+    visibility: hidden;
+}
+
+.file-input::before {
+    content: "Upload Profile Image";
+    cursor: pointer;
+    height: 2.5rem;
+    background: var(--darkpurple);
+    color: var(--white);
+    margin: 5px;
+} */

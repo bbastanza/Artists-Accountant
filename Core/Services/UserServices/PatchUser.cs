@@ -11,7 +11,7 @@ namespace Core.Services.UserServices
 {
     public interface IPatchUser
     {
-        void Edit(User user);
+        User Edit(User user);
     }
 
     public class PatchUser : IPatchUser
@@ -32,7 +32,7 @@ namespace Core.Services.UserServices
             _path = Path.GetFullPath(ToString());
         }
 
-        public void Edit(User user)
+        public User Edit(User user)
         {
             var currentUser = _getUserData.GetDataWithoutArtworks(user.Id);
 
@@ -41,9 +41,9 @@ namespace Core.Services.UserServices
             if (currentUser == null)
                 throw new NonExistingUserException(_path, "Edit()");
 
-            if (currentUser.Username == user.Username && 
+            if (currentUser.Username == user.Username &&
                 currentUser.Password == user.Password &&
-                currentUser.ProfileImgUrl == user.ProfileImgUrl) return;
+                currentUser.ProfileImgUrl == user.ProfileImgUrl) return user;
 
             var query = _sqlBuilder.GenerateUpdateStatement(user);
 
@@ -62,6 +62,8 @@ namespace Core.Services.UserServices
             {
                 _sqlServer.CloseConnection();
             }
+
+            return user;
         }
     }
 }

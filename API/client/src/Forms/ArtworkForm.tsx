@@ -4,7 +4,6 @@ import "./css/Form.css";
 import { FormProps, Artwork, ResponseType } from "./../helpers/interfaces";
 import { addArtwork, patchArtwork, deleteArtwork } from "./../helpers/artworkRequests";
 import { useHistory } from "react-router";
-import Confirm from "../IndividualComponents/Modals/Confirm";
 
 const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwork, updateComponent }: FormProps) => {
     const history = useHistory();
