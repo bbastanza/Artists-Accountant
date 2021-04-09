@@ -1,8 +1,6 @@
 using System.IO;
 using API.Models;
-using Core.Entities;
 using Core.Services.JwtAuthentication;
-using Core.Services.SqlBuilders;
 using Core.Services.UserServices;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
@@ -21,11 +19,11 @@ namespace API.Controllers
 
         public AuthenticationController(
             IGenerateJwtToken generateJwtToken,
-            IGetUserData getUserData)
+            IGetUserData getUserData
+        )
         {
             _generateJwtToken = generateJwtToken;
             _getUserData = getUserData;
-
             _path = Path.GetFullPath(ToString()!);
         }
 
@@ -35,14 +33,14 @@ namespace API.Controllers
         {
             if (user.Username == null || user.Password == null)
                 throw new InvalidInputException(_path, "Authenticate()");
-                    
+
             var token = _generateJwtToken.Authenticate(user.Username, user.Password);
-            
+
             if (token == null)
                 return Unauthorized();
 
             var userData = _getUserData.GetDataByUsername(user.Username);
-            
+
             var userAuth = new UserAuthModel
             {
                 Id = userData.Id,
@@ -50,7 +48,7 @@ namespace API.Controllers
                 JwtToken = token,
                 ProfileImgUrl = userData.ProfileImgUrl
             };
-            
+
             return Ok(userAuth);
         }
     }

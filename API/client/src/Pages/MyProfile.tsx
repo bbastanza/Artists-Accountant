@@ -29,13 +29,6 @@ const MyProfile: React.FC = () => {
         setProfileImg(defaultProfileImage);
         setIsLoading(false);
     }, []);
-    const changePassword = () => {
-        console.log("updating password");
-    };
-
-    const changeUsername = () => {
-        console.log("updating username");
-    };
 
     const logout = () => {
         localStorage.clear();
@@ -46,7 +39,6 @@ const MyProfile: React.FC = () => {
         setShowConfirmDelete(false);
         setIsLoading(true);
         const responseType: ResponseType = await deleteUser();
-        console.log(responseType);
         if (responseType === 1) return history.push("login");
         if (responseType === 2) {
             setUnauthorized(true);
@@ -69,11 +61,10 @@ const MyProfile: React.FC = () => {
     };
 
     const patchUserImgUrl = async (imgUrl): Promise<void> => {
-        const response: any = await patchUserImg(imgUrl);
-        console.log(response);
-        if (response === 401) return history.push("/login");
-        if (response === null) return setProfileImg(defaultProfileImage);
-        setProfileImg(response);
+        const imgResponse: any = await patchUserImg(imgUrl);
+        if (imgResponse === 401) return history.push("/login");
+        if (imgResponse === null) return setProfileImg(defaultProfileImage);
+        setProfileImg(imgResponse);
     };
 
     return (
@@ -110,12 +101,6 @@ const MyProfile: React.FC = () => {
                             <ImageUploader saveImgUrl={url => patchUserImgUrl(url)} />
                             <button onClick={logout} className="col-12 btn btn-purple shadow-sm text-nowrap">
                                 Logout
-                            </button>
-                            <button onClick={changeUsername} className="col-12 btn btn-purple shadow-sm text-nowrap">
-                                Change Username
-                            </button>
-                            <button onClick={changePassword} className="col-12 btn btn-purple shadow-sm text-nowrap">
-                                Change Password
                             </button>
                             <button
                                 onClick={() => setShowConfirmDelete(true)}

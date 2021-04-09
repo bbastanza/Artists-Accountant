@@ -5,6 +5,7 @@ import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTim
 import "./css/ShowMore.css";
 
 const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageUrl }: ShowMoreProps) => {
+    console.log(artwork);
     return (
         <Modal>
             <div className="modal-container">

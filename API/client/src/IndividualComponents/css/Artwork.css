@@ -10,14 +10,14 @@
 }
 
 .artwork-img {
-    width: 150px;
-    height: 150px;
+    max-width: 250px;
+    max-height: 150px;
     border-radius: 50%;
     padding: 0;
 }
 
 .img-btn-container {
-    width: 200px;
+    max-width: 250px;
     display: flex;
     flex-direction: column;
 }
@@ -27,11 +27,10 @@
         justify-content: space-between;
     }
     .artwork-img {
-        width: 150px;
-        height: 150px;
+        max-height: 200px;
     }
     .btn-container {
-        width: 150px;
+        width: 200px;
     }
 }
 
@@ -44,6 +43,6 @@
         height: 80px;
     }
     .btn-container {
-        width: 80px;
+        width: 100px;
     }
 }

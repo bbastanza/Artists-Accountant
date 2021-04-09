@@ -23,7 +23,8 @@ namespace API.Controllers
             IAddArtWork addArtWork,
             IMapPiece mapPiece,
             IPatchArtWork patchArtWork,
-            IDeleteArtWork deleteArtWork)
+            IDeleteArtWork deleteArtWork
+        )
         {
             _addArtWork = addArtWork;
             _mapPiece = mapPiece;
@@ -38,7 +39,7 @@ namespace API.Controllers
         {
             if (artInput.UserId == null)
                 throw new InvalidInputException(_path, "AddPieces()");
-            
+
             var artWork = _mapPiece.Map(artInput);
             _addArtWork.Add(artWork);
         }
@@ -60,7 +61,7 @@ namespace API.Controllers
         {
             if (id == null)
                 throw new InvalidInputException(_path, "DeletePiece()");
-            
+
             _deleteArtWork.Delete(id);
         }
     }

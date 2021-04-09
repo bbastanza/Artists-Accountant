@@ -20,7 +20,8 @@ namespace Core.Services.UserServices
 
         public DeleteUser(
             IGetUserData getUserData,
-            ISqlServer sqlServer)
+            ISqlServer sqlServer
+        )
         {
             _getUserData = getUserData;
             _sqlServer = sqlServer;
@@ -35,17 +36,17 @@ namespace Core.Services.UserServices
                 throw new NonExistingUserException(_path, "Delete()");
 
             var connection = _sqlServer.Connect();
-            
+
             var deleteUserArtworksQuery = $"DELETE FROM artwork_table WHERE user_id = {id};";
             var deleteUserQuery = $"DELETE FROM user_table WHERE id = {id};";
 
             try
             {
-                using (SqlCommand command = new SqlCommand(deleteUserArtworksQuery, connection))
+                using (var command = new SqlCommand(deleteUserArtworksQuery, connection))
                 {
                     command.ExecuteNonQuery();
                 }
-                using (SqlCommand command = new SqlCommand(deleteUserQuery, connection))
+                using (var command = new SqlCommand(deleteUserQuery, connection))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -53,7 +54,7 @@ namespace Core.Services.UserServices
             catch
             {
                 throw new SqlException(_path, "Delete");
-            } 
+            }
             finally
             {
                 _sqlServer.CloseConnection();

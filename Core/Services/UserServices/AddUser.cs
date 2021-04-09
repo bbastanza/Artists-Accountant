@@ -21,7 +21,8 @@ namespace Core.Services.UserServices
 
         public AddUser(
             IGetUserAuth getUserData,
-            ISqlServer sqlServer)
+            ISqlServer sqlServer
+        )
         {
             _getUserData = getUserData;
             _sqlServer = sqlServer;
@@ -41,7 +42,7 @@ namespace Core.Services.UserServices
                 Password = password,
                 CreatedAt = DateTime.Now,
             };
-            
+
             var connection = _sqlServer.Connect();
 
             var query =
@@ -61,7 +62,7 @@ namespace Core.Services.UserServices
             }
             finally
             {
-                    _sqlServer.CloseConnection();
+                _sqlServer.CloseConnection();
             }
         }
     }

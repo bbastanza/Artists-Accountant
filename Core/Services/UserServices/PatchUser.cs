@@ -24,7 +24,8 @@ namespace Core.Services.UserServices
         public PatchUser(
             IGetUserData getUserData,
             IUserSqlBuilder sqlBuilder,
-            ISqlServer sqlServer)
+            ISqlServer sqlServer
+        )
         {
             _getUserData = getUserData;
             _sqlBuilder = sqlBuilder;

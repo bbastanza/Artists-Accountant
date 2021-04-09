@@ -26,23 +26,23 @@ namespace API.Models
             Id = artWork.Id;
         }
 
-        public int? Id { get; set; }
-        public string ImgUrl { get; set; }
-        public string PieceName { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerContact { get; set; }
-        public decimal? ShippingCost { get; set; }
-        public decimal? MaterialCost { get; set; }
-        public decimal? SalePrice { get; set; }
+        public int? Id { get; }
+        public string ImgUrl { get; }
+        public string PieceName { get; }
+        public string CustomerName { get; }
+        public string CustomerContact { get; }
+        public decimal? ShippingCost { get; }
+        public decimal? MaterialCost { get; }
+        public decimal? SalePrice { get; }
         public decimal? Margin => SalePrice - (ShippingCost + MaterialCost);
-        public int? HeightInches { get; set; }
-        public int? WidthInches { get; set; }
-        public int? TimeSpentMinutes { get; set; }
-        public string Shape { get; set; }
-        public string PaymentType { get; set; }
-        public bool? IsCommission { get; set; }
-        public bool? IsPaymentCollected { get; set; }
-        public DateTime? DateStarted { get; set; }
-        public DateTime? DateFinished { get; set; }
+        public int? HeightInches { get; }
+        public int? WidthInches { get; }
+        public int? TimeSpentMinutes { get; }
+        public string Shape { get; }
+        public string PaymentType { get; }
+        public bool? IsCommission { get; }
+        public bool? IsPaymentCollected { get; }
+        public DateTime? DateStarted { get; }
+        public DateTime? DateFinished { get; }
     }
 }

@@ -23,20 +23,20 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ saveImgUrl }) => {
     };
 
     return (
-        <div className="col-12">
+        <div className="col-8">
             {file && <ProgressBar file={file} setFile={setFile} saveImgUrl={saveImgUrl} />}
-            <div className="custom-file" style={{ margin: "10px auto", width: "100%", padding: 20 }}>
+            <div className="custom-file" style={{ margin: "auto", width: "100%", padding: 20, position: "relative" }}>
                 <input
                     className="custom-file-input"
                     id="customInput"
                     type="file"
-                    style={{ visibility: "hidden" }}
+                    style={{ opacity: 0 }}
                     multiple={false}
-                    accept=".jpeg, .png"
+                    accept=".jpeg, .png, .jpg"
                     onChange={handleChange}
                 />
-                <label className="custom-file-label btn-purple" htmlFor="customInput">
-                    Choose Profile Image...
+                <label className="custom-file-label btn-purple" style={{ textAlign: "left" }} htmlFor="customInput">
+                    Upload Image...
                 </label>
             </div>
 
