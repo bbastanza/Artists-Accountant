@@ -10,7 +10,7 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
     const [showEdit, setShowEdit] = useState<boolean>(false);
 
     const defaultImgUrl = "https://clipground.com/images/art-palette-clipart-transparent-5.png";
-    const imageUrl = !!artwork.imgUrl ? artwork.imgUrl : defaultImgUrl;
+    const imageUrl = !!artwork.imgUrl && artwork.imgUrl !== "null" ? artwork.imgUrl : defaultImgUrl;
 
     return (
         <>

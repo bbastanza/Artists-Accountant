@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using API.Models;
 using Core.Entities;
@@ -26,7 +25,8 @@ namespace API.Controllers
             IAddUser addUser,
             IDeleteUser deleteUser,
             IPatchUser patchUser,
-            IGenerateJwtToken generateJwtToken)
+            IGenerateJwtToken generateJwtToken
+        )
         {
             _getUserData = getUserData;
             _addUser = addUser;
@@ -58,11 +58,11 @@ namespace API.Controllers
 
             var userModel = new UserAuthModel
             {
-                Id  = user.Id,
+                Id = user.Id,
                 Username = user.Username,
                 JwtToken = _generateJwtToken.NewUserToken(user)
             };
-            
+
             return userModel;
         }
 
@@ -70,7 +70,8 @@ namespace API.Controllers
         [HttpPatch]
         public UserModel EditUser(UserInputModel userInput)
         {
-            if (userInput.Id == null || userInput.Username == null && userInput.Password == null && userInput.ProfileImgUrl == null)
+            if (userInput.Id == null || userInput.Username == null && userInput.Password == null &&
+                userInput.ProfileImgUrl == null)
                 throw new InvalidInputException(_path, "Patch()");
 
             var user = new User
@@ -80,7 +81,7 @@ namespace API.Controllers
                 Password = userInput.Password,
                 ProfileImgUrl = userInput.ProfileImgUrl
             };
-            
+
             return new UserModel(_patchUser.Edit(user));
         }
 
@@ -90,7 +91,7 @@ namespace API.Controllers
         {
             if (id == null)
                 throw new InvalidInputException(_path, "Delete()");
-            
+
             _deleteUser.Delete(id);
         }
     }

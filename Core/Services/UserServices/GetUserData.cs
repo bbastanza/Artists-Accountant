@@ -1,4 +1,3 @@
-using System;
 using System.Data.SqlClient;
 using Core.Entities;
 using Core.ExtensionMethods;
@@ -71,7 +70,6 @@ namespace Core.Services.UserServices
                                         Username = reader.GetDefaultString("username"),
                                         ProfileImgUrl = reader.GetDefaultString("profile_image_url")
                                     };
-
                                 var artwork = new ArtWork
                                 {
                                     Id = reader.GetDefaultInt("artworkId"),
@@ -95,14 +93,11 @@ namespace Core.Services.UserServices
                                 user.ArtWorks.Add(artwork);
                             }
 
-                        if (user == null)
-                        {
-                            _sqlServer.CloseConnection();
-                            return GetDataWithoutArtworks(id);
-                        }
+                        if (user != null) return user;
+                        _sqlServer.CloseConnection();
+                        return GetDataWithoutArtworks(id);
                     }
                 }
-                return user;
             }
             catch
             {
@@ -124,7 +119,6 @@ namespace Core.Services.UserServices
                 $"FROM user_table " +
                 $"WHERE id = {id};";
 
-
             User user = new User {Id = id};
 
             using (var command = new SqlCommand(query, connection))
@@ -140,9 +134,7 @@ namespace Core.Services.UserServices
                         }
                 }
             }
-
             _sqlServer.CloseConnection();
-
             return user;
         }
         
@@ -172,9 +164,7 @@ namespace Core.Services.UserServices
                         }
                 }
             }
-
             _sqlServer.CloseConnection();
-
             return user;
         }
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { addUser } from "./../helpers/authRequests";
 import { RegisterState, AuthResponseType } from "./../helpers/interfaces";
+import purpleBook from "./../Images/purplebook.png";
 import "./css/Login.css";
 
 const Register: React.FC = () => {
@@ -39,7 +40,7 @@ const Register: React.FC = () => {
 
     return (
         <div className="login-page">
-            <img className="login-img" src="https://clipartart.com/images/purple-book-clipart-2.png" alt="book" />
+            <img className="login-img" src={purpleBook} alt="purple-book" />
             <h1 className="title">
                 Join <span className="accent">ArtistAccountant</span>
             </h1>

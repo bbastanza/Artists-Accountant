@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
 import { useFirebase } from "./../firebase/useFirebase";
+import { ProgressBarProps } from "./../helpers/interfaces";
 import "./css/ProgressBar.css";
 
-interface ProgressBarProps {
-    saveImgUrl: Function;
-    setFile: Function;
-    file: File;
-}
-
+// TODO error handling
 const ProgressBar: React.FC<ProgressBarProps> = ({ setFile, file, saveImgUrl }: ProgressBarProps) => {
     const { progress, url, error } = useFirebase(file);
 

@@ -1,7 +1,5 @@
 using System;
 using Core.Entities;
-using Core.Services.ArtWorkServices;
-using Core.Services.DbServices;
 using Core.Services.SqlBuilders;
 using NUnit.Framework;
 

@@ -22,7 +22,10 @@ namespace Core.Services.JwtAuthentication
         private readonly IGetUserAuth _getUserAuth;
         private readonly string _path;
 
-        public GenerateJwtToken(string key, IGetUserAuth getUserAuth)
+        public GenerateJwtToken(
+            string key,
+            IGetUserAuth getUserAuth
+        )
         {
             _key = key;
             _getUserAuth = getUserAuth;
@@ -32,7 +35,7 @@ namespace Core.Services.JwtAuthentication
         public string Authenticate(string username, string password)
         {
             var user = _getUserAuth.Get(username);
-            
+
             if (user == null)
                 throw new NonExistingUserException(_path, "Authenticate()");
 
@@ -62,9 +65,9 @@ namespace Core.Services.JwtAuthentication
                     new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature)
             };
-            
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            
+
             return tokenHandler.WriteToken(token);
         }
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { ModalProps } from "./../helpers/interfaces";
 import "./css/Modal.css";
 
 const modalStyle: React.CSSProperties = {
@@ -14,7 +15,7 @@ const modalStyle: React.CSSProperties = {
     textAlign: "center",
 };
 
-const Modal: React.FC = ({ children }) => {
+const Modal: React.FC = ({ children }: ModalProps) => {
     return ReactDOM.createPortal(
         <>
             <div className="overlay" />

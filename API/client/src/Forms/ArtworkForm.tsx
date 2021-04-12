@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Modal from "../IndividualComponents/Modal";
-import "./css/Form.css";
+import { useHistory } from "react-router";
 import { FormProps, Artwork, ResponseType } from "./../helpers/interfaces";
 import { addArtwork, patchArtwork, deleteArtwork } from "./../helpers/artworkRequests";
-import { useHistory } from "react-router";
+import Modal from "./../IndividualComponents/Modal";
+import ImageUploader from "./../IndividualComponents/ImageUploader";
+import "./css/Form.css";
 
 const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwork, updateComponent }: FormProps) => {
     const history = useHistory();
@@ -30,6 +31,7 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                   isPaymentCollected: false,
                   dateStarted: null,
                   dateFinished: null,
+                  imgUrl: null,
               }
             : artwork
     );
@@ -242,6 +244,25 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                             <option value="venmo">Venmo</option>
                         </select>
                     </div>
+                    <div className="col-sm-12 col-md-8" style={{ display: "flex", justifyContent: "center" }}>
+                        {!!state.imgUrl && state.imgUrl !== "null" && (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setState({ ...state, imgUrl: "null" });
+                                    setCanSubmit(true);
+                                }}
+                                className="btn btn-red  col-sm-12 col-md-3 text-nowrap">
+                                Remove Image
+                            </button>
+                        )}
+                        <ImageUploader
+                            saveImgUrl={image => {
+                                setState({ ...state, imgUrl: image });
+                                setCanSubmit(true);
+                            }}
+                        />
+                    </div>
                     <div className="form-group form-check col-12">
                         <input
                             type="checkbox"
@@ -286,25 +307,25 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                         />
                     </div>
                     <div className="row col-12" style={{ justifyContent: "center" }}>
-                        {!isAddNewArtwork ? (
+                        {!isAddNewArtwork && (
                             <button type="button" onClick={deletePiece} className="btn btn-red  col-sm-12 col-md-3 ">
                                 Delete
                             </button>
-                        ) : null}
+                        )}
                         <button type="button" onClick={cancelSubmission} className="btn btn-purple  col-sm-12 col-md-3">
                             Cancel
                         </button>
-                        {canSubmit ? (
+                        {canSubmit && (
                             <button type="submit" className="btn btn-purple col-sm-12 col-md-3 text-nowrap">
                                 {isAddNewArtwork ? "Add My Art!" : "Apply Changes"}
                             </button>
-                        ) : null}
+                        )}
                     </div>
-                    {apiError ? (
+                    {apiError && (
                         <p className="col-12 form-error" style={{ paddingTop: 20 }}>
                             Oops! Something unexpected happeded. Please try again.
                         </p>
-                    ) : null}
+                    )}
                 </div>
             </form>
         </Modal>

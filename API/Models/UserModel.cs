@@ -11,9 +11,7 @@ namespace API.Models
             ProfileImgUrl = user.ProfileImgUrl;
             Id = user.Id;
             foreach (var artwork in user.ArtWorks)
-            {
                 ArtWorks.Add(new ArtWorkModel(artwork));
-            }
         }
 
         public int? Id { get; }

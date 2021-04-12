@@ -22,7 +22,8 @@ namespace Core.Services.ArtWorkServices
 
         public PatchArtWork(
             ISqlServer sqlServer,
-            IArtworkSqlBuilder sqlBuilder)
+            IArtworkSqlBuilder sqlBuilder
+        )
         {
             _sqlServer = sqlServer;
             _sqlBuilder = sqlBuilder;

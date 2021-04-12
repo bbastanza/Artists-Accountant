@@ -56,7 +56,9 @@ const MyArt: React.FC = () => {
 
     return (
         <>
-            {!isLoading ? (
+            {isLoading ? (
+                <BoxAnimation />
+            ) : (
                 <>
                     <ArtistNavbar />
                     <div className="App">
@@ -67,26 +69,23 @@ const MyArt: React.FC = () => {
                             Add Piece
                         </button>
                         <div className="row justify-content-start" style={{ overflow: "hidden" }}>
-                            {userHasArtworks
-                                ? userArtworks.map(artwork => {
-                                      return (
-                                          <ArtworkComponent
-                                              updateComponent={updateComponent}
-                                              artwork={artwork}
-                                              key={Math.random()}
-                                          />
-                                      );
-                                  })
-                                : null}
+                            {userHasArtworks &&
+                                userArtworks.map(artwork => {
+                                    return (
+                                        <ArtworkComponent
+                                            updateComponent={updateComponent}
+                                            artwork={artwork}
+                                            key={Math.random()}
+                                        />
+                                    );
+                                })}
                         </div>
                     </div>
-                    {showAddPiece ? (
+                    {showAddPiece && (
                         <ArtworkForm updateComponent={updateComponent} setShowAddPiece={setShowAddPiece} />
-                    ) : null}
-                    {apiError ? <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3> : null}
+                    )}
+                    {apiError && <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3>}
                 </>
-            ) : (
-                <BoxAnimation />
             )}
         </>
     );

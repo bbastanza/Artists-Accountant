@@ -11,8 +11,10 @@ const Table: React.FC<TableProps> = ({ userData }: TableProps) => {
             totalSales += artwork.margin;
             totalHours += artwork.timeSpentMinutes / 60;
         });
-        return totalSales / totalHours;
+        const hourlyRate = totalSales / totalHours;
+        return hourlyRate;
     };
+
     const calculateTotalTime = (artworks: Artwork[]): string => {
         let totalMinutes = 0;
         artworks.forEach(artwork => (totalMinutes += artwork.timeSpentMinutes));

@@ -3,7 +3,6 @@ using System.IO;
 using Core.Entities;
 using Core.Services.DbServices;
 using Core.Services.SqlBuilders;
-using Infrastructure.Exceptions;
 using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.ArtWorkServices
@@ -16,11 +15,16 @@ namespace Core.Services.ArtWorkServices
     public class AddArtWork : IAddArtWork
     {
         private readonly ISqlServer _sqlServer;
+        private readonly IArtworkSqlBuilder _sqlBuilder;
         private readonly string _path;
 
-        public AddArtWork(ISqlServer sqlServer)
+        public AddArtWork(
+            ISqlServer sqlServer,
+            IArtworkSqlBuilder sqlBuilder
+        )
         {
             _sqlServer = sqlServer;
+            _sqlBuilder = sqlBuilder;
             _path = Path.GetFullPath(ToString());
         }
 
@@ -28,9 +32,7 @@ namespace Core.Services.ArtWorkServices
         {
             var connection = _sqlServer.Connect();
 
-            var sqlBuilder = new ArtworkSqlBuilder();
-
-            var query = sqlBuilder.GenerateInsertStatement(artWork);
+            var query = _sqlBuilder.GenerateInsertStatement(artWork);
 
             try
             {

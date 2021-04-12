@@ -3,7 +3,7 @@
     height: 50vh;
     display: flex;
     justify-content: center;
-    margin: 20px auto;
+    margin: 20px auto 10px;
     min-width: 320px;
     max-width: 1000px;
 }
@@ -11,6 +11,11 @@
 .btn-container-chart {
     margin: auto;
     width: 300;
+}
+
+.tool-tip-p {
+    width: 60%;
+    margin: 0 auto 10px;
 }
 
 .tool-tip {
@@ -23,7 +28,7 @@
 .tool-tip::after {
     --scale: 0;
     --arrow-size: 12px;
-    --tip-color: rgba(92, 92, 92, 0.952);
+    --tip-color: rgba(82, 82, 82, 0.938);
 
     position: absolute;
     top: -0.25rem;
