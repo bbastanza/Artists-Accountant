@@ -5,7 +5,6 @@ import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTim
 import "./css/ShowMore.css";
 
 const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageUrl }: ShowMoreProps) => {
-    console.log(artwork);
     return (
         <Modal>
             <div className="modal-container">
@@ -15,7 +14,7 @@ const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageU
                         &times;
                     </div>
                     <div className="col-12 row">
-                        <div className="col-sm-12 col-md-6">
+                        <div className="col-sm-10 col-md-6">
                             <div className="prop-div">
                                 <h6 className="key">Customer:</h6>
                                 <h6 className="value">{formatForNull(artwork.customerName)}</h6>
@@ -55,7 +54,7 @@ const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageU
                                 <h6 className="value caps">{formatForNull(artwork.paymentType)}</h6>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6">
+                        <div className="col-sm-10 col-md-6">
                             <div className="prop-div">
                                 <h6 className="key">Sold?</h6>
                                 <h6 className="value">{checkBool(artwork.isPaymentCollected)}</h6>

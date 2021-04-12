@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { AuthResponseType, LoginState } from "../helpers/interfaces";
 import { authenticateLogin } from "./../helpers/authRequests";
+import purpleBook from "./../Images/purplebook.png";
 import "./css/Login.css";
 
 const Login: React.FC = () => {
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
 
     return (
         <div className="login-page">
-            <img className="login-img" src="https://clipartart.com/images/purple-book-clipart-2.png" alt="book" />
+            <img className="login-img" src={purpleBook} alt="purple-book" />
             <h1 className="title">
                 Sign in to <p className="accent">ArtistAccountant</p>
             </h1>
@@ -58,8 +59,8 @@ const Login: React.FC = () => {
                         id="password"
                     />
                 </div>
-                {!validSubmission ? <p className="form-error">Please fill out all fields.</p> : null}
-                {loginError.length > 0 ? <p className="form-error">{loginError}</p> : null}
+                {!validSubmission && <p className="form-error">Please fill out all fields.</p>}
+                {loginError.length > 0 && <p className="form-error">{loginError}</p>}
                 <button onClick={handleSubmit} type="submit" className="btn btn-purple">
                     Sign In
                 </button>

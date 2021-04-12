@@ -37,10 +37,33 @@
 }
 
 .modal-img {
-    padding: 0 50px 30px 30px;
-    max-height: 25rem;
-    max-width: 25rem;
+    padding: 0 30px 30px;
+    max-height: 350px;
+    min-height: 150px;
+    max-width: 350px;
+    min-width: 250px;
+    width: 50%;
 }
+
+/* @media only screen and (min-width: 577) {
+    .modal-img {
+        max-height: 15rem;
+        max-width: 20rem;
+        min-width: 250px;
+        min-height: 150px;
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 576) {
+    .modal-img {
+        max-height: 15rem;
+        max-width: 20rem;
+        min-width: 250px;
+        min-height: 150px;
+        width: 40%;
+    }
+} */
 
 .key {
     font-weight: 300;
@@ -64,4 +87,5 @@
     border-bottom: 1px dotted #bdbdbd;
     max-width: 500px;
     margin: 10px auto 0;
+    width: 80%;
 }

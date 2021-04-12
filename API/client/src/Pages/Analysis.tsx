@@ -45,27 +45,27 @@ const Analysis: React.FC = () => {
 
     return (
         <>
-            {!isLoading ? (
+            {isLoading ? (
+                <BoxAnimation />
+            ) : (
                 <>
                     <ArtistNavbar />
                     <div className="App">
                         <h1 className="art-title">
                             <span className="accent">Analysis</span>
                         </h1>
-                        {!!userData ? (
+                        {!!userData && (
                             <>
                                 <div className="username">
                                     <h2>{userData?.username}</h2>
                                 </div>
-                                {userData?.artWorks.length > 0 ? <BarChart artworks={userData.artWorks} /> : null}
+                                {userData?.artWorks.length > 0 && <BarChart artworks={userData.artWorks} />}
                                 <Table userData={userData} />
                             </>
-                        ) : null}
-                        {apiError ? <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3> : null}
+                        )}
+                        {apiError && <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3>}
                     </div>
                 </>
-            ) : (
-                <BoxAnimation />
             )}
         </>
     );

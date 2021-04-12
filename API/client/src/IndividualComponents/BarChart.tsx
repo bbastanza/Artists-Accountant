@@ -15,39 +15,50 @@ const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
         return colors;
     };
 
+    const dataSetData =
+        sortBy === "margin"
+            ? artworks.map(artwork => (!!artwork.margin ? artwork.margin : 0))
+            : artworks.map(artwork =>
+                  !!artwork.margin && !!artwork.timeSpentMinutes ? artwork.margin / (artwork.timeSpentMinutes / 60) : 0
+              );
+
+    const dataSetLabels = artworks.map(artwork => (!!artwork.pieceName ? artwork.pieceName : "No Name"));
+
+    const dataSets = [
+        {
+            label: sortBy === "margin" ? "Margin" : "Hourly Rate",
+            data: dataSetData,
+            backgroundColor: allocateColors(artworks.length),
+        },
+    ];
+
     const chartData = {
-        labels:
-            sortBy === "margin"
-                ? artworks.map(artwork => (!!artwork.pieceName ? artwork.pieceName : "No Name"))
-                : artworks.map(artwork => (!!artwork.pieceName ? artwork.pieceName : "No Name")),
-        datasets: [
+        labels: dataSetLabels,
+        datasets: dataSets,
+    };
+
+    const scales = {
+        yAxes: [
             {
-                label: sortBy === "margin" ? "Margin" : "Hourly Rate",
-                data:
-                    sortBy === "margin"
-                        ? artworks.map(artwork => (!!artwork.margin ? artwork.margin : 0))
-                        : artworks.map(artwork =>
-                              !!artwork.margin && !!artwork.timeSpentMinutes
-                                  ? artwork.margin / (artwork.timeSpentMinutes / 60)
-                                  : 0
-                          ),
-                backgroundColor: allocateColors(artworks.length),
+                ticks: {
+                    beginAtZero: true,
+                },
             },
         ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: scales,
     };
 
     return (
         <>
             <div className="chart-container">
-                <Bar
-                    redraw={true}
-                    data={chartData}
-                    options={{
-                        maintainAspectRatio: false,
-                    }}
-                />
+                <Bar data={chartData} options={chartOptions} />
             </div>
-            <p>
+            <p className="tool-tip-p">
                 I don't see the piece I am looking for. <span className="tool-tip">Why?</span>
             </p>
             <h3>View</h3>

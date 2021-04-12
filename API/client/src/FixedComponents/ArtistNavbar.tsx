@@ -6,7 +6,7 @@ import homeImage from "../Images/home.svg";
 import settingsImage from "../Images/settings.png";
 
 const ArtistNavbar: React.FC = () => {
-    const linkStyle: object = {
+    const linkStyle: React.CSSProperties = {
         textDecoration: "none",
     };
 

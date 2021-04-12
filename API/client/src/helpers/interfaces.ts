@@ -82,6 +82,20 @@ export interface TableProps {
     userData: UserData;
 }
 
+export interface ModalProps {
+    children: React.ReactNode;
+}
+
+export interface ImageUploaderProps {
+    saveImgUrl: Function;
+}
+
+export interface ProgressBarProps {
+    saveImgUrl: Function;
+    setFile: Function;
+    file: File;
+}
+
 export enum ResponseType {
     Ok,
     ApplicationError,

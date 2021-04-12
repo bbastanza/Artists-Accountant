@@ -69,9 +69,6 @@ const MyProfile: React.FC = () => {
 
     return (
         <>
-            {showConfirmDelete ? (
-                <Confirm confirmDelete={confirmDelete} cancelDelete={() => setShowConfirmDelete(false)} />
-            ) : null}
             {isLoading ? (
                 <BoxAnimation />
             ) : (
@@ -87,16 +84,16 @@ const MyProfile: React.FC = () => {
                             </div>
                         ) : null}
                         {!!profileImg && <img src={profileImg} alt="" className="profile-img" />}
-                        {apiError ? (
+                        {apiError && (
                             <h3 className="form-error">
                                 Oops! There was an unexpected error. Try refrshing the browser.
                             </h3>
-                        ) : null}
-                        {unauthorized ? (
+                        )}
+                        {unauthorized && (
                             <h3 className="form-error" style={{ padding: 20 }}>
                                 Oops! Authentication failure. Redirecting to Login.
                             </h3>
-                        ) : null}
+                        )}
                         <div className="row btn-container-profile">
                             <ImageUploader saveImgUrl={url => patchUserImgUrl(url)} />
                             <button onClick={logout} className="col-12 btn btn-purple shadow-sm text-nowrap">
@@ -109,6 +106,9 @@ const MyProfile: React.FC = () => {
                             </button>
                         </div>
                     </div>
+                    {showConfirmDelete && (
+                        <Confirm confirmDelete={confirmDelete} cancelDelete={() => setShowConfirmDelete(false)} />
+                    )}
                 </>
             )}
         </>

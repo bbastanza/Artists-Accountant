@@ -1,5 +1,5 @@
-import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import React from "react";
 import MyArt from "./../Pages/MyArt";
 import Home from "./../Pages/Home";
 import Login from "./../Pages/Login";
@@ -16,7 +16,6 @@ const PageRouter: React.FC = () => {
                 <Route path="/register" render={() => <Register />} />
                 <Route path="/analysis" render={() => <Analysis />} />
                 <Route path="/myprofile" render={() => <MyProfile />} />
-
                 <Route exact path="/" render={() => <Home />} />
                 <Route path="/">
                     <Redirect to="/" />
