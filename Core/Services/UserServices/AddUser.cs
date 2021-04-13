@@ -39,7 +39,7 @@ namespace Core.Services.UserServices
             var user = new User
             {
                 Username = username,
-                Password = password,
+                Password = BCrypt.Net.BCrypt.HashPassword(password),
                 CreatedAt = DateTime.Now,
             };
 

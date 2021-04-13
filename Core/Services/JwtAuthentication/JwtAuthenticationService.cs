@@ -39,7 +39,10 @@ namespace Core.Services.JwtAuthentication
             if (user == null)
                 throw new NonExistingUserException(_path, "Authenticate()");
 
-            if (user.Password != password)
+            // if (user.Password != password)
+            //     throw new UserValidationException(_path, "Authenticate");
+            
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
                 throw new UserValidationException(_path, "Authenticate");
 
             return GenerateKey(user.Username);
