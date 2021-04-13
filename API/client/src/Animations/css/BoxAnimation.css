@@ -11,12 +11,15 @@
     display: inline-block;
     animation: box-pulse 0.8s ease-in infinite alternate;
 }
+
 .box-2 {
     animation-delay: 0.2s;
 }
+
 .box-3 {
     animation-delay: 0.4s;
 }
+
 .box-4 {
     animation-delay: 0.6s;
 }

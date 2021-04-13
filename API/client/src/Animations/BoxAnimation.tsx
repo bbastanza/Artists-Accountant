@@ -1,6 +1,6 @@
+import "./css/BoxAnimation.css";
 import React from "react";
 import Modal from "./../IndividualComponents/Modal";
-import "./css/BoxAnimation.css";
 
 const BoxAnimation: React.FC = () => {
     return (

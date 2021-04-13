@@ -1,3 +1,4 @@
+import "./css/MyProfile.css";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { UserData } from "./../helpers/interfaces";
@@ -8,7 +9,6 @@ import ArtistNavbar from "./../FixedComponents/ArtistNavbar";
 import Table from "./../IndividualComponents/Table";
 import BarChart from "./../IndividualComponents/BarChart";
 import BoxAnimation from "./../Animations/BoxAnimation";
-import "./css/MyProfile.css";
 
 const Analysis: React.FC = () => {
     const history = useHistory();
@@ -23,15 +23,12 @@ const Analysis: React.FC = () => {
             if (!!!getLocalStorageData()) return history.push("/login");
 
             const userData: UserData = await getUserData();
-            const unAuthorized = userData === 401;
-
+            const unAuthorized: boolean = userData === 401;
             if (unAuthorized) return history.push("/login");
-
             if (!!!userData) {
                 setApiError(true);
                 return await finishLoading();
             }
-
             setUserData(userData);
             await finishLoading();
         })();

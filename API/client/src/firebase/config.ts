@@ -1,14 +1,6 @@
+import { FirebaseConfig } from "./../helpers/interfaces";
 import firebase from "firebase/app";
 import "firebase/storage";
-
-interface FirebaseConfig {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    storageBucket: string;
-    messagingSenderId: string;
-    appId: string;
-}
 
 const firebaseConfig: FirebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -21,4 +13,4 @@ const firebaseConfig: FirebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const projectStorage = firebase.storage();
+export const projectStorage: firebase.storage.Storage = firebase.storage();

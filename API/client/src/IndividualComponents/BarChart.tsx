@@ -1,11 +1,11 @@
+import "./css/BarChart.css";
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { ChartProps } from "./../helpers/interfaces";
-import "./css/BarChart.css";
+import { Artwork, ChartProps, ChartDataSets, ChartData, ChartOptions, ChartScales } from "./../helpers/interfaces";
 
 const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
     const [sortBy, setSortBy] = useState<string>("margn");
-    artworks = artworks.sort((a, b) => b.salePrice - a.salePrice);
+    artworks = artworks.sort((a: Artwork, b: Artwork) => b.salePrice - a.salePrice);
 
     const allocateColors = (count: number): string[] => {
         const colors: string[] = [];
@@ -15,18 +15,18 @@ const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
         return colors;
     };
 
-    const dataSetData =
+    const dataSetData: any[] =
         sortBy === "margin"
-            ? artworks.map(artwork => (!!artwork.margin ? artwork.margin : 0))
+            ? artworks.map(artwork => (!!artwork.margin ? artwork.margin.toFixed(2) : 0))
             : artworks.map(artwork =>
                   !!artwork.margin && !!artwork.timeSpentMinutes
                       ? (artwork.margin / (artwork.timeSpentMinutes / 60)).toFixed(2)
                       : 0
               );
 
-    const dataSetLabels = artworks.map(artwork => (!!artwork.pieceName ? artwork.pieceName : "No Name"));
+    const dataSetLabels: string[] = artworks.map(artwork => (!!artwork.pieceName ? artwork.pieceName : "No Name"));
 
-    const dataSets = [
+    const dataSets: ChartDataSets[] = [
         {
             label: sortBy === "margin" ? "Margin" : "Hourly Rate",
             data: dataSetData,
@@ -34,22 +34,17 @@ const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
         },
     ];
 
-    const chartData = {
+    const scales: ChartScales = {
+        // prettier-ignore
+        yAxes: [{ticks: {beginAtZero: true}}],
+    };
+
+    const chartData: ChartData = {
         labels: dataSetLabels,
         datasets: dataSets,
     };
 
-    const scales = {
-        yAxes: [
-            {
-                ticks: {
-                    beginAtZero: true,
-                },
-            },
-        ],
-    };
-
-    const chartOptions = {
+    const chartOptions: ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         scales: scales,

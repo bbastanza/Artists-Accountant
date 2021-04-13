@@ -1,8 +1,9 @@
+import "./css/Modal.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { ModalProps } from "./../helpers/interfaces";
-import "./css/Modal.css";
 
+// does not work when in css file
 const modalStyle: React.CSSProperties = {
     position: "fixed",
     top: "50%",
@@ -15,7 +16,7 @@ const modalStyle: React.CSSProperties = {
     textAlign: "center",
 };
 
-const Modal: React.FC = ({ children }: ModalProps) => {
+const Modal: React.FC<ModalProps> = ({ children }: ModalProps) => {
     return ReactDOM.createPortal(
         <>
             <div className="overlay" />

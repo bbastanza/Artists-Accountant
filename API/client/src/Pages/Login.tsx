@@ -1,9 +1,9 @@
+import "./css/Login.css";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { AuthResponseType, LoginState } from "../helpers/interfaces";
 import { authenticateLogin } from "./../helpers/authRequests";
 import purpleBook from "./../Images/purplebook.png";
-import "./css/Login.css";
 
 const Login: React.FC = () => {
     const [state, setState] = useState<LoginState>({ username: "", password: "" });

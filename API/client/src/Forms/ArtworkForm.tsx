@@ -1,10 +1,10 @@
+import "./css/Form.css";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { FormProps, Artwork, ResponseType } from "./../helpers/interfaces";
 import { addArtwork, patchArtwork, deleteArtwork } from "./../helpers/artworkRequests";
 import Modal from "./../IndividualComponents/Modal";
 import ImageUploader from "./../IndividualComponents/ImageUploader";
-import "./css/Form.css";
 
 const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwork, updateComponent }: FormProps) => {
     const history = useHistory();
@@ -51,7 +51,6 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
 
     const addNewArtwork = async (e): Promise<void> => {
         e.preventDefault();
-
         const responseType: ResponseType = await addArtwork(state);
         if (responseType === 1) {
             updateComponent();
@@ -61,33 +60,28 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
             localStorage.clear();
             return history.push("/login");
         }
-
         setApiError(true);
     };
 
     const patchExistingArtwork = async (e): Promise<void> => {
         e.preventDefault();
-
         const responseType: ResponseType = await patchArtwork(state);
         if (responseType === 1) return updateComponent();
         if (responseType === 3) {
             localStorage.clear();
             return history.push("/login");
         }
-
         setApiError(true);
     };
 
     const deletePiece = async (e): Promise<void> => {
         e.preventDefault();
         const responseType: ResponseType = await deleteArtwork(artwork.id);
-
         if (responseType === 1) return updateComponent();
         if (responseType === 3) {
             localStorage.clear();
             return history.push("/login");
         }
-
         setApiError(true);
     };
 
@@ -244,25 +238,6 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                             <option value="venmo">Venmo</option>
                         </select>
                     </div>
-                    <div className="col-sm-12 col-md-8" style={{ display: "flex", justifyContent: "center" }}>
-                        {!!state.imgUrl && state.imgUrl !== "null" && (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setState({ ...state, imgUrl: "null" });
-                                    setCanSubmit(true);
-                                }}
-                                className="btn btn-red  col-sm-12 col-md-3 text-nowrap">
-                                Remove Image
-                            </button>
-                        )}
-                        <ImageUploader
-                            saveImgUrl={image => {
-                                setState({ ...state, imgUrl: image });
-                                setCanSubmit(true);
-                            }}
-                        />
-                    </div>
                     <div className="form-group form-check col-12">
                         <input
                             type="checkbox"
@@ -303,6 +278,26 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                             onChange={e => handleChange(e)}
                             className="date pad"
                             id="dateFinished"
+                        />
+                    </div>
+                    <div className="row col-sm-12" style={{ justifyContent: "center" }}>
+                        {!!state.imgUrl && state.imgUrl !== "null" && (
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setState({ ...state, imgUrl: "null" });
+                                    setCanSubmit(true);
+                                }}
+                                className="btn btn-red  col-4 text-nowrap"
+                                style={{ minWidth: 145 }}>
+                                Remove Image
+                            </button>
+                        )}
+                        <ImageUploader
+                            saveImgUrl={image => {
+                                setState({ ...state, imgUrl: image });
+                                setCanSubmit(true);
+                            }}
                         />
                     </div>
                     <div className="row col-12" style={{ justifyContent: "center" }}>

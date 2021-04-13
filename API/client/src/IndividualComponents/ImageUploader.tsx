@@ -1,3 +1,4 @@
+import "./css/ImageUploader.css";
 import React, { useState } from "react";
 import ProgressBar from "./ProgressBar";
 import { ImageUploaderProps } from "./../helpers/interfaces";
@@ -18,24 +19,20 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ saveImgUrl }: ImageUpload
     };
 
     return (
-        <div className="col-8">
-            {file && <ProgressBar file={file} setFile={setFile} saveImgUrl={saveImgUrl} />}
-            <div>
-                <input
-                    // className="custom-file-input"
-                    id="customInput"
-                    type="file"
-                    // style={{ opacity: 0 }}
-                    multiple={false}
-                    accept=".jpeg, .png, .jpg"
-                    onChange={handleChange}
-                />
-                {/* <label className="custom-file-label btn-purple" style={{ textAlign: "left" }} htmlFor="customInput">
-                    Upload Image...
-                </label> */}
-            </div>
+        <>
+            {!!file ? (
+                <div>
+                    <div>{file.name}</div>
+                    <ProgressBar file={file} setFile={setFile} saveImgUrl={saveImgUrl} />
+                </div>
+            ) : (
+                <label className="input-label">
+                    <input type="file" multiple={false} accept=".jpeg, .png, .jpg" onChange={handleChange} />
+                    <span className="upload-span btn">Upload Image...</span>
+                </label>
+            )}
             {error && <div className="form-error">{error}</div>}
-        </div>
+        </>
     );
 };
 export default ImageUploader;

@@ -1,3 +1,4 @@
+import "./css/MyProfile.css";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { deleteUser, patchUserImg } from "./../helpers/userRequests";
@@ -9,7 +10,6 @@ import ImageUploader from "./../IndividualComponents/ImageUploader";
 import Confirm from "./../IndividualComponents/Modals/Confirm";
 import defaultProfileImage from "./../Images/defaultUserImage.png";
 import BoxAnimation from "../Animations/BoxAnimation";
-import "./css/MyProfile.css";
 
 const MyProfile: React.FC = () => {
     const history = useHistory();
@@ -19,12 +19,11 @@ const MyProfile: React.FC = () => {
     const [apiError, setApiError] = useState<boolean>(false);
     const [profileImg, setProfileImg] = useState<string>(null);
 
-    useEffect(() => {
-        (async () => {
+    useEffect((): void => {
+        (async (): Promise<void> => {
             setIsLoading(true);
             const localStorageData = getLocalStorageData();
             if (!!localStorageData?.profileImgUrl) {
-                console.log(localStorageData?.profileImgUrl);
                 setProfileImg(localStorageData.profileImgUrl);
                 return await finishLoading();
             }
@@ -32,23 +31,6 @@ const MyProfile: React.FC = () => {
             await finishLoading();
         })();
     }, []);
-
-    const finishLoading = async (): Promise<void> => {
-        await pauseForAnimation();
-        setIsLoading(false);
-    };
-
-    const logout = () => {
-        localStorage.clear();
-        history.push("/login");
-    };
-
-    const patchUserImgUrl = async (imgUrl: any): Promise<void> => {
-        const imgResponse: any = await patchUserImg(imgUrl);
-        if (imgResponse === 401) return history.push("/login");
-        if (imgResponse === null) return setProfileImg(defaultProfileImage);
-        setProfileImg(imgResponse);
-    };
 
     const confirmDelete = async (): Promise<void> => {
         setShowConfirmDelete(false);
@@ -70,6 +52,24 @@ const MyProfile: React.FC = () => {
         history.push("login");
     };
 
+    const finishLoading = async (): Promise<void> => {
+        await pauseForAnimation();
+        setIsLoading(false);
+    };
+
+    const patchUserImgUrl = async (imgUrl: any): Promise<void> => {
+        const imgResponse: any = await patchUserImg(imgUrl);
+        if (imgResponse === 401) return history.push("/login");
+        if (imgResponse === null) return setProfileImg(defaultProfileImage);
+        setProfileImg(imgResponse);
+    };
+
+    const logout = (): void => {
+        localStorage.clear();
+        history.push("/login");
+    };
+
+    const username: string = getLocalStorageData()?.username;
     return (
         <>
             {isLoading ? (
@@ -81,22 +81,12 @@ const MyProfile: React.FC = () => {
                         <h1 className="art-title">
                             My <span className="accent">Profile</span>
                         </h1>
-                        {!!getLocalStorageData() ? (
+                        {!!username && (
                             <div className="username">
-                                <h1>{getLocalStorageData()?.username}</h1>
+                                <h1>{username}</h1>
                             </div>
-                        ) : null}
-                        {!!profileImg && <img src={profileImg} alt="" className="profile-img" />}
-                        {apiError && (
-                            <h3 className="form-error">
-                                Oops! There was an unexpected error. Try refrshing the browser.
-                            </h3>
                         )}
-                        {unauthorized && (
-                            <h3 className="form-error" style={{ padding: 20 }}>
-                                Oops! Authentication failure. Redirecting to Login.
-                            </h3>
-                        )}
+                        {!!profileImg && <img src={profileImg} alt="user" className="profile-img" />}
                         <div className="row btn-container-profile">
                             <ImageUploader saveImgUrl={url => patchUserImgUrl(url)} />
                             <button onClick={logout} className="col-12 btn btn-purple shadow-sm text-nowrap">
@@ -108,6 +98,16 @@ const MyProfile: React.FC = () => {
                                 Delete Account
                             </button>
                         </div>
+                        {apiError && (
+                            <h3 className="form-error">
+                                Oops! There was an unexpected error. Try refrshing the browser.
+                            </h3>
+                        )}
+                        {unauthorized && (
+                            <h3 className="form-error" style={{ padding: 20 }}>
+                                Oops! Authentication failure. Redirecting to Login.
+                            </h3>
+                        )}
                     </div>
                     {showConfirmDelete && (
                         <Confirm confirmDelete={confirmDelete} cancelDelete={() => setShowConfirmDelete(false)} />

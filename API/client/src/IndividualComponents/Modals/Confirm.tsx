@@ -1,11 +1,7 @@
+import "./css/Confirm.css";
 import React from "react";
 import Modal from "./../Modal";
-import "./css/Confirm.css";
-
-interface ConfirmProps {
-    cancelDelete: Function;
-    confirmDelete: Function;
-}
+import { ConfirmProps } from "./../../helpers/interfaces";
 
 const Confirm: React.FC<ConfirmProps> = ({ cancelDelete, confirmDelete }: ConfirmProps) => {
     return (

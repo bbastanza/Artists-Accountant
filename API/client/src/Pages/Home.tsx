@@ -1,7 +1,7 @@
+import "./css/Home.css";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import woodburn from "./../Images/woodburn.png";
-import "./css/Home.css";
 
 const Home: React.FC = () => {
     const history = useHistory();

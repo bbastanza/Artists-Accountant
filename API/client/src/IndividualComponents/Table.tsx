@@ -1,7 +1,7 @@
+import "./css/Table.css";
 import React from "react";
 import { Artwork, TableProps } from "./../helpers/interfaces";
 import { formatMoney, formatTime } from "./../helpers/beautifyNumber";
-import "./css/Table.css";
 
 const Table: React.FC<TableProps> = ({ userData }: TableProps) => {
     const calculateHourly = (artworks: Artwork[]): number => {

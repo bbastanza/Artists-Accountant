@@ -2,6 +2,6 @@
     background-color: var(--white);
     width: 300px;
     margin: auto;
-    border: 2px solid #7b64ff;
+    border: 2px solid var(--borderpurple);
     padding: 10px;
 }

@@ -1,10 +1,10 @@
+import "./css/Artwork.css";
 import React, { useState } from "react";
 import { formatMoney, formatForNull } from "./../helpers/beautifyNumber";
 import { ArtworkProps } from "./../helpers/interfaces";
 import ArtworkShowMore from "./ArtworkShowMore";
 import ArtworkForm from "../Forms/ArtworkForm";
 import defaultArtworkImage from "../Images/defaultArtworkImage.png";
-import "./css/Artwork.css";
 
 const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: ArtworkProps) => {
     const [showMore, setShowMore] = useState<boolean>(false);

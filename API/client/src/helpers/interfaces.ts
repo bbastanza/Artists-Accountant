@@ -1,21 +1,3 @@
-export interface FormProps {
-    setShowAddPiece?: Function;
-    setShowEdit?: Function;
-    updateComponent: Function;
-    artwork?: Artwork;
-}
-
-export interface ArtworkProps {
-    artwork: Artwork;
-    updateComponent: Function;
-}
-
-export interface ShowMoreProps {
-    artwork: Artwork;
-    setShowMore: Function;
-    imageUrl: string;
-}
-
 export interface Artwork {
     id?: number;
     userId?: number;
@@ -74,6 +56,24 @@ export interface RegisterState {
     confirmPassword: string;
 }
 
+export interface FormProps {
+    setShowAddPiece?: Function;
+    setShowEdit?: Function;
+    updateComponent: Function;
+    artwork?: Artwork;
+}
+
+export interface ArtworkProps {
+    artwork: Artwork;
+    updateComponent: Function;
+}
+
+export interface ShowMoreProps {
+    artwork: Artwork;
+    setShowMore: Function;
+    imageUrl: string;
+}
+
 export interface ChartProps {
     artworks: Artwork[];
 }
@@ -88,6 +88,11 @@ export interface ModalProps {
 
 export interface ImageUploaderProps {
     saveImgUrl: Function;
+}
+
+export interface ConfirmProps {
+    cancelDelete: Function;
+    confirmDelete: Function;
 }
 
 export interface ProgressBarProps {
@@ -108,4 +113,34 @@ export enum AuthResponseType {
     InvalidPassword,
     ExistingUser,
     NonExistingUser,
+}
+
+export interface ChartDataSets {
+    label: string;
+    data: any[];
+    backgroundColor: string[];
+}
+
+export interface ChartData {
+    labels: string[];
+    datasets: object[];
+}
+
+export interface ChartScales {
+    yAxes: object[];
+}
+
+export interface ChartOptions {
+    responsive: boolean;
+    maintainAspectRatio: boolean;
+    scales: ChartScales;
+}
+
+export interface FirebaseConfig {
+    apiKey: string;
+    authDomain: string;
+    projectId: string;
+    storageBucket: string;
+    messagingSenderId: string;
+    appId: string;
 }

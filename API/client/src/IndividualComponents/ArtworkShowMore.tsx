@@ -1,8 +1,8 @@
+import "./css/ShowMore.css";
 import React from "react";
 import Modal from "./Modal";
 import { ShowMoreProps } from "./../helpers/interfaces";
 import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTime } from "./../helpers/beautifyNumber";
-import "./css/ShowMore.css";
 
 const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageUrl }: ShowMoreProps) => {
     const hourlyWage = artwork.margin / (artwork.timeSpentMinutes / 60);

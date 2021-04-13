@@ -1,5 +1,5 @@
 .x-btn {
-    color: #616161;
+    color: var(--gray);
     position: absolute;
     top: 0;
     right: 5px;
@@ -9,7 +9,7 @@
 
 .x-btn:hover {
     cursor: pointer;
-    color: #7b64ff;
+    color: var(--borderpurple);
 }
 
 .modal-container {
@@ -17,12 +17,12 @@
     height: 90%;
     min-width: 320px;
     max-width: 1000px;
-    background: white;
-    border: 2px solid #7b64ff;
+    background: var(--white);
+    border: 2px solid var(--borderpurple);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #313131;
+    color: var(--darkergray);
     overflow-y: scroll;
     overflow-x: hidden;
     text-align: left;
@@ -35,7 +35,6 @@
     max-width: 1100px;
     justify-content: center;
     min-width: 350px;
-    overflow: scroll;
 }
 
 .modal-img {
@@ -49,7 +48,7 @@
 
 .key {
     font-weight: 300;
-    color: #3d3d3d;
+    color: var(--darkgray);
     text-align: left;
     display: flex;
 }
@@ -67,7 +66,7 @@
 .prop-div {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px dotted #bdbdbd;
+    border-bottom: 1px dotted var(--lightgray);
     max-width: 500px;
     margin: 10px auto 0;
     width: 80%;

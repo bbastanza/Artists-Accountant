@@ -1,9 +1,9 @@
+import "./css/Login.css";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { addUser } from "./../helpers/authRequests";
 import { RegisterState, AuthResponseType } from "./../helpers/interfaces";
 import purpleBook from "./../Images/purplebook.png";
-import "./css/Login.css";
 
 const Register: React.FC = () => {
     const [state, setState] = useState<RegisterState>({ username: "", password: "", confirmPassword: "" });
@@ -21,14 +21,14 @@ const Register: React.FC = () => {
         setMatchingPassword(true);
     }, [state.password, state.confirmPassword]);
 
-    const handleChange = e => {
+    const handleChange = (e): void => {
         setRegistrationError("");
         setValidSubmission(true);
         const { name, value } = e.target;
         setState({ ...state, [name]: value });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (): Promise<void> => {
         const validInput: boolean = matchingPassword && state.username.length > 0;
         if (!validInput) return setValidSubmission(false);
 
@@ -78,8 +78,8 @@ const Register: React.FC = () => {
                         id="confirmPassword"
                     />
                 </div>
-                {!validSubmission ? <p className="form-error">Passwords do not match.</p> : null}
-                {registrationError.length > 0 ? <p className="form-error">{registrationError}</p> : null}
+                {!validSubmission && <p className="form-error">Passwords do not match.</p>}
+                {registrationError.length > 0 && <p className="form-error">{registrationError}</p>}
                 <button type="submit" className="btn btn-purple" onClick={handleSubmit}>
                     Create Account
                 </button>

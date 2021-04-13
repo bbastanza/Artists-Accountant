@@ -31,7 +31,7 @@ const MyArt: React.FC = () => {
     const updateArtworks = async (): Promise<void> => {
         setIsLoading(true);
         const userData: UserData = await getUserData();
-        const unauthorized = userData === 401;
+        const unauthorized: boolean = userData === 401;
         if (unauthorized) return history.push("/login");
         if (!!!userData) {
             setApiError(true);
@@ -75,9 +75,9 @@ const MyArt: React.FC = () => {
                                     );
                                 })}
                         </div>
+                        {apiError && <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3>}
                     </div>
                     {showAddPiece && <ArtworkForm updateComponent={updateArtworks} setShowAddPiece={setShowAddPiece} />}
-                    {apiError && <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3>}
                 </>
             )}
         </>

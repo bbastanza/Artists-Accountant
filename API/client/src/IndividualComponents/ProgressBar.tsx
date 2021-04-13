@@ -1,7 +1,7 @@
+import "./css/ProgressBar.css";
 import React, { useEffect } from "react";
 import { useFirebase } from "./../firebase/useFirebase";
 import { ProgressBarProps } from "./../helpers/interfaces";
-import "./css/ProgressBar.css";
 
 // TODO error handling
 const ProgressBar: React.FC<ProgressBarProps> = ({ setFile, file, saveImgUrl }: ProgressBarProps) => {
@@ -16,7 +16,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ setFile, file, saveImgUrl }: 
 
     return (
         <>
-            <h3>Loading...</h3>
+            {/* <h3>Loading...</h3> */}
             <div className="progress-bar" style={{ width: `${progress}%` }}></div>
         </>
     );

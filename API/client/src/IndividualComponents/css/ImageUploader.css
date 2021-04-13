@@ -1,0 +1,20 @@
+.input-label input {
+    height: 0;
+    width: 0;
+    opacity: 0;
+}
+
+.upload-span {
+    height: 2.5rem;
+    background: var(--darkgreen);
+    color: var(--white);
+    margin: 5px 5px 0 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 7px 20px;
+}
+
+.upload-span:hover {
+    background: var(--lightgreen);
+    color: var(--white);
+}

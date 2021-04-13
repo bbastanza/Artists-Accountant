@@ -1,5 +1,5 @@
 .artwork-container {
-    border: 1px solid #e2e2e2;
+    border: 1px solid var(--lightergray);
     border-radius: 5px;
     padding: 10px;
     margin: 20px auto;
