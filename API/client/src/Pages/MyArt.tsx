@@ -22,26 +22,13 @@ const MyArt: React.FC = () => {
             setIsLoading(true);
             if (!!!getLocalStorageData()) return history.push("/login");
             if (!showAddPiece) {
-                const userData: UserData = await getUserData();
-                const unauthorized = userData === 401;
-                if (unauthorized) return history.push("/login");
-                if (!!!userData) {
-                    setApiError(true);
-                    return await finishLoading();
-                }
-                setUserArtworks(userData.artWorks);
-                await finishLoading();
+                await updateArtworks();
             } else setIsLoading(false);
         })();
         // eslint-disable-next-line
     }, []);
 
-    const finishLoading = async (): Promise<void> => {
-        await pauseForAnimation();
-        setIsLoading(false);
-    };
-
-    const updateComponent = async (): Promise<void> => {
+    const updateArtworks = async (): Promise<void> => {
         setIsLoading(true);
         const userData: UserData = await getUserData();
         const unauthorized = userData === 401;
@@ -52,6 +39,11 @@ const MyArt: React.FC = () => {
         }
         setUserArtworks(userData.artWorks);
         await finishLoading();
+    };
+
+    const finishLoading = async (): Promise<void> => {
+        await pauseForAnimation();
+        setIsLoading(false);
     };
 
     return (
@@ -73,7 +65,7 @@ const MyArt: React.FC = () => {
                                 userArtworks.map(artwork => {
                                     return (
                                         <ArtworkComponent
-                                            updateComponent={updateComponent}
+                                            updateComponent={updateArtworks}
                                             artwork={artwork}
                                             key={Math.random()}
                                         />
@@ -81,9 +73,7 @@ const MyArt: React.FC = () => {
                                 })}
                         </div>
                     </div>
-                    {showAddPiece && (
-                        <ArtworkForm updateComponent={updateComponent} setShowAddPiece={setShowAddPiece} />
-                    )}
+                    {showAddPiece && <ArtworkForm updateComponent={updateArtworks} setShowAddPiece={setShowAddPiece} />}
                     {apiError && <h3>Oops! There was an unexpected error. Try refrshing the browser.</h3>}
                 </>
             )}

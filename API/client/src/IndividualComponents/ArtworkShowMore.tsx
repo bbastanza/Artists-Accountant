@@ -5,6 +5,7 @@ import { checkBool, checkDate, formatForNull, formatMoney, formatSize, formatTim
 import "./css/ShowMore.css";
 
 const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageUrl }: ShowMoreProps) => {
+    const hourlyWage = artwork.margin / (artwork.timeSpentMinutes / 60);
     return (
         <Modal>
             <div className="modal-container">
@@ -33,9 +34,7 @@ const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageU
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Hourly Rate:</h6>
-                                <h6 className="value caps">
-                                    {formatMoney(artwork.margin / (artwork.timeSpentMinutes / 60))}
-                                </h6>
+                                <h6 className="value caps">{formatMoney(hourlyWage)}</h6>
                             </div>
                             <div className="prop-div">
                                 <h6 className="key">Sale Price:</h6>

@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     const [loginError, setLoginError] = useState<string>("");
     const history = useHistory();
 
-    const handleChange = e => {
+    const handleChange = (e: any): void => {
         setLoginError("");
         setValidSubmission(true);
         const { name, value } = e.target;

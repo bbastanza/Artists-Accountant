@@ -20,19 +20,34 @@ const MyProfile: React.FC = () => {
     const [profileImg, setProfileImg] = useState<string>(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        const localStorageData = getLocalStorageData();
-        if (localStorageData?.profileImgUrl) {
-            setProfileImg(localStorageData.profileImgUrl);
-            return setIsLoading(false);
-        }
-        setProfileImg(defaultProfileImage);
-        setIsLoading(false);
+        (async () => {
+            setIsLoading(true);
+            const localStorageData = getLocalStorageData();
+            if (!!localStorageData?.profileImgUrl) {
+                console.log(localStorageData?.profileImgUrl);
+                setProfileImg(localStorageData.profileImgUrl);
+                return await finishLoading();
+            }
+            setProfileImg(defaultProfileImage);
+            await finishLoading();
+        })();
     }, []);
+
+    const finishLoading = async (): Promise<void> => {
+        await pauseForAnimation();
+        setIsLoading(false);
+    };
 
     const logout = () => {
         localStorage.clear();
         history.push("/login");
+    };
+
+    const patchUserImgUrl = async (imgUrl: any): Promise<void> => {
+        const imgResponse: any = await patchUserImg(imgUrl);
+        if (imgResponse === 401) return history.push("/login");
+        if (imgResponse === null) return setProfileImg(defaultProfileImage);
+        setProfileImg(imgResponse);
     };
 
     const confirmDelete = async (): Promise<void> => {
@@ -53,18 +68,6 @@ const MyProfile: React.FC = () => {
     const unauthorizedAction = async (): Promise<void> => {
         await pauseForAnimation();
         history.push("login");
-    };
-
-    const finishLoading = async (): Promise<void> => {
-        await pauseForAnimation();
-        setIsLoading(false);
-    };
-
-    const patchUserImgUrl = async (imgUrl): Promise<void> => {
-        const imgResponse: any = await patchUserImg(imgUrl);
-        if (imgResponse === 401) return history.push("/login");
-        if (imgResponse === null) return setProfileImg(defaultProfileImage);
-        setProfileImg(imgResponse);
     };
 
     return (
