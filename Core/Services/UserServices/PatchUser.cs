@@ -18,26 +18,24 @@ namespace Core.Services.UserServices
     {
         private readonly IGetUserData _getUserData;
         private readonly IUserSqlBuilder _sqlBuilder;
-        private readonly ISqlServer _sqlServer;
+        private readonly ISqlQuery _sqlQuery;
         private readonly string _path;
 
         public PatchUser(
             IGetUserData getUserData,
-            IUserSqlBuilder sqlBuilder,
-            ISqlServer sqlServer
+            IUserSqlBuilder sqlBuilder, 
+            ISqlQuery sqlQuery
         )
         {
             _getUserData = getUserData;
             _sqlBuilder = sqlBuilder;
-            _sqlServer = sqlServer;
+            _sqlQuery = sqlQuery;
             _path = Path.GetFullPath(ToString());
         }
 
         public User Edit(User user)
         {
             var currentUser = _getUserData.GetDataWithoutArtworks(user.Id);
-
-            var connection = _sqlServer.Connect();
 
             if (currentUser == null)
                 throw new NonExistingUserException(_path, "Edit()");
@@ -48,21 +46,7 @@ namespace Core.Services.UserServices
 
             var query = _sqlBuilder.GenerateUpdateStatement(user);
 
-            try
-            {
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-                throw new SqlException(_path, "Edit");
-            }
-            finally
-            {
-                _sqlServer.CloseConnection();
-            }
+            _sqlQuery.ExecuteVoid(query);
 
             return user;
         }

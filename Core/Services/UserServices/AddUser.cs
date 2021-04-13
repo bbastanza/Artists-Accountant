@@ -1,10 +1,8 @@
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using Core.Entities;
 using Core.Services.DbServices;
 using Infrastructure.Exceptions;
-using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.UserServices
 {
@@ -16,16 +14,16 @@ namespace Core.Services.UserServices
     public class AddUser : IAddUser
     {
         private readonly IGetUserAuth _getUserData;
-        private readonly ISqlServer _sqlServer;
+        private readonly ISqlQuery _sqlQuery;
         private readonly string _path;
 
         public AddUser(
             IGetUserAuth getUserData,
-            ISqlServer sqlServer
+            ISqlQuery sqlQuery
         )
         {
             _getUserData = getUserData;
-            _sqlServer = sqlServer;
+            _sqlQuery = sqlQuery;
             _path = Path.GetFullPath(ToString());
         }
 
@@ -43,27 +41,11 @@ namespace Core.Services.UserServices
                 CreatedAt = DateTime.Now,
             };
 
-            var connection = _sqlServer.Connect();
-
             var query =
                 $"INSERT INTO user_table (username, password, date_created) " +
                 $"VALUES ('{user.Username}', '{user.Password}', '{user.CreatedAt}');";
 
-            try
-            {
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-                throw new SqlException(_path, "CreateUser");
-            }
-            finally
-            {
-                _sqlServer.CloseConnection();
-            }
+            _sqlQuery.ExecuteVoid(query);
         }
     }
 }

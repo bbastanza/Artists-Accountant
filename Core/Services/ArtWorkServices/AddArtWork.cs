@@ -14,41 +14,23 @@ namespace Core.Services.ArtWorkServices
 
     public class AddArtWork : IAddArtWork
     {
-        private readonly ISqlServer _sqlServer;
+        private readonly ISqlQuery _sqlQuery;
         private readonly IArtworkSqlBuilder _sqlBuilder;
-        private readonly string _path;
 
         public AddArtWork(
-            ISqlServer sqlServer,
+            ISqlQuery sqlQuery,
             IArtworkSqlBuilder sqlBuilder
         )
         {
-            _sqlServer = sqlServer;
+            _sqlQuery = sqlQuery;
             _sqlBuilder = sqlBuilder;
-            _path = Path.GetFullPath(ToString());
         }
 
         public void Add(ArtWork artWork)
         {
-            var connection = _sqlServer.Connect();
-
             var query = _sqlBuilder.GenerateInsertStatement(artWork);
 
-            try
-            {
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-                throw new SqlException(_path, "Delete(artwork)");
-            }
-            finally
-            {
-                _sqlServer.CloseConnection();
-            }
+            _sqlQuery.ExecuteVoid(query);
         }
     }
 }

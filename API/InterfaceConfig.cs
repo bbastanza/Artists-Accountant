@@ -23,6 +23,7 @@ namespace API
             services.AddScoped<IDeleteArtWork, DeleteArtWork>();
             services.AddScoped<IArtworkSqlBuilder, ArtworkSqlBuilder>();
             services.AddScoped<IUserSqlBuilder, UserSqlBuilder>();
+            services.AddScoped<ISqlQuery, SqlQuery>();
             services.AddSingleton<ISqlServer>(new SqlServer(configuration));
         }
     }

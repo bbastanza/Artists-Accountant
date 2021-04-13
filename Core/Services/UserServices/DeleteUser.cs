@@ -1,4 +1,3 @@
-using System;
 using System.Data.SqlClient;
 using System.IO;
 using Core.Services.DbServices;
@@ -38,6 +37,7 @@ namespace Core.Services.UserServices
             var connection = _sqlServer.Connect();
 
             var deleteUserArtworksQuery = $"DELETE FROM artwork_table WHERE user_id = {id};";
+            
             var deleteUserQuery = $"DELETE FROM user_table WHERE id = {id};";
 
             try

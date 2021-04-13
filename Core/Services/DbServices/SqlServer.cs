@@ -34,9 +34,8 @@ namespace Core.Services.DbServices
                 _connection.Open();
                 return _connection;
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine("Error: " + e.Message);
                 return null;
             }
         }

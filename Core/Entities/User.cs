@@ -8,7 +8,6 @@ namespace Core.Entities
         public string Username { get; set; }
         public string Password { get; set; }
         public string ProfileImgUrl { get; set; }
-        public string JwtToken { get; set; }
         public DateTime CreatedAt { get; set; }
         public IList<ArtWork> ArtWorks { get; set; } = new List<ArtWork>();
     }

@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public sealed class UsersController : Controller
+    public class UsersController : Controller
     {
         private readonly IGetUserData _getUserData;
         private readonly IAddUser _addUser;

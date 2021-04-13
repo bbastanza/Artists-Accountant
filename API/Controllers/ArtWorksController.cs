@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using API.Models;
 using API.Services;
@@ -11,7 +10,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public sealed class ArtWorksController : Controller
+    public class ArtWorksController : Controller
     {
         private readonly string _path;
         private readonly IAddArtWork _addArtWork;
