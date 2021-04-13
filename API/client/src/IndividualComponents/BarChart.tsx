@@ -19,7 +19,9 @@ const BarChart: React.FC<ChartProps> = ({ artworks }: ChartProps) => {
         sortBy === "margin"
             ? artworks.map(artwork => (!!artwork.margin ? artwork.margin : 0))
             : artworks.map(artwork =>
-                  !!artwork.margin && !!artwork.timeSpentMinutes ? artwork.margin / (artwork.timeSpentMinutes / 60) : 0
+                  !!artwork.margin && !!artwork.timeSpentMinutes
+                      ? (artwork.margin / (artwork.timeSpentMinutes / 60)).toFixed(2)
+                      : 0
               );
 
     const dataSetLabels = artworks.map(artwork => (!!artwork.pieceName ? artwork.pieceName : "No Name"));

@@ -38,12 +38,12 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
 
     const handleChange = (e): void => {
         const { name, value, type, checked } = e.target;
-
         const invalidCharacters = new RegExp("[^a-zA-Z0-9 _.-@]");
-        if (invalidCharacters.test(value)) return;
+        if (invalidCharacters.test(value) && type !== "date") return;
         if (!canSubmit) setCanSubmit(true);
 
         if (name === "timeSpentMinutes") return setState({ ...state, [name]: parseFloat(value) * 60 });
+        if (type === "date") return setState({ ...state, [name]: new Date(value) });
         if (type === "number") return setState({ ...state, [name]: parseFloat(value) });
         if (type === "checkbox") return setState({ ...state, [name]: checked });
         setState({ ...state, [name]: value });
@@ -290,7 +290,6 @@ const ArtworkForm: React.FC<FormProps> = ({ setShowEdit, setShowAddPiece, artwor
                         <input
                             type="date"
                             name="dateStarted"
-                            defaultValue={new Date(state.dateStarted).toString() || ""}
                             onChange={e => handleChange(e)}
                             className="date pad"
                             id="dateStarted"

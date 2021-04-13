@@ -10,7 +10,7 @@ const ArtworkShowMore: React.FC<ShowMoreProps> = ({ artwork, setShowMore, imageU
         <Modal>
             <div className="modal-container">
                 <div className="inner-modal-container row">
-                    <img className="modal-img" src={imageUrl} alt="" />
+                    <img className="modal-img" src={imageUrl} alt="artwork" />
                     <div className="x-btn" onClick={() => setShowMore(false)}>
                         &times;
                     </div>

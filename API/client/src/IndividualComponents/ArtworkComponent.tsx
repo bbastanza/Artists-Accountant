@@ -3,14 +3,14 @@ import { formatMoney, formatForNull } from "./../helpers/beautifyNumber";
 import { ArtworkProps } from "./../helpers/interfaces";
 import ArtworkShowMore from "./ArtworkShowMore";
 import ArtworkForm from "../Forms/ArtworkForm";
+import defaultArtworkImage from "../Images/defaultArtworkImage.png";
 import "./css/Artwork.css";
 
 const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: ArtworkProps) => {
     const [showMore, setShowMore] = useState<boolean>(false);
     const [showEdit, setShowEdit] = useState<boolean>(false);
 
-    const defaultImgUrl = "https://clipground.com/images/art-palette-clipart-transparent-5.png";
-    const imageUrl = !!artwork.imgUrl && artwork.imgUrl !== "null" ? artwork.imgUrl : defaultImgUrl;
+    const imageUrl = !!artwork.imgUrl && artwork.imgUrl !== "null" ? artwork.imgUrl : defaultArtworkImage;
 
     return (
         <>
@@ -19,8 +19,8 @@ const ArtworkComponent: React.FC<ArtworkProps> = ({ artwork, updateComponent }: 
             {showEdit && <ArtworkForm setShowEdit={setShowEdit} artwork={artwork} updateComponent={updateComponent} />}
 
             <div className="row flex-start artwork-container shadow">
-                <div className="col-4 img-btn-container">
-                    <img className="artwork-img" src={imageUrl} alt="" />
+                <div className="col-3 img-btn-container">
+                    <img className="artwork-img" src={imageUrl} alt="artwork" />
                     <div className="btn-container">
                         <button onClick={() => setShowMore(true)} className="btn btn-purple shadow-sm">
                             More

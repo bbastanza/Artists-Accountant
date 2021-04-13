@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                     enter
                 </div>
             </div>
-            <img className="splash-img" src={woodburn} alt="" />
+            <img className="splash-img" src={woodburn} alt="woodburn" />
         </div>
     );
 };

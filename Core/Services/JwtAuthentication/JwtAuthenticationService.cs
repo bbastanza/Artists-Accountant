@@ -39,9 +39,6 @@ namespace Core.Services.JwtAuthentication
             if (user == null)
                 throw new NonExistingUserException(_path, "Authenticate()");
 
-            // if (user.Password != password)
-            //     throw new UserValidationException(_path, "Authenticate");
-            
             if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
                 throw new UserValidationException(_path, "Authenticate");
 
@@ -57,9 +54,10 @@ namespace Core.Services.JwtAuthentication
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(_key);
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username)
                 }),

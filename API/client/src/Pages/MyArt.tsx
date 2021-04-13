@@ -54,10 +54,13 @@ const MyArt: React.FC = () => {
                 <>
                     <ArtistNavbar />
                     <div className="App">
-                        <h1 className="art-title">
+                        <h1 className="art-title" style={{ marginBottom: 10 }}>
                             My <span className="accent">Art</span>
                         </h1>
-                        <button className="btn btn-purple shadow" onClick={() => setShowAddPiece(true)}>
+                        <button
+                            style={{ marginBottom: 10 }}
+                            className="btn btn-purple shadow"
+                            onClick={() => setShowAddPiece(true)}>
                             Add Piece
                         </button>
                         <div className="row justify-content-start" style={{ overflow: "hidden" }}>
