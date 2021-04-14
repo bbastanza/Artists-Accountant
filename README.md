@@ -8,9 +8,18 @@
 
 <!-- Check out the app [HERE]()! -->
 
-![Screenshot](images/screenshot4.png)
-![Screenshot](images/screenshot1.png)
-![Screenshot](images/screenshot3.png)
+![Screenshot](images/screenshot4.png) ![Screenshot](images/screenshot1.png) ![Screenshot](images/screenshot3.png)
+
+## Summary
+
+ArtistAccountant is a full stack web application utilizing a .Net Core Backend, React TypeScript frontend and a MS Sql
+Server database. The application tracks an artist's work by taking user input and then showing relevant metrics such as
+margins, time spent and hourly wage per piece. The purpose of building this application was to get more familiar with
+writing SQL statements in a dynamic way. I have learned that each new application poses different challenges while
+writing and this project was no exception. I wanted to use a more robust authentication system for this application and
+it was accomplished with a combination of ASP.Net's Authentication middleware along with JWT token and BCrypt password
+encryption. I am proud of the way this application turned out and I am happy to see that my efforts are bearing
+delicious web fruit :)
 
 I worked with the following concepts while building this application:
 
@@ -24,9 +33,9 @@ I worked with the following concepts while building this application:
 
 > Write unit and integration tests using NUnit testing library and Moq mocking library.
 
-> bCrypt encryption library for user passwords
+> BCrypt encryption library for user passwords
 
-> Json Web Tokens with ASP.Net built in authentication middleware
+> Json Web Tokens with ASP.Net's built in authentication middleware
 
 <!-- > Deployment Somewhere -->
 
@@ -34,8 +43,8 @@ I worked with the following concepts while building this application:
 
 ## Installation
 
-You will need to create a Firebase app to store user images you can get started with Firebase
-[here](https://firebase.google.com/)
+You will need to create a Firebase app to store user images. You can get started with Firebase
+[here](https://firebase.google.com/).
 
 After setting up a Firebase account and a project you will recieve credentials for that project. Add a `.env` file in
 `API/client/` with the following contents:
