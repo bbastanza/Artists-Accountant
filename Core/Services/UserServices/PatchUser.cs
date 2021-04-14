@@ -1,11 +1,8 @@
-using System;
-using System.Data.SqlClient;
 using System.IO;
 using Core.Entities;
 using Core.Services.DbServices;
 using Core.Services.SqlBuilders;
 using Infrastructure.Exceptions;
-using SqlException = Infrastructure.Exceptions.SqlException;
 
 namespace Core.Services.UserServices
 {

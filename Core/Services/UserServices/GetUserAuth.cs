@@ -34,21 +34,18 @@ namespace Core.Services.UserServices
             try
             {
                 using (var command = new SqlCommand(query, connection))
+                using (var reader = command.ExecuteReader())
                 {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                            while (reader.Read())
-                            {
-                                user = new User
-                                {
-                                    Username = reader.GetDefaultString("username"),
-                                    Password = reader.GetDefaultString("password")
-                                };
-                            }
-                    }
+                    if (!reader.HasRows) return null;
+                    while (reader.Read())
+                        user = new User
+                        {
+                            Username = reader.GetDefaultString("username"),
+                            Password = reader.GetDefaultString("password")
+                        };
+
+                    return user;
                 }
-                return user;
             }
             catch
             {

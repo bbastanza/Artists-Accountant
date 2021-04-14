@@ -22,6 +22,8 @@ namespace Core.Services.SqlBuilders
         public string GenerateUpdateStatement(User user)
         {
             var properties = user.GetType().GetProperties();
+            
+            if (properties.Length == 0) return "";
 
             var sqlStatement = new StringBuilder("");
             foreach (var property in properties)
