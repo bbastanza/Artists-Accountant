@@ -8,7 +8,9 @@
 
 <!-- Check out the app [HERE]()! -->
 
-![Screenshot](images/artistaccountant.gif)
+![Screenshot](images/screenshot4.png)
+![Screenshot](images/screenshot1.png)
+![Screenshot](images/screenshot3.png)
 
 I worked with the following concepts while building this application:
 
