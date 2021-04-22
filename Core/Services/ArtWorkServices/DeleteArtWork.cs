@@ -11,12 +11,10 @@ namespace Core.Services.ArtWorkServices
     public class DeleteArtWork : IDeleteArtWork
     {
         private readonly ISqlQuery _sqlQuery;
-        private readonly string _path;
 
-        public DeleteArtWork(ISqlServer sqlServer, ISqlQuery sqlQuery)
+        public DeleteArtWork(ISqlQuery sqlQuery)
         {
             _sqlQuery = sqlQuery;
-            _path = Path.GetFullPath(ToString());
         }
 
         public void Delete(int? id)

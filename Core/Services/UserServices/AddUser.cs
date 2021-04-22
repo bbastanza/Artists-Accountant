@@ -45,6 +45,7 @@ namespace Core.Services.UserServices
                 $"INSERT INTO user_table (username, password, date_created) " +
                 $"VALUES ('{user.Username}', '{user.Password}', '{user.CreatedAt}');";
 
+            Console.WriteLine("Creating User: " + query);
             _sqlQuery.ExecuteVoid(query);
         }
     }

@@ -39,7 +39,6 @@ msbuild.err
 msbuild.wrn
 
 appsettings.Development.json
-appsettings.json
 
 # Visual Studio 2015
 .vs/
