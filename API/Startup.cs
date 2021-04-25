@@ -54,14 +54,10 @@ namespace API
 
             app.UseSpa(spa =>
             {
+                spa.Options.SourcePath = "client/build";
                 if (env.IsDevelopment())
                 {
-                    spa.Options.SourcePath = "client";
                     spa.UseReactDevelopmentServer("start");
-                }
-                else
-                {
-                    spa.Options.SourcePath = "client/build";
                 }
             });
         }
