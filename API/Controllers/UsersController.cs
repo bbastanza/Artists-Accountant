@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using API.Models;
 using Core.Entities;
@@ -50,7 +49,6 @@ namespace API.Controllers
         [HttpPost]
         public UserAuthModel AddUser(UserInputModel userInput)
         {
-            Console.WriteLine("add User endpoint hit");
             if (userInput.Username == null || userInput.Password == null)
                 throw new InvalidInputException(_path, "Get()");
 
@@ -65,7 +63,6 @@ namespace API.Controllers
                 JwtToken = _generateJwtToken.NewUserToken(user)
             };
 
-            Console.WriteLine("userModel Username: " + userModel.Username);
             return userModel;
         }
 

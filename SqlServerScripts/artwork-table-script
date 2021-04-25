@@ -31,3 +31,36 @@ GO
 ALTER TABLE [dbo].[artwork_table]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[user_table] ([id])
 GO
+
+set ansi_nulls on
+
+set quoted_identifier on
+
+create table [DBO].[ARTWORK_TABLE](
+	[ID] [INT] identity(1,1) not null,
+	[USER_ID] [INT] not null,
+	[PIECE_NAME] [VARCHAR](50) null,
+	[CUSTOMER_NAME] [VARCHAR](50) null,
+	[CUSTOMER_CONTACT] [VARCHAR](50) null,
+	[SHIPPING_COST] [NUMERIC](30, 2) null,
+	[MATERIAL_COST] [NUMERIC](30, 2) null,
+	[SALE_PRICE] [NUMERIC](30, 2) null,
+	[HEIGHT] [INT] null,
+	[WIDTH] [INT] null,
+	[SHAPE] [VARCHAR](20) null,
+	[PAYMENT_TYPE] [VARCHAR](20) null,
+	[IS_COMMISSION] [BIT] null,
+	[IS_PAYMENT_COLLECTED] [BIT] null,
+	[DATE_STARTED] [DATETIME] null,
+	[DATE_FINISHED] [DATETIME] null,
+	[TIME_SPENT_MINUTES] [INT] null,
+	[IMAGE_URL] [NVARCHAR](1000) null
+) on [primary]
+
+alter table [DBO].[ARTWORK_TABLE] add primary key clustered 
+(
+	[ID] asc
+)with (pad_index = off, statistics_norecompute = off, sort_in_tempdb = off, ignore_dup_key = off, online = off, allow_row_locks = on, allow_page_locks = on) on [primary]
+    
+alter table [DBO].[ARTWORK_TABLE]  with check add foreign key([USER_ID])
+references [DBO].[USER_TABLE] ([ID])

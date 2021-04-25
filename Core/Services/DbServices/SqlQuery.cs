@@ -1,4 +1,3 @@
-using System;
 using System.Data.SqlClient;
 using System.IO;
 using SqlException = Infrastructure.Exceptions.SqlException;
@@ -31,12 +30,10 @@ namespace Core.Services.DbServices
                 using (var command = new SqlCommand(query, connection))
                     command.ExecuteNonQuery();
 
-                Console.WriteLine("executed query");
             }
             catch
             {
-                Console.WriteLine("caught error in creating user");
-                throw;
+                throw new SqlException(_path, "ExecuteVoid()");
             }
             finally
             {

@@ -1,5 +1,5 @@
 using API.Middleware;
-using  Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -21,8 +21,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSpaStaticFiles(config => { config.RootPath = "client/build"; });
-
+            services.AddSpaStaticFiles(config => config.RootPath = "client/build");
             InterfaceConfig.Configure(services, _configuration);
             JwtConfig.Configure(services, _configuration);
         }
@@ -41,24 +40,28 @@ namespace API
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            }); 
-            
+            });
+
             app.UseAuthentication();
-            
+
             app.UseAuthorization();
 
             app.UseSpaStaticFiles();
 
             app.UseMiddleware<ExceptionMiddleware>();
-            
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "client";
                 if (env.IsDevelopment())
                 {
+                    spa.Options.SourcePath = "client";
                     spa.UseReactDevelopmentServer("start");
+                }
+                else
+                {
+                    spa.Options.SourcePath = "client/build";
                 }
             });
         }
