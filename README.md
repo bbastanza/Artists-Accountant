@@ -6,7 +6,7 @@
 ![dotnet](images/dotnetcore.png) ![csharp](images/c_sharp.png) ![typescript](images/typescript.png)
 ![html](images/react.png) ![firebase](images/firebase.png)
 
-<!-- Check out the app [HERE]()! -->
+Check out the app [HERE](https://artistaccountant.azurewebsites.net)!
 
 ![Screenshot](images/screenshot4.png) ![Screenshot](images/screenshot1.png) ![Screenshot](images/screenshot3.png)
 
