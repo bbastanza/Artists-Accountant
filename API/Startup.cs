@@ -21,7 +21,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSpaStaticFiles(config => config.RootPath = "client/build");
+            services.AddSpaStaticFiles(config => config.RootPath = "client");
             InterfaceConfig.Configure(services, _configuration);
             JwtConfig.Configure(services, _configuration);
         }
@@ -54,7 +54,7 @@ namespace API
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "client/build";
+                spa.Options.SourcePath = "client";
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer("start");

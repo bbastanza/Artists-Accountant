@@ -141,7 +141,6 @@ namespace Core.Services.UserServices
                 $"FROM user_table " +
                 $"WHERE username = '{username}';";
 
-            Console.WriteLine("fetching user");
             User user = new User();
 
             using (var command = new SqlCommand(query, connection))
@@ -155,7 +154,6 @@ namespace Core.Services.UserServices
                         user.Password = reader.GetDefaultString("password");
                     }
 
-            Console.WriteLine("User = "+ user.Username + user.Id);
             _sqlServer.CloseConnection();
             return user;
         }
