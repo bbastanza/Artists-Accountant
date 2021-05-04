@@ -16,14 +16,18 @@ namespace Core.Services.DbServices
 
         public SqlServer(IConfiguration configuration)
         {
-            var datasource = configuration["SqlServer:Datasource"];
-            var database = configuration["SqlServer:Database"];
-            var username = configuration["SqlServer:Username"];
-            var password = configuration["SqlServer:Password"];
-            var connectionString = @"Data Source=" + datasource +
-                                   ";Initial Catalog=" + database + 
+            var connectionString = configuration["ConnectionString"];
+            if (connectionString == null)
+            {
+                var datasource = configuration["SqlServer:Datasource"];
+                var database = configuration["SqlServer:Database"];
+                var username = configuration["SqlServer:Username"];
+                var password = configuration["SqlServer:Password"];
+                connectionString = @"Data Source=" + datasource +
+                                   ";Initial Catalog=" + database +
                                    ";Persist Security Info=True;User ID=" + username +
                                    ";Password=" + password;
+            }
             _connection = new SqlConnection(connectionString);
         }
 
