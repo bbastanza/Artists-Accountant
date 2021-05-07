@@ -12,13 +12,12 @@ import BoxAnimation from "./../Animations/BoxAnimation";
 
 const Analysis: React.FC = () => {
     const history = useHistory();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [userData, setUserData] = useState<UserData>(null);
     const [apiError, setApiError] = useState<boolean>(false);
 
     useEffect((): void => {
         (async (): Promise<void> => {
-            setIsLoading(true);
             setApiError(false);
             if (!!!getLocalStorageData()) return history.push("/login");
 

@@ -14,14 +14,13 @@ import BoxAnimation from "../Animations/BoxAnimation";
 const MyProfile: React.FC = () => {
     const history = useHistory();
     const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [unauthorized, setUnauthorized] = useState<boolean>(false);
     const [apiError, setApiError] = useState<boolean>(false);
     const [profileImg, setProfileImg] = useState<string>(null);
 
     useEffect((): void => {
         (async (): Promise<void> => {
-            setIsLoading(true);
             const localStorageData = getLocalStorageData();
             if (!!localStorageData?.profileImgUrl) {
                 setProfileImg(localStorageData.profileImgUrl);
