@@ -10,7 +10,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ArtWorksController : Controller
+    public sealed class ArtWorksController : Controller
     {
         private readonly string _path;
         private readonly IAddArtWork _addArtWork;
@@ -22,8 +22,7 @@ namespace API.Controllers
             IAddArtWork addArtWork,
             IMapPiece mapPiece,
             IPatchArtWork patchArtWork,
-            IDeleteArtWork deleteArtWork
-        )
+            IDeleteArtWork deleteArtWork)
         {
             _addArtWork = addArtWork;
             _mapPiece = mapPiece;

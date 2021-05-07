@@ -11,7 +11,7 @@ namespace API.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class AuthenticationController : Controller
+    public sealed class AuthenticationController : Controller
     {
         private readonly IGenerateJwtToken _generateJwtToken;
         private readonly IGetUserData _getUserData;
@@ -19,8 +19,7 @@ namespace API.Controllers
 
         public AuthenticationController(
             IGenerateJwtToken generateJwtToken,
-            IGetUserData getUserData
-        )
+            IGetUserData getUserData)
         {
             _generateJwtToken = generateJwtToken;
             _getUserData = getUserData;

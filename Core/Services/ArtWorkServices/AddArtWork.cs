@@ -16,8 +16,7 @@ namespace Core.Services.ArtWorkServices
 
         public AddArtWork(
             ISqlQuery sqlQuery,
-            IArtworkSqlBuilder sqlBuilder
-        )
+            IArtworkSqlBuilder sqlBuilder)
         {
             _sqlQuery = sqlQuery;
             _sqlBuilder = sqlBuilder;

@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : Controller
+    public sealed class UsersController : Controller
     {
         private readonly IGetUserData _getUserData;
         private readonly IAddUser _addUser;
@@ -25,8 +25,7 @@ namespace API.Controllers
             IAddUser addUser,
             IDeleteUser deleteUser,
             IPatchUser patchUser,
-            IGenerateJwtToken generateJwtToken
-        )
+            IGenerateJwtToken generateJwtToken)
         {
             _getUserData = getUserData;
             _addUser = addUser;

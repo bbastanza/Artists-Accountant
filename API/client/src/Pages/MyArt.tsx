@@ -50,7 +50,7 @@ const MyArt: React.FC = () => {
 
     return (
         <>
-            {isRedirecting ? null : (
+            {!isRedirecting && (
                 <>
                     {isLoading ? (
                         <BoxAnimation />

@@ -17,8 +17,7 @@ namespace Core.Services.UserServices
 
         public DeleteUser(
             IGetUserData getUserData,
-            ISqlQuery sqlQuery
-        )
+            ISqlQuery sqlQuery)
         {
             _getUserData = getUserData;
             _sqlQuery = sqlQuery;

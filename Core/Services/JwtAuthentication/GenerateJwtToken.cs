@@ -24,8 +24,7 @@ namespace Core.Services.JwtAuthentication
 
         public GenerateJwtToken(
             string key,
-            IGetUserAuth getUserAuth
-        )
+            IGetUserAuth getUserAuth)
         {
             _key = key;
             _getUserAuth = getUserAuth;

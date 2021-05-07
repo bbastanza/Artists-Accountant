@@ -19,8 +19,7 @@ namespace Core.Services.UserServices
 
         public AddUser(
             IGetUserAuth getUserData,
-            ISqlQuery sqlQuery
-        )
+            ISqlQuery sqlQuery)
         {
             _getUserData = getUserData;
             _sqlQuery = sqlQuery;
